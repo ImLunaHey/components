@@ -1,0 +1,44 @@
+{
+  "name": "components",
+  "version": "0.0.1",
+  "module": "src/index.ts",
+  "type": "module",
+  "main": "dist/esm/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "dev": "bun --hot run src/index.tsx",
+    "start": "bun --revision && bun run src/index.tsx",
+    "build": "del dist && npm run build:esm && npm run build:cjs",
+    "build:cjs": "tsup src/index.tsx --minify --format cjs --dts --out-dir dist/cjs",
+    "build:esm": "tsup src/index.tsx --minify --format esm --dts --legacy-output --out-dir dist"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.33",
+    "@types/react-dom": "^18.2.14",
+    "bun-types": "latest",
+    "del-cli": "^5.1.0",
+    "tsup": "^7.2.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "require": {
+        "types": "./dist/cjs/index.d.cts",
+        "default": "./dist/cjs/index.cjs"
+      },
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/esm/index.js"
+      }
+    }
+  }
+}
