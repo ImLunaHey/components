@@ -3,6 +3,7 @@ import { Link } from './link';
 import { Text } from './text';
 import { Title } from './title';
 import { Pixel } from './pixel';
+import { getCommitHash } from 'get-commit-hash';
 
 export const App = forwardRef<
   HTMLBodyElement,
@@ -15,7 +16,7 @@ export const App = forwardRef<
     htmx?: boolean;
     pixel?: boolean;
   }>
->(({ children, title, description, domain, tailwind, htmx, pixel }, ref) => (
+>(({ children, title, version, description, domain, tailwind, htmx, pixel }, ref) => (
   <html lang="en">
     <head>
       <title>{title}</title>
@@ -40,10 +41,11 @@ export const App = forwardRef<
       <main className="sm:w-4/6 w-5/6 container mx-auto mb-5">{children}</main>
 
       <footer className="sm:w-4/6 w-5/6 container mx-auto mb-5">
-        <div className="flex justify-space-between">
+        <div className="flex w-full justify-between align-bottom">
           <Text>
-            &copy; {new Date().getFullYear()} {title}. All rights reserved.
+            &copy; {new Date().getFullYear()} {title}.
           </Text>
+          <Text title={`v${version}+${getCommitHash(process.cwd())}`}>v{version}</Text>
         </div>
         {pixel && <Pixel domain={domain} />}
       </footer>

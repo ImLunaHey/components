@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { App } from './components/app';
 import { Button } from './components/button';
@@ -9,7 +10,7 @@ import { RadioGroup } from './components/radio-group';
 import { Text } from './components/text';
 import { TextArea } from './components/text-area';
 import { Title } from './components/title';
-import { ReactNode } from 'react';
+import { version } from '../package.json';
 
 const Props = ({ props }: { props: Record<string, unknown> }) =>
   Object.keys(props).length === 0 ? (
@@ -49,7 +50,7 @@ const Section = ({
 const components = [
   {
     name: 'App',
-    component: () => <App title="Demo" description="A demo app" domain="demo.example.com" />,
+    component: () => <App title="Demo" description="A demo app" domain="demo.example.com" version={version} />,
   },
   { name: 'Button', component: () => <Button>Demo Button</Button> },
   { name: 'Link', component: () => <Link href="/">Demo Link</Link> },
@@ -88,7 +89,15 @@ const components = [
 ];
 
 const ComponentShowcase = () => (
-  <App title="Components" description="All of my standard components" domain="components.fish.lgbt" tailwind htmx pixel>
+  <App
+    title="Components"
+    description="All of my standard components"
+    domain="components.fish.lgbt"
+    tailwind
+    htmx
+    pixel
+    version={version}
+  >
     <style>{`
       h2.text-2xl.font-bold.inline-block.mr-2:hover +div {
         display: block;
