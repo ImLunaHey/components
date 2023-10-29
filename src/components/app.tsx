@@ -8,6 +8,7 @@ export const App = forwardRef<
   HTMLBodyElement,
   PropsWithChildren<{
     title: string;
+    version: string;
     description: string;
     domain: string;
     tailwind?: boolean;
