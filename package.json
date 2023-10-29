@@ -15,7 +15,7 @@
   "homepage": "https://components.fish.lgbt",
   "repository": {
     "type": "git",
-    "url": "https://github.com/imlunahey/components"
+    "url": "git+https://github.com/imlunahey/components.git"
   },
   "module": "src/index.ts",
   "type": "module",
