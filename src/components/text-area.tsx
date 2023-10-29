@@ -1,3 +1,5 @@
+import { cn } from '../cn';
+
 export const TextArea: React.FC<{
   id: string;
   name: string;
@@ -5,9 +7,10 @@ export const TextArea: React.FC<{
   readOnly?: boolean;
   value?: string | number;
   rows?: number;
-}> = ({ placeholder, id, name, value, readOnly = false, rows = 3 }) => (
+  className?: string;
+}> = ({ placeholder, id, name, value, readOnly = false, rows = 3, className }) => (
   <textarea
-    className="bg-[#1e1a2a] text-[#f8f8f2] p-2 rounded-md w-full min-h-[100px]"
+    className={cn('bg-[#1e1a2a] text-[#f8f8f2] p-2 rounded-md w-full min-h-[100px]', className)}
     name={name}
     id={id}
     placeholder={placeholder}
