@@ -2,6 +2,7 @@ import { LegacyRef, PropsWithChildren, forwardRef } from 'react';
 import { Link } from './link';
 import { Text } from './text';
 import { Title } from './title';
+import { Pixel } from './pixel';
 
 export const App = forwardRef<
   HTMLBodyElement,
@@ -9,8 +10,11 @@ export const App = forwardRef<
     title: string;
     description: string;
     domain: string;
+    tailwind?: boolean;
+    htmx?: boolean;
+    pixel?: boolean;
   }>
->(({ children, title, description, domain }, ref) => (
+>(({ children, title, description, domain, tailwind, htmx, pixel }, ref) => (
   <html lang="en">
     <head>
       <title>{title}</title>
@@ -18,7 +22,7 @@ export const App = forwardRef<
       <meta charSet="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <meta name="view-transition" content="same-origin" />
-      <script src="https://cdn.tailwindcss.com" />
+      {tailwind && <script src="https://cdn.tailwindcss.com" />}
     </head>
     <body className="h-full w-full bg-[#0e0c15]" ref={ref as LegacyRef<HTMLBodyElement>}>
       <header
@@ -40,13 +44,9 @@ export const App = forwardRef<
             &copy; {new Date().getFullYear()} {title}. All rights reserved.
           </Text>
         </div>
-        <img
-          style={{
-            display: 'none',
-          }}
-          src={`https://v.fish.lgbt/pixel.gif?id=${domain}`}
-        />
+        {pixel && <Pixel domain={domain} />}
       </footer>
     </body>
+    {htmx && <script src="https://fish.lgbt/assets/js/htmx.org@1.9.4.min.js"></script>}
   </html>
 ));
