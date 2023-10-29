@@ -22,8 +22,8 @@
   "main": "dist/esm/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "dev": "bun --hot run src/index.tsx",
-    "start": "bun --revision && bun run src/index.tsx",
+    "dev": "bun --hot run src/demo.tsx",
+    "start": "bun --revision && bun run src/demo.tsx",
     "build": "del dist && npm run build:esm && npm run build:cjs",
     "build:cjs": "tsup src/index.tsx --minify --format cjs --dts --out-dir dist/cjs",
     "build:esm": "tsup src/index.tsx --minify --format esm --dts --legacy-output --out-dir dist"

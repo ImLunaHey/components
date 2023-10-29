@@ -24,7 +24,7 @@ export const App = forwardRef<
       <meta name="view-transition" content="same-origin" />
       {tailwind && <script src="https://cdn.tailwindcss.com" />}
     </head>
-    <body className="h-full w-full bg-[#0e0c15]" ref={ref as LegacyRef<HTMLBodyElement>}>
+    <body className="h-full w-full text-white bg-[#0e0c15]" ref={ref as LegacyRef<HTMLBodyElement>}>
       <header
         className="sm:w-4/6 w-5/6 container mx-auto mb-5"
         style={{
