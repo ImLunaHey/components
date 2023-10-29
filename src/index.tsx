@@ -3,5 +3,8 @@ export { Button } from './components/button';
 export { Link } from './components/link';
 export { NotFound } from './components/not-found';
 export { Pixel } from './components/pixel';
+export { Radio } from './components/radio';
+export { RadioGroup } from './components/radio-group';
 export { Text } from './components/text';
+export { TextArea } from './components/text-area';
 export { Title } from './components/title';
