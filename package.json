@@ -1,6 +1,22 @@
 {
-  "name": "components",
+  "name": "@imlunahey/components",
   "version": "0.0.1",
+  "description": "A React component library",
+  "keywords": [
+    "react",
+    "react-component",
+    "component",
+    "library",
+    "typescript"
+  ],
+  "private": false,
+  "license": "MIT",
+  "author": "ImLunaHey",
+  "homepage": "https://components.fish.lgbt",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/imlunahey/components"
+  },
   "module": "src/index.ts",
   "type": "module",
   "main": "dist/esm/index.js",
