@@ -9,7 +9,7 @@ export const Radio: React.FC<{
 }> = ({ name, value, label, defaultChecked = false, className }) => {
   const id = `${name} ${value}`.toLowerCase().replaceAll(' ', '-');
   return (
-    <div className="px-2 inline-block">
+    <div className="px-2 inline-flex">
       <input
         defaultChecked={defaultChecked}
         className={cn('bg-[#1e1a2a] text-[#f8f8f2] p-2 rounded-md mr-2', className)}
