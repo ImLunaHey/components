@@ -1,0 +1,50 @@
+{
+  "name": "@imlunahey/components",
+  "version": "0.1.0",
+  "description": "Luna's custom DOM components and shared visual tokens",
+  "files": [
+    "dist",
+    "README.md",
+    "types"
+  ],
+  "type": "module",
+  "exports": {
+    "./controls": {
+      "types": "./types/controls.d.ts",
+      "import": "./dist/controls.js"
+    },
+    "./select": {
+      "types": "./types/select.d.ts",
+      "import": "./dist/select.js"
+    },
+    "./file-attachment": {
+      "types": "./types/file-attachment.d.ts",
+      "import": "./dist/file-attachment.js"
+    },
+    "./progress-tooltips": {
+      "types": "./types/progress-tooltips.d.ts",
+      "import": "./dist/progress-tooltips.js"
+    },
+    "./qr-code": {
+      "types": "./types/qr-code.d.ts",
+      "import": "./dist/qr-code.js"
+    },
+    "./compile": {
+      "types": "./types/compile.d.ts",
+      "import": "./dist/compile.mjs"
+    },
+    "./styles.css": "./dist/styles.css"
+  },
+  "scripts": {
+    "build": "node build.mjs",
+    "test": "node --test tests/*.test.mjs"
+  },
+  "dependencies": {
+    "@tanstack/table-core": "^8.21.3",
+    "qrcode": "^1.5.4"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.12",
+    "jsdom": "^31.0.1"
+  }
+}

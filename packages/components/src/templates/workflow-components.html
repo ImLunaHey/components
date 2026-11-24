@@ -1,0 +1,347 @@
+<section class="category" data-group="workflows" id="product-workflows">
+  <div class="section-label">
+    <span>14</span>
+    <h2>Product workflows</h2>
+  </div>
+  <p class="workflow-intro muted small">
+    Interactive local examples based on Linear, Shopify, Notion, Stripe and
+    Grafana. Account changes, invitations and payments are simulated.
+  </p>
+  <div class="grid">
+    <article class="specimen full" id="saved-views">
+      <div class="chart-heading">
+        <div>
+          <h3>Saved views</h3>
+          <p class="muted small">
+            Filters, sorting, columns and layout · saved in this browser
+          </p>
+        </div>
+      </div>
+      <div id="views-controls" class="workflow-toolbar"></div>
+      <form id="view-save-form" class="workflow-toolbar">
+        <label class="field"
+          >View name<input
+            id="view-name"
+            required
+            maxlength="50"
+            placeholder="My production projects" /></label
+        ><button class="button" type="submit">Save view</button
+        ><button class="button" type="button" id="view-reset">
+          Reset changes</button
+        ><button class="button" type="button" id="view-duplicate">
+          Duplicate</button
+        ><button class="button danger" type="button" id="view-delete">
+          Delete view
+        </button>
+      </form>
+      <div id="view-columns" class="row"></div>
+      <div id="view-results"></div>
+      <p id="view-status" role="status" class="app-feedback"></p>
+    </article>
+    <article class="specimen full" id="media-library">
+      <div class="chart-heading">
+        <div>
+          <h3>Media library & picker</h3>
+          <p class="muted small">
+            Search, select, inspect, replace and edit · files stay on your
+            device
+          </p>
+        </div>
+        <button class="button" id="media-add">Upload images</button
+        ><input
+          id="media-files"
+          type="file"
+          accept="image/png,image/jpeg,image/webp,image/gif"
+          multiple
+          hidden
+        /><input
+          id="media-replace-file"
+          type="file"
+          accept="image/png,image/jpeg,image/webp,image/gif"
+          hidden
+        />
+      </div>
+      <div class="workflow-toolbar">
+        <input
+          id="media-search"
+          type="search"
+          aria-label="Search media"
+          placeholder="Search images…"
+        />
+        <div id="media-type-control"></div>
+        <button class="button" id="media-use" disabled>Use selected</button
+        ><button class="button danger" id="media-delete" disabled>
+          Delete selected
+        </button>
+      </div>
+      <div class="media-layout">
+        <div id="media-grid" class="media-grid"></div>
+        <aside
+          id="media-inspector"
+          class="inset stack"
+          aria-label="Image details"
+        ></aside>
+      </div>
+      <p id="media-status" role="status" class="app-feedback"></p>
+    </article>
+    <article class="specimen full" id="image-editor">
+      <div class="chart-heading">
+        <div>
+          <h3>Image editor</h3>
+          <p class="muted small">
+            Crop, position, rotate, resize and edit alt text
+          </p>
+        </div>
+        <button class="button" id="editor-reset">Reset edits</button>
+      </div>
+      <div class="editor-layout">
+        <div class="editor-stage">
+          <canvas id="editor-canvas" aria-label="Edited image preview"
+            >Your browser does not support canvas previews.</canvas
+          >
+        </div>
+        <form class="stack" id="editor-form">
+          <div id="editor-ratio-control"></div>
+          <label class="field"
+            >Zoom<input
+              id="editor-zoom"
+              type="range"
+              min="1"
+              max="3"
+              step="0.05"
+              value="1" /></label
+          ><label class="field"
+            >Horizontal position<input
+              id="editor-x"
+              type="range"
+              min="0"
+              max="100"
+              value="50" /></label
+          ><label class="field"
+            >Vertical position<input
+              id="editor-y"
+              type="range"
+              min="0"
+              max="100"
+              value="50"
+          /></label>
+          <div class="row">
+            <button class="button" type="button" id="editor-rotate">
+              Rotate 90°</button
+            ><span id="editor-angle" class="mono">0°</span>
+          </div>
+          <label class="field"
+            >Output width (px)<input
+              id="editor-width"
+              type="number"
+              min="64"
+              max="2048"
+              step="1"
+              value="800"
+              required /></label
+          ><label class="field"
+            >Alt text<input
+              id="editor-alt"
+              maxlength="250"
+              value="Blue mountain landscape" /></label
+          ><button class="button primary" type="submit" id="editor-save">
+            Save copy to library</button
+          ><button class="button" type="button" id="editor-download">
+            Download PNG
+          </button>
+        </form>
+      </div>
+      <p id="editor-status" role="status" class="app-feedback"></p>
+    </article>
+    <article class="specimen full" id="csv-import">
+      <div class="chart-heading">
+        <div>
+          <h3>CSV import</h3>
+          <p class="muted small">
+            Upload → map columns → fix rows → import into a local catalogue
+          </p>
+        </div>
+        <button class="button" id="csv-sample">Load sample</button>
+      </div>
+      <div class="csv-upload"><span class="csv-upload-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 3h8l4 4v14H6zM14 3v5h4M9 12h6M9 16h6"/></svg></span><div class="csv-upload-copy"><strong id="csv-file-name">Choose a CSV file</strong><p class="muted small">Up to 1 MB · 100 rows · names, quantities and prices</p></div><button class="button" id="csv-browse" type="button">Choose file</button><input id="csv-file" type="file" accept=".csv,text/csv" aria-label="CSV file" hidden></div>
+      <div id="csv-mapping" class="workflow-toolbar"></div>
+      <div id="csv-preview"></div>
+      <div class="row">
+        <button class="button primary" id="csv-commit" disabled>
+          Import records</button
+        ><button class="button" id="csv-reset">Reset import</button
+        ><button class="button" id="csv-export" disabled>
+          Download imported CSV
+        </button>
+      </div>
+      <p id="csv-status" role="status" class="app-feedback">
+        Choose a file or load the example.
+      </p>
+    </article>
+    <article class="specimen" id="resource-sharing">
+      <h3>Share dialog</h3>
+      <div class="ui-card">
+        <div class="ui-card-body">
+          <h4>Fleet dashboard</h4>
+          <p>
+            Manage access to this resource independently of workspace
+            membership.
+          </p>
+        </div>
+        <footer class="ui-card-footer">
+          <span class="badge">Local demo</span
+          ><button class="button primary" id="share-open">
+            Share dashboard
+          </button>
+        </footer>
+      </div>
+      <p id="share-status" role="status" class="app-feedback">
+        Only invited people have access.
+      </p>
+    </article>
+    <article class="specimen" id="api-keys">
+      <h3>API key manager</h3>
+      <p class="muted small">Demo keys cannot authenticate to any service.</p>
+      <form id="key-form" class="stack">
+        <label class="field"
+          >Key name<input
+            id="key-name"
+            required
+            maxlength="50"
+            placeholder="Production monitor"
+        /></label>
+        <div id="key-scope-control"></div>
+        <div id="key-expiry-control"></div>
+        <button class="button primary" type="submit">Create demo key</button>
+      </form>
+      <div id="key-reveal" class="inset stack" hidden></div>
+      <div id="key-list"></div>
+      <p id="key-status" role="status" class="app-feedback"></p>
+    </article>
+    <article class="specimen full" id="kanban-board">
+      <div class="chart-heading">
+        <div>
+          <h3>Board & sortable cards</h3>
+          <p class="muted small">
+            Drag to a column · use card controls or Alt + arrow keys to move
+          </p>
+        </div>
+      </div>
+      <form id="board-add" class="workflow-toolbar">
+        <input
+          id="board-title"
+          required
+          maxlength="100"
+          aria-label="New task title"
+          placeholder="Add a task to Todo"
+        /><button class="button" type="submit">Add task</button>
+      </form>
+      <div id="board-columns" class="workflow-board"></div>
+      <p id="board-status" role="status" class="app-feedback"></p>
+    </article>
+    <article class="specimen full" id="comment-threads">
+      <h3>Comment thread</h3>
+      <div id="comment-list"></div>
+      <form id="comment-form" class="stack">
+        <label class="field"
+          >Comment<textarea
+            id="comment-text"
+            rows="3"
+            required
+            maxlength="2000"
+            placeholder="Write a comment. Type @ to mention someone…"
+          ></textarea>
+        </label>
+        <div id="comment-mentions" class="row" hidden></div>
+        <div class="workflow-toolbar">
+          <div id="comment-attachment-field"></div><button class="button primary" type="submit">Post comment</button>
+        </div>
+      </form>
+      <p id="comment-status" role="status" class="app-feedback"></p>
+    </article>
+    <article class="specimen full" id="dashboard-controls">
+      <div class="chart-heading">
+        <div>
+          <h3>Dashboard time controls</h3>
+          <p class="muted small">
+            Shared range, timezone, refresh and live state for both charts
+          </p>
+        </div>
+        <span class="badge">Synthetic telemetry</span>
+      </div>
+      <div id="dashboard-time-toolbar" class="workflow-toolbar"></div>
+      <form id="dashboard-absolute" class="workflow-toolbar">
+        <label class="field"
+          >From (UTC)<input
+            id="dashboard-from"
+            type="datetime-local"
+            required /></label
+        ><label class="field"
+          >To (UTC)<input
+            id="dashboard-to"
+            type="datetime-local"
+            required /></label
+        ><button class="button" type="submit">Apply exact range</button>
+      </form>
+      <div class="workflow-chart-pair">
+        <div class="ui-card ui-card-body">
+          <h4>CPU load</h4>
+          <div id="workflow-cpu-chart"></div>
+        </div>
+        <div class="ui-card ui-card-body">
+          <h4>Request latency</h4>
+          <div id="workflow-latency-chart"></div>
+        </div>
+      </div>
+      <p id="dashboard-time-status" role="status" class="app-feedback"></p>
+    </article>
+    <article class="specimen full" id="billing-panels">
+      <div class="chart-heading">
+        <div>
+          <h3>Subscription & billing</h3>
+          <p class="muted small">
+            Local demo · no charges, real card numbers or external requests
+          </p>
+        </div>
+        <span class="badge success" id="billing-state">Active</span>
+      </div>
+      <div class="billing-grid">
+        <section class="ui-card">
+          <header class="ui-card-header"><h4>Subscription</h4></header>
+          <div class="ui-card-body stack">
+            <div id="billing-plan-control"></div>
+            <div id="billing-cycle-control"></div>
+            <p id="billing-quote"></p>
+            <button class="button primary" id="billing-review">
+              Review change</button
+            ><button class="button danger" id="billing-cancel">
+              Cancel at renewal
+            </button>
+            <p id="billing-current" class="muted small"></p>
+          </div>
+        </section>
+        <section class="ui-card">
+          <header class="ui-card-header"><h4>Billing details</h4></header>
+          <form class="ui-card-body stack" id="billing-details">
+            <label class="field"
+              >Billing email<input
+                id="billing-email"
+                type="email"
+                value="luna@example.com"
+                required /></label
+            ><label class="field"
+              >Company<input
+                id="billing-company"
+                maxlength="80"
+                value="Luna's workspace"
+            /></label>
+            <div id="billing-method-control"></div>
+            <button class="button" type="submit">Save details</button>
+          </form>
+        </section>
+      </div>
+      <div id="billing-invoices"></div>
+      <p id="billing-status" role="status" class="app-feedback"></p>
+    </article>
+  </div>
+</section>

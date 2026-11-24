@@ -1,0 +1,13 @@
+{
+  "name": "@imlunahey/demo-account",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node ../../scripts/build-app.mjs account",
+    "dev": "node ../../scripts/serve-app.mjs account 5233",
+    "start": "node ../../scripts/serve-app.mjs account 5233"
+  },
+  "dependencies": {
+    "@imlunahey/components": "workspace:*"
+  }
+}

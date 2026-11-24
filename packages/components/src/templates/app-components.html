@@ -1,0 +1,208 @@
+<section class="category" data-group="apps" id="app-patterns">
+  <div class="section-label">
+    <span>12</span>
+    <h2>Everyday app workflows</h2>
+  </div>
+  <div class="grid">
+    <article class="specimen">
+      <div class="chart-heading">
+        <div>
+          <h3>Project picker</h3>
+          <p class="muted small">Search by project, team or environment</p>
+        </div>
+        <span class="badge info">6 projects</span>
+      </div>
+      <label class="field"
+        >Working project<select
+          id="app-resource"
+          data-custom-renderer
+          aria-label="Working project"
+        >
+          <option value="fleet">Fleet Monitor</option>
+          <option value="cards">Cardlattice</option>
+          <option value="components">Component library</option>
+          <option value="checkout">Checkout</option>
+          <option value="docs">Documentation</option>
+          <option value="sandbox">Sandbox</option>
+        </select></label
+      >
+      <div class="resource-details" id="resource-details"></div>
+      <p class="app-feedback" id="resource-feedback" role="status"></p>
+    </article>
+    <article class="specimen">
+      <div class="chart-heading">
+        <div>
+          <h3>Filter builder</h3>
+          <p class="muted small">
+            Combine rules and see matching projects immediately
+          </p>
+        </div>
+        <button class="button small-button ghost" id="filter-reset">
+          Reset
+        </button>
+      </div>
+      <div class="row" style="margin-bottom: 12px">
+        <span>Match</span
+        ><select id="filter-mode" aria-label="Filter matching">
+          <option value="all">All rules</option>
+          <option value="any">Any rule</option>
+        </select>
+      </div>
+      <div id="filter-rules" class="filter-rules"></div>
+      <button
+        class="button small-button"
+        id="filter-add"
+        style="margin-top: 12px"
+      >
+        + Add rule
+      </button>
+      <div class="filter-results" id="filter-results" role="status"></div>
+    </article>
+    <article class="specimen full">
+      <div class="chart-heading">
+        <div>
+          <h3>Editable project table</h3>
+          <p class="muted small">
+            Edit settings inline · Enter saves, Escape cancels
+          </p>
+        </div>
+        <span class="muted small">Local preview</span>
+      </div>
+      <div class="table-wrap">
+        <table id="editable-projects" class="app-table">
+          <caption class="pc-sr">
+            Project settings
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">Project</th>
+              <th scope="col">Daily run limit</th>
+              <th scope="col">State</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p class="app-feedback" id="editable-feedback" role="status"></p>
+    </article>
+    <article class="specimen full">
+      <div class="chart-heading">
+        <div>
+          <h3>File upload queue</h3>
+          <p class="muted small">
+            Image previews, validation, progress, cancellation and retry
+          </p>
+        </div>
+        <button class="button small-button" id="queue-clear">
+          Clear completed
+        </button>
+      </div>
+      <div class="queue-drop" id="queue-drop">
+        <strong>Drop files here</strong
+        ><span class="muted small"
+          >Images, PDF, text, CSV or JSON · up to 10 MB per file</span
+        ><button class="button" id="queue-browse">Choose files</button
+        ><input
+          type="file"
+          id="queue-files"
+          multiple
+          accept="image/*,.pdf,.txt,.csv,.json"
+          hidden
+        />
+      </div>
+      <p class="muted small" style="margin-top: 10px">
+        Transfer progress is simulated in this gallery. Files stay on your
+        device.
+      </p>
+      <ul class="upload-items" id="upload-items" aria-label="Upload queue"></ul>
+      <p class="app-feedback" id="queue-feedback" role="status">
+        No files queued.
+      </p>
+    </article>
+    <article class="specimen full">
+      <div class="chart-heading">
+        <div>
+          <h3>Workspace access</h3>
+          <p class="muted small">
+            Manage member roles, review permissions and save or discard changes
+          </p>
+        </div>
+        <span class="muted small">Local preview</span>
+      </div>
+      <form class="member-add" id="member-add">
+        <label class="field"
+          >Email<input
+            type="email"
+            id="member-email"
+            placeholder="name@example.com"
+            required
+            aria-describedby="access-feedback" /></label
+        ><label class="field"
+          >Role<select id="member-role" aria-label="New member role">
+            <option value="Viewer">Viewer</option>
+            <option value="Editor">Editor</option>
+            <option value="Admin">Admin</option>
+          </select></label
+        ><button class="button" type="submit">Add member</button>
+      </form>
+      <div class="table-wrap">
+        <table class="app-table" id="access-table">
+          <caption class="pc-sr">
+            Workspace members and access
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">Member</th>
+              <th scope="col">Role</th>
+              <th scope="col">Can do</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="access-footer">
+        <p class="app-feedback" id="access-feedback" role="status">
+          No unsaved changes.
+        </p>
+        <div class="row">
+          <button class="button" id="access-discard" disabled>Discard</button
+          ><button class="button primary" id="access-save" disabled>
+            Save changes
+          </button>
+        </div>
+      </div>
+    </article>
+    <article class="specimen full">
+      <div class="chart-heading">
+        <div>
+          <h3>Activity feed</h3>
+          <p class="muted small">
+            Search events, filter by type and open the details
+          </p>
+        </div>
+        <select id="activity-type" aria-label="Activity type">
+          <option value="all">All activity</option>
+          <option value="deployment">Deployments</option>
+          <option value="settings">Settings</option>
+          <option value="access">Access</option>
+          <option value="file">Files</option>
+        </select>
+      </div>
+      <input
+        type="search"
+        id="activity-search"
+        placeholder="Search people, projects or changes…"
+        aria-label="Search activity"
+      />
+      <ol class="app-activity" id="app-activity"></ol>
+      <div class="row between">
+        <p class="app-feedback" id="activity-count" role="status"></p>
+        <button class="button small-button" id="activity-more">
+          Load more
+        </button>
+      </div>
+    </article>
+  </div>
+</section>

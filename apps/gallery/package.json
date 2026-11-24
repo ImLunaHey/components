@@ -1,0 +1,13 @@
+{
+  "name": "@imlunahey/demo-gallery",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node ../../scripts/build-app.mjs gallery",
+    "dev": "node ../../scripts/serve-app.mjs gallery 5230",
+    "start": "node ../../scripts/serve-app.mjs gallery 5230"
+  },
+  "dependencies": {
+    "@imlunahey/components": "workspace:*"
+  }
+}

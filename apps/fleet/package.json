@@ -1,0 +1,13 @@
+{
+  "name": "@imlunahey/demo-fleet",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node ../../scripts/build-app.mjs fleet",
+    "dev": "node ../../scripts/serve-app.mjs fleet 5235",
+    "start": "node ../../scripts/serve-app.mjs fleet 5235"
+  },
+  "dependencies": {
+    "@imlunahey/components": "workspace:*"
+  }
+}

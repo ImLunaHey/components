@@ -1,0 +1,221 @@
+[
+  {
+    "group": "Main root",
+    "elements": [
+      "html"
+    ]
+  },
+  {
+    "group": "Document metadata",
+    "elements": [
+      "base",
+      "head",
+      "link",
+      "meta",
+      "style",
+      "title"
+    ]
+  },
+  {
+    "group": "Sectioning root",
+    "elements": [
+      "body"
+    ]
+  },
+  {
+    "group": "Content sectioning",
+    "elements": [
+      "address",
+      "article",
+      "aside",
+      "footer",
+      "header",
+      "h1",
+      "h2",
+      "h3",
+      "h4",
+      "h5",
+      "h6",
+      "hgroup",
+      "main",
+      "nav",
+      "section",
+      "search"
+    ]
+  },
+  {
+    "group": "Text content",
+    "elements": [
+      "blockquote",
+      "dd",
+      "div",
+      "dl",
+      "dt",
+      "figcaption",
+      "figure",
+      "hr",
+      "li",
+      "menu",
+      "ol",
+      "p",
+      "pre",
+      "ul"
+    ]
+  },
+  {
+    "group": "Inline text semantics",
+    "elements": [
+      "a",
+      "abbr",
+      "b",
+      "bdi",
+      "bdo",
+      "br",
+      "cite",
+      "code",
+      "data",
+      "dfn",
+      "em",
+      "i",
+      "kbd",
+      "mark",
+      "q",
+      "rp",
+      "rt",
+      "ruby",
+      "s",
+      "samp",
+      "small",
+      "span",
+      "strong",
+      "sub",
+      "sup",
+      "time",
+      "u",
+      "var",
+      "wbr"
+    ]
+  },
+  {
+    "group": "Image and multimedia",
+    "elements": [
+      "area",
+      "audio",
+      "img",
+      "map",
+      "track",
+      "video"
+    ]
+  },
+  {
+    "group": "Embedded content",
+    "elements": [
+      "embed",
+      "iframe",
+      "object",
+      "picture",
+      "source"
+    ]
+  },
+  {
+    "group": "SVG and MathML",
+    "elements": [
+      "svg",
+      "math"
+    ]
+  },
+  {
+    "group": "Scripting",
+    "elements": [
+      "canvas",
+      "noscript",
+      "script"
+    ]
+  },
+  {
+    "group": "Demarcating edits",
+    "elements": [
+      "del",
+      "ins"
+    ]
+  },
+  {
+    "group": "Table content",
+    "elements": [
+      "caption",
+      "col",
+      "colgroup",
+      "table",
+      "tbody",
+      "td",
+      "tfoot",
+      "th",
+      "thead",
+      "tr"
+    ]
+  },
+  {
+    "group": "Forms",
+    "elements": [
+      "button",
+      "datalist",
+      "fieldset",
+      "form",
+      "input",
+      "label",
+      "legend",
+      "meter",
+      "optgroup",
+      "option",
+      "output",
+      "progress",
+      "select",
+      "selectedcontent",
+      "textarea"
+    ]
+  },
+  {
+    "group": "Interactive elements",
+    "elements": [
+      "details",
+      "dialog",
+      "geolocation",
+      "summary"
+    ]
+  },
+  {
+    "group": "Web Components",
+    "elements": [
+      "slot",
+      "template"
+    ]
+  },
+  {
+    "group": "Obsolete and deprecated elements",
+    "elements": [
+      "acronym",
+      "big",
+      "center",
+      "content",
+      "dir",
+      "fencedframe",
+      "font",
+      "frame",
+      "frameset",
+      "image",
+      "marquee",
+      "menuitem",
+      "nobr",
+      "noembed",
+      "noframes",
+      "param",
+      "plaintext",
+      "rb",
+      "rtc",
+      "shadow",
+      "strike",
+      "tt",
+      "xmp"
+    ]
+  }
+]

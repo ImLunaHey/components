@@ -1,0 +1,13 @@
+{
+  "name": "@imlunahey/demo-catalogue",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node ../../scripts/build-app.mjs catalogue",
+    "dev": "node ../../scripts/serve-app.mjs catalogue 5232",
+    "start": "node ../../scripts/serve-app.mjs catalogue 5232"
+  },
+  "dependencies": {
+    "@imlunahey/components": "workspace:*"
+  }
+}

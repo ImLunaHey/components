@@ -1,0 +1,13 @@
+{
+  "ignorePatterns": [
+    "design/**",
+    "**/dist/**",
+    "**/node_modules/**",
+    "packages/components/src/**",
+    "src/pages/**",
+    "docs/**",
+    "vendor/**",
+    ".runtime/**",
+    ".turbo/**"
+  ]
+}

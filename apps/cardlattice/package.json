@@ -1,0 +1,13 @@
+{
+  "name": "@imlunahey/demo-cardlattice",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node ../../scripts/build-app.mjs cardlattice",
+    "dev": "node ../../scripts/serve-app.mjs cardlattice 5234",
+    "start": "node ../../scripts/serve-app.mjs cardlattice 5234"
+  },
+  "dependencies": {
+    "@imlunahey/components": "workspace:*"
+  }
+}

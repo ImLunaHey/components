@@ -1,0 +1,480 @@
+<section class="category" data-group="surfaces" id="cards-panels">
+  <div class="section-label">
+    <span>13</span>
+    <h2>Cards, panels & utilities</h2>
+  </div>
+  <div class="grid">
+    <article class="specimen full" id="qr-generator">
+      <div class="chart-heading">
+        <div>
+          <h3>QR code generator</h3>
+          <p class="muted small">
+            URLs, text and Wi-Fi credentials · generated on your device
+          </p>
+        </div>
+        <span class="badge">SVG + PNG</span>
+      </div>
+      <div class="qr-layout">
+        <div class="stack">
+          <label class="field"
+            >Content type<select id="qr-kind" aria-label="QR content type">
+              <option value="url">Website URL</option>
+              <option value="text">Plain text</option>
+              <option value="wifi">Wi-Fi network</option>
+            </select></label
+          >
+          <label class="field" id="qr-text-field"
+            ><span id="qr-text-label">Website URL</span
+            ><textarea
+              id="qr-text"
+              rows="3"
+              maxlength="6000"
+              aria-labelledby="qr-text-label"
+              aria-describedby="qr-message"
+            >
+https://github.com/ImLunaHey/fleet-monitor</textarea>
+          </label>
+          <div id="qr-wifi-fields" class="stack" hidden>
+            <label class="field"
+              >Network name<input
+                id="qr-ssid"
+                maxlength="32"
+                placeholder="Home network"
+                autocomplete="off" /></label
+            ><label class="field"
+              >Security<select id="qr-security" aria-label="Wi-Fi security">
+                <option value="WPA">WPA / WPA2</option>
+                <option value="nopass">Open network</option>
+              </select></label
+            ><label class="field" id="qr-password-field"
+              >Password<input
+                id="qr-password"
+                type="password"
+                autocomplete="off"
+                maxlength="128"
+            /></label>
+            <p class="muted small">
+              Anyone with this code can read the network credentials.
+            </p>
+          </div>
+          <div class="field-pair">
+            <label class="field"
+              >Error correction<select
+                id="qr-correction"
+                aria-label="QR error correction"
+              >
+                <option value="L">Low</option>
+                <option value="M" selected>Medium</option>
+                <option value="Q">Quartile</option>
+                <option value="H">High</option>
+              </select></label
+            ><label class="field"
+              >PNG dimensions<select
+                id="qr-size"
+                aria-label="QR PNG dimensions"
+              >
+                <option value="512">512 × 512</option>
+                <option value="1024" selected>1024 × 1024</option>
+                <option value="2048">2048 × 2048</option>
+              </select></label
+            >
+          </div>
+          <p class="app-feedback" id="qr-message" role="status"></p>
+        </div>
+        <div class="qr-output">
+          <div
+            class="qr-preview"
+            id="qr-preview"
+            role="img"
+            aria-label="Generated QR code"
+          ></div>
+          <p class="muted small" id="qr-meta"></p>
+          <div class="row">
+            <button class="button" id="qr-svg">Download SVG</button
+            ><button class="button primary" id="qr-png">Download PNG</button>
+          </div>
+        </div>
+      </div>
+    </article>
+    <article class="specimen">
+      <h3>Metric card</h3>
+      <section class="ui-card">
+        <header class="ui-card-header">
+          <div>
+            <h4>Requests</h4>
+            <p>Production API</p>
+          </div>
+          <select id="metric-window" aria-label="Requests time window">
+            <option value="24h">Last 24 hours</option>
+            <option value="7d">Last 7 days</option>
+            <option value="30d">Last 30 days</option>
+          </select>
+        </header>
+        <div class="ui-card-body">
+          <div class="metric-value" id="surface-metric-value">128,430</div>
+          <p class="metric-change" id="surface-metric-change">
+            ↑ 12.8% vs previous 24 hours
+          </p>
+          <div
+            class="metric-bars"
+            id="surface-metric-bars"
+            aria-hidden="true"
+          ></div>
+        </div>
+        <footer class="ui-card-footer">
+          <span class="muted small" id="surface-metric-note"
+            >24 hourly samples · sample data</span
+          ><button
+            class="button small-button ghost"
+            id="metric-inspect"
+            aria-expanded="false"
+            aria-controls="metric-detail"
+          >
+            Breakdown
+          </button>
+        </footer>
+        <dl class="surface-description" id="metric-detail" hidden></dl>
+      </section>
+    </article>
+    <article class="specimen">
+      <h3>Resource card</h3>
+      <section class="ui-card">
+        <header class="ui-card-header">
+          <div class="row">
+            <span class="resource-symbol">FM</span>
+            <div>
+              <h4>Fleet Monitor</h4>
+              <p>Infrastructure · Production</p>
+            </div>
+          </div>
+          <button
+            class="button small-button ghost"
+            id="resource-pin"
+            aria-pressed="false"
+          >
+            Pin
+          </button>
+        </header>
+        <div class="ui-card-body">
+          <p>
+            Hardware telemetry, storage health and live alerts across your
+            machines.
+          </p>
+          <dl class="surface-description">
+            <div>
+              <dt>Machines</dt>
+              <dd>5 connected</dd>
+            </div>
+            <div>
+              <dt>Latest release</dt>
+              <dd>v1.8.2</dd>
+            </div>
+            <div>
+              <dt>Updated</dt>
+              <dd>2 minutes ago</dd>
+            </div>
+          </dl>
+        </div>
+        <footer class="ui-card-footer">
+          <span class="badge success">Healthy</span
+          ><a class="button small-button" href="/fleet">Open dashboard ↗</a>
+        </footer>
+      </section>
+      <p id="resource-pin-status" class="app-feedback" role="status"></p>
+    </article>
+    <article class="specimen full">
+      <h3>Settings panel</h3>
+      <form class="ui-card" id="surface-settings">
+        <header class="ui-card-header">
+          <div>
+            <h4>Project preferences</h4>
+            <p>Inline editing with validation and an unsaved state</p>
+          </div>
+          <span class="badge" id="panel-dirty">Saved</span>
+        </header>
+        <div class="ui-card-body settings-fields">
+          <label class="field"
+            >Project name<input
+              id="panel-name"
+              value="Fleet Monitor"
+              required
+              maxlength="60" /></label
+          ><label class="field"
+            >Default environment<select
+              id="panel-environment"
+              aria-label="Default environment"
+            >
+              <option>Production</option>
+              <option>Preview</option>
+              <option>Development</option>
+            </select></label
+          ><label class="check settings-checkbox"
+            ><input id="panel-notify" type="checkbox" checked /><span
+              >Email me when a deployment fails<small class="muted"
+                >Only failures in the selected environment.</small
+              ></span
+            ></label
+          >
+        </div>
+        <footer class="ui-card-footer">
+          <p class="small muted" id="panel-save-status" role="status">
+            Changes stay in this preview.
+          </p>
+          <div class="row">
+            <button class="button" id="panel-discard" type="button" disabled>
+              Discard</button
+            ><button
+              class="button primary"
+              id="panel-save"
+              type="submit"
+              disabled
+            >
+              Save changes
+            </button>
+          </div>
+        </footer>
+      </form>
+    </article>
+    <article class="specimen">
+      <h3>Tabbed detail panel</h3>
+      <section class="ui-card">
+        <header class="ui-card-header">
+          <div>
+            <h4>Production deployment</h4>
+            <p>deploy_4812 · Fleet Monitor</p>
+          </div>
+          <span class="badge success">Ready</span>
+        </header>
+        <div
+          class="surface-tabs"
+          role="tablist"
+          aria-label="Deployment details"
+        >
+          <button
+            id="surface-tab-overview"
+            role="tab"
+            aria-selected="true"
+            aria-controls="surface-overview"
+          >
+            Overview</button
+          ><button
+            id="surface-tab-activity"
+            role="tab"
+            aria-selected="false"
+            aria-controls="surface-activity"
+            tabindex="-1"
+          >
+            Activity</button
+          ><button
+            id="surface-tab-config"
+            role="tab"
+            aria-selected="false"
+            aria-controls="surface-config"
+            tabindex="-1"
+          >
+            Configuration
+          </button>
+        </div>
+        <div
+          class="ui-card-body surface-tab-body"
+          id="surface-overview"
+          role="tabpanel"
+          aria-labelledby="surface-tab-overview"
+          tabindex="0"
+        >
+          <dl class="surface-description">
+            <div>
+              <dt>Branch</dt>
+              <dd class="mono">main</dd>
+            </div>
+            <div>
+              <dt>Commit</dt>
+              <dd class="mono">4kx92ab</dd>
+            </div>
+            <div>
+              <dt>Region</dt>
+              <dd>London · eu-west-2</dd>
+            </div>
+            <div>
+              <dt>Duration</dt>
+              <dd>48 seconds</dd>
+            </div>
+          </dl>
+        </div>
+        <div
+          class="ui-card-body surface-tab-body"
+          id="surface-activity"
+          role="tabpanel"
+          aria-labelledby="surface-tab-activity"
+          tabindex="0"
+          hidden
+        >
+          <ol class="surface-timeline">
+            <li><span>Build queued</span><time>09:41:00</time></li>
+            <li><span>Dependencies installed</span><time>09:41:12</time></li>
+            <li><span>Health checks passed</span><time>09:41:42</time></li>
+            <li><span>Traffic switched</span><time>09:41:48</time></li>
+          </ol>
+        </div>
+        <div
+          class="ui-card-body surface-tab-body"
+          id="surface-config"
+          role="tabpanel"
+          aria-labelledby="surface-tab-config"
+          tabindex="0"
+          hidden
+        >
+          <dl class="surface-description">
+            <div>
+              <dt>Runtime</dt>
+              <dd>Node.js</dd>
+            </div>
+            <div>
+              <dt>Instances</dt>
+              <dd>2 replicas</dd>
+            </div>
+            <div>
+              <dt>Memory</dt>
+              <dd>1 GiB per instance</dd>
+            </div>
+            <div>
+              <dt>Health check</dt>
+              <dd class="mono">/health</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+    </article>
+    <article class="specimen">
+      <h3>Collapsible diagnostics panel</h3>
+      <div class="ui-card diagnostics-panel">
+        <header class="ui-card-header">
+          <div>
+            <h4>System checks</h4>
+            <p>Expand a check to inspect its result</p>
+          </div>
+          <span class="badge warning">1 warning</span>
+        </header>
+        <details open>
+          <summary>
+            <span>Storage pool</span><span class="badge warning">Degraded</span>
+          </summary>
+          <div class="diagnostic-body">
+            <p>
+              One drive is unavailable. The pool is rebuilding with the
+              remaining drives.
+            </p>
+            <dl class="surface-description">
+              <div>
+                <dt>Rebuild</dt>
+                <dd>97.4%</dd>
+              </div>
+              <div>
+                <dt>Data errors</dt>
+                <dd>0</dd>
+              </div>
+            </dl>
+            <a href="/fleet" class="button small-button">View storage</a>
+          </div>
+        </details>
+        <details>
+          <summary>
+            <span>Network</span><span class="badge success">Passed</span>
+          </summary>
+          <div class="diagnostic-body">
+            Gateway reachable · 8 ms latency · no packet loss.
+          </div>
+        </details>
+        <details>
+          <summary>
+            <span>Backups</span><span class="badge success">Passed</span>
+          </summary>
+          <div class="diagnostic-body">
+            Latest snapshot completed at 03:00. Seven daily snapshots retained.
+          </div>
+        </details>
+      </div>
+    </article>
+    <article class="specimen full">
+      <h3>Selectable option cards</h3>
+      <fieldset class="surface-options" id="surface-options">
+        <legend>Choose an instance size</legend>
+        <label class="ui-card option-card"
+          ><input
+            type="radio"
+            name="surface-instance"
+            value="starter"
+            checked
+          /><span
+            ><strong>Starter</strong><small>1 vCPU · 1 GiB memory</small
+            ><b>£6 <span>/ month</span></b></span
+          ></label
+        ><label class="ui-card option-card"
+          ><input type="radio" name="surface-instance" value="standard" /><span
+            ><strong>Standard</strong><small>2 vCPU · 4 GiB memory</small
+            ><b>£18 <span>/ month</span></b></span
+          ></label
+        ><label class="ui-card option-card"
+          ><input
+            type="radio"
+            name="surface-instance"
+            value="performance"
+          /><span
+            ><strong>Performance</strong><small>4 vCPU · 8 GiB memory</small
+            ><b>£36 <span>/ month</span></b></span
+          ></label
+        ><label class="ui-card option-card"
+          ><input
+            type="radio"
+            name="surface-instance"
+            value="gpu"
+            disabled
+          /><span
+            ><strong>GPU</strong><small>Unavailable in this region</small
+            ><b>Unavailable</b></span
+          ></label
+        >
+      </fieldset>
+      <div class="ui-card-footer surface-option-footer">
+        <p class="muted small" id="instance-summary" role="status">
+          Starter selected · £6 / month · example pricing
+        </p>
+        <button class="button primary" id="instance-apply">Apply size</button>
+      </div>
+    </article>
+    <article class="specimen full">
+      <div class="chart-heading">
+        <div>
+          <h3>Async content panel</h3>
+          <p class="muted small">
+            Loading, empty, error and ready states with a retry action
+          </p>
+        </div>
+        <label class="check"
+          ><input type="checkbox" id="panel-simulate-error" />Simulate
+          failure</label
+        >
+      </div>
+      <section class="ui-card" id="async-surface" aria-busy="false">
+        <header class="ui-card-header">
+          <div>
+            <h4>Recent exports</h4>
+            <p>Local sample data</p>
+          </div>
+          <button class="button small-button" id="export-refresh">
+            Refresh
+          </button>
+        </header>
+        <div class="ui-card-body async-panel-body" id="export-content"></div>
+        <footer class="ui-card-footer">
+          <p class="muted small" id="export-status" role="status">
+            No exports yet.
+          </p>
+          <button class="button small-button ghost" id="export-clear" disabled>
+            Clear list
+          </button>
+        </footer>
+      </section>
+    </article>
+  </div>
+</section>
