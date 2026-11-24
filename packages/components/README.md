@@ -1,0 +1,47 @@
+# @imlunahey/components
+
+Custom React components with compiled StyleX styles and neutral light/dark themes.
+Import components from explicit subpaths; there is no handwritten barrel.
+
+```tsx
+import "@imlunahey/components/styles.css";
+import { Theme } from "@imlunahey/components/theme";
+import { LanguageSelect } from "@imlunahey/components/language-select";
+import { FileUpload } from "@imlunahey/components/file-upload";
+
+<Theme mode="dark">
+  <LanguageSelect value={language} onValueChange={setLanguage} />
+  <FileUpload label="Images" accept="image/*" multiple onFilesChange={setFiles} />
+</Theme>;
+```
+
+Exports: `button`, `input`, `textarea`, `panel`, `badge`, `select`, `combobox`,
+`language-select`, `file-upload`, `data-table`, `line-chart`, `dialog`, `progress`,
+`tabs`, `toggle`, `qr-code`, `theme`, `app-shell`, and `styles.css`.
+TypeScript declarations are generated from the React sources.
+
+Selects are controlled custom listboxes with keyboard navigation, optional search
+and outside dismissal. Flags come from `country-flag-icons`. File uploads preview
+images and release object URLs when attachments change or unmount. Progress bars
+show details on hover and keyboard focus. Dialog uses the native modal focus and
+Escape behavior with a dark backdrop and outside dismissal.
+
+DataTable uses `@tanstack/react-table` column definitions and sorting; memoize
+column definitions that render interactive cells. LineChart uses
+`@tanstack/charts` and disposes its renderer on unmount. QRCode renders with `qrcode`.
+
+The package requires React 19. Import the stylesheet once. It includes minimal
+body-margin and box-sizing normalization; component rules are compiled StyleX
+classes. Your application does not need a StyleX build plugin to consume it.
+
+Build and pack:
+
+```sh
+pnpm --filter @imlunahey/components build
+pnpm --filter @imlunahey/components pack --pack-destination ../../artifacts
+# Install the output in a separate React project:
+pnpm add /path/to/artifacts/imlunahey-components-0.1.0.tgz
+```
+
+The components package has not been published to a registry. The separate
+`@imlunahey/oxlint-config` dependency is published on GitHub Packages.

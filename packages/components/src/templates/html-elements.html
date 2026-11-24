@@ -1,0 +1,479 @@
+<section class="category" data-group="html" id="html-elements">
+  <div class="section-label">
+    <span>15</span>
+    <h2>HTML foundations</h2>
+  </div>
+  <p class="workflow-intro muted small">
+    Semantic elements, form types and media, checked against the MDN element
+    reference. Native select data is rendered through our custom controls.
+    Experimental and nonvisual elements are identified separately.
+  </p>
+  <div class="grid">
+    <article class="specimen html-prose">
+      <h3>Headings & document text</h3>
+      <hgroup>
+        <h1>Heading one</h1>
+        <p class="muted">A document introduction.</p>
+      </hgroup>
+      <h2>Heading two</h2>
+      <h3>Heading three</h3>
+      <h4>Heading four</h4>
+      <h5>Heading five</h5>
+      <h6>Heading six</h6>
+      <p>
+        Paragraph with <strong>strong importance</strong>, <em>emphasis</em>,
+        <b>attention</b>, <i>an alternate voice</i>, <u>an annotation</u> and
+        <small>supporting text</small>.
+      </p>
+      <blockquote>
+        <p>Keep operational information readable at a glance.</p>
+        <footer>— <cite>Interface notes</cite></footer>
+      </blockquote>
+      <p>
+        A short <q>inline quotation</q> and
+        <abbr title="Application programming interface">API</abbr> abbreviation.
+      </p>
+      <hr />
+      <address>
+        Project owner: <a href="mailto:luna@example.com">luna@example.com</a>
+      </address>
+    </article>
+    <article class="specimen html-prose">
+      <h3>Inline semantics & code</h3>
+      <p>
+        <dfn>Latency</dfn> is measured in milliseconds.
+        <mark>Highlighted result</mark>, <s>outdated value</s>,
+        <del>removed text</del> and <ins>inserted text</ins>.
+      </p>
+      <p>
+        H<sub>2</sub>O and x<sup>2</sup>.
+        <data value="128430">128,430 requests</data> at
+        <time datetime="2026-11-24T09:42:00Z">09:42 UTC</time>.
+      </p>
+      <p>
+        Press <kbd>Ctrl</kbd> + <kbd>K</kbd>. Run <code>npm run build</code>;
+        <samp>Build complete</samp>. Formula: <var>x</var> + 1.
+      </p>
+      <pre><code>const ready = true;
+console.log(ready);</code></pre>
+      <p>
+        Bidirectional name: <bdi>علي</bdi>. Explicit reversal:
+        <bdo dir="rtl">ABC</bdo>.
+      </p>
+      <p>
+        <ruby>漢<rp>(</rp><rt>kan</rt><rp>)</rp></ruby> · Long label with break
+        opportunities:<br />infrastructure<wbr />-production<wbr />-eu-west
+      </p>
+      <math display="block" aria-label="x squared plus one"
+        ><mrow
+          ><msup><mi>x</mi><mn>2</mn></msup
+          ><mo>+</mo><mn>1</mn></mrow
+        ></math
+      >
+    </article>
+    <article class="specimen html-prose">
+      <h3>Lists & semantic regions</h3>
+      <main>
+        <header><h4>Release overview</h4></header>
+        <nav aria-label="Foundation example navigation">
+          <a href="#html-table-example">Data</a> ·
+          <a href="#html-form-example">Form</a>
+        </nav>
+        <section>
+          <h5>Checklist</h5>
+          <ul>
+            <li>Review the changes</li>
+            <li>
+              Run checks
+              <ul>
+                <li>Validate inputs</li>
+              </ul>
+            </li>
+          </ul>
+          <ol>
+            <li>Build</li>
+            <li>Deploy</li>
+          </ol>
+          <dl>
+            <dt>Region</dt>
+            <dd>London</dd>
+            <dt>State</dt>
+            <dd>Ready</dd>
+          </dl>
+        </section>
+        <aside class="inset">
+          Related information belongs beside the primary content.
+        </aside>
+        <footer><small>Updated today</small></footer>
+      </main>
+      <menu class="row">
+        <li>
+          <button class="button small-button" type="button" data-html-copy>
+            Copy sample text
+          </button>
+        </li>
+      </menu>
+      <search>
+        <label class="field"
+          >Find an HTML element<input
+            type="search"
+            id="html-find"
+            placeholder="For example: meter"
+        /></label>
+      </search>
+      <output
+        id="html-find-result"
+        class="app-feedback"
+        aria-live="polite"
+      ></output>
+    </article>
+    <article class="specimen html-prose" id="html-table-example">
+      <h3>Semantic table & meters</h3>
+      <div class="table-wrap">
+        <table class="app-table">
+          <caption>
+            Monthly storage usage
+          </caption>
+          <colgroup>
+            <col />
+            <col span="2" />
+          </colgroup>
+          <thead>
+            <tr>
+              <th scope="col">Volume</th>
+              <th scope="col">Used</th>
+              <th scope="col">Capacity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Media</th>
+              <td>240 GB</td>
+              <td>500 GB</td>
+            </tr>
+            <tr>
+              <th scope="row">Backups</th>
+              <td>160 GB</td>
+              <td>500 GB</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th scope="row">Total</th>
+              <td>400 GB</td>
+              <td>1,000 GB</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <label class="field"
+        >Storage capacity<meter
+          min="0"
+          max="100"
+          low="20"
+          high="85"
+          optimum="40"
+          value="40"
+        >
+          40%
+        </meter></label
+      ><label class="field"
+        >Upload progress<progress max="100" value="65">65%</progress></label
+      ><label class="field"
+        >Working<progress aria-label="Working"></progress
+      ></label>
+    </article>
+    <article class="specimen full" id="html-form-example">
+      <h3>HTML form controls</h3>
+      <form id="html-form">
+        <fieldset class="html-fieldset">
+          <legend>Contact & scheduling</legend>
+          <div class="html-form-grid">
+            <label class="field"
+              >Name<input
+                name="name"
+                type="text"
+                value="Luna"
+                required /></label
+            ><label class="field"
+              >Email<input
+                name="email"
+                type="email"
+                value="luna@example.com"
+                required /></label
+            ><label class="field"
+              >Telephone<input
+                name="phone"
+                type="tel"
+                placeholder="+44 20 1234 5678" /></label
+            ><label class="field"
+              >Website<input
+                name="url"
+                type="url"
+                placeholder="https://example.com" /></label
+            ><label class="field"
+              >Password<input
+                name="password"
+                type="password"
+                autocomplete="new-password"
+                placeholder="Demo password" /></label
+            ><label class="field"
+              >Search<input
+                name="search"
+                type="search"
+                placeholder="Search…" /></label
+            ><label class="field"
+              >Quantity<input
+                name="quantity"
+                type="number"
+                min="1"
+                max="100"
+                value="3" /></label
+            ><label class="field"
+              >Date<input name="date" type="date" value="2026-11-24" /></label
+            ><label class="field"
+              >Time<input name="time" type="time" value="09:30" /></label
+            ><label class="field"
+              >Date & time<input
+                name="datetime"
+                type="datetime-local"
+                value="2026-11-24T09:30" /></label
+            ><label class="field"
+              >Month<input name="month" type="month" value="2026-11" /></label
+            ><label class="field"
+              >Week<input name="week" type="week" value="2026-W48" /></label
+            ><label class="field"
+              >Accent colour<input
+                name="color"
+                type="color"
+                value="#89b9ed" /></label
+            ><label class="field"
+              >Volume<input
+                name="volume"
+                type="range"
+                min="0"
+                max="100"
+                value="40" /></label
+            ><label class="field">File<input name="file" type="file" /></label
+            ><label class="field"
+              >Grouped select<select name="region" aria-label="Example region">
+                <optgroup label="Europe">
+                  <option>London</option>
+                  <option>Berlin</option>
+                </optgroup>
+                <optgroup label="Asia"><option>Tokyo</option></optgroup>
+              </select></label
+            ><label class="field"
+              >Suggested value<input
+                id="html-suggestion"
+                list="html-suggestions"
+                placeholder="Choose or type"
+                aria-label="Suggested framework" /><datalist
+                id="html-suggestions"
+              >
+                <option value="React"></option>
+                <option value="Vue"></option>
+                <option value="Svelte"></option></datalist></label
+            ><label class="field"
+              >Notes<textarea
+                name="notes"
+                rows="2"
+                placeholder="Add notes"
+              ></textarea>
+            </label>
+          </div>
+          <div class="row">
+            <label class="check"
+              ><input name="updates" type="checkbox" checked />Email
+              updates</label
+            ><label class="check"
+              ><input
+                name="mode"
+                type="radio"
+                value="daily"
+                checked
+              />Daily</label
+            ><label class="check"
+              ><input name="mode" type="radio" value="weekly" />Weekly</label
+            >
+          </div>
+          <input name="source" type="hidden" value="html-gallery" />
+          <div class="row">
+            <input
+              type="submit"
+              class="button primary"
+              value="Validate form"
+            /><input type="reset" class="button" value="Reset" /><input
+              type="button"
+              class="button"
+              value="Show help"
+              id="html-help"
+            /><input
+              type="image"
+              src="/assets/examples/diagram.svg"
+              alt="Submit with image button"
+              width="80"
+              height="30"
+            />
+          </div>
+        </fieldset>
+        <output id="html-form-status" class="app-feedback" aria-live="polite"
+          >Form values stay on this device.</output
+        >
+      </form>
+    </article>
+    <article class="specimen html-prose">
+      <h3>Images, figures & image maps</h3>
+      <figure>
+        <picture
+          ><source
+            media="(max-width: 600px)"
+            srcset="/assets/examples/diagram.svg" />
+          <img
+            src="/assets/examples/diagram.svg"
+            alt="Source connected to output"
+            width="320"
+            height="120"
+        /></picture>
+        <figcaption>
+          A responsive picture with descriptive alternative text.
+        </figcaption>
+      </figure>
+      <div class="html-map-scroll">
+        <img
+          src="/assets/examples/diagram.svg"
+          alt="Jump to source form or output table"
+          width="320"
+          height="120"
+          usemap="#html-example-map"
+        /><map name="html-example-map"
+          ><area
+            shape="rect"
+            coords="20,30,130,90"
+            href="#html-form-example"
+            alt="Go to form" /><area
+            shape="rect"
+            coords="190,30,300,90"
+            href="#html-table-example"
+            alt="Go to table"
+        /></map>
+      </div>
+    </article>
+    <article class="specimen html-prose">
+      <h3>Audio & video</h3>
+      <label class="field"
+        >One-second tone<audio controls preload="none">
+          <source src="/assets/examples/tone.wav" type="audio/wav" />
+          <a href="/assets/examples/tone.wav">Download audio</a>
+        </audio></label
+      ><video
+        controls
+        preload="metadata"
+        width="320"
+        aria-label="Bee visiting a flower"
+      >
+        <source src="/assets/examples/flower.webm" type="video/webm" />
+        <track
+          kind="captions"
+          src="/assets/examples/demo.vtt"
+          srclang="en"
+          label="English"
+          default
+        />
+        <a href="/assets/examples/flower.webm">Download video</a>
+      </video>
+      <p class="muted small">
+        CC0 sample video from MDN. Playback starts only when requested.
+      </p>
+    </article>
+    <article class="specimen html-prose">
+      <h3>Embedded & vector content</h3>
+      <iframe
+        title="Isolated HTML document"
+        sandbox
+        srcdoc="<!doctype html><html lang='en'><head><base href='/'><meta charset='utf-8'><title>Embedded example</title><style>body{font:14px system-ui;background:#292929;color:#eee;padding:12px}</style></head><body><p>An isolated document with its own base URL.</p></body></html>"
+      ></iframe
+      ><object
+        type="image/svg+xml"
+        data="/assets/examples/diagram.svg"
+        aria-label="Object image example"
+      >
+        <p>Image unavailable.</p></object
+      ><embed
+        type="image/svg+xml"
+        src="/assets/examples/diagram.svg"
+        title="Embedded diagram"
+      /><svg viewBox="0 0 240 50" role="img" aria-label="A rising line chart">
+        <path
+          d="M5 45L50 30L90 35L140 12L180 20L235 5"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        />
+      </svg>
+    </article>
+    <article class="specimen html-prose">
+      <h3>Disclosure, dialog & web components</h3>
+      <details>
+        <summary>Semantic disclosure</summary>
+        <p>Native keyboard support with themed content.</p>
+      </details>
+      <button class="button" id="html-dialog-open">Open dialog</button>
+      <dialog id="html-dialog" aria-labelledby="html-dialog-title">
+        <h4 id="html-dialog-title">Native dialog</h4>
+        <p>Escape or the backdrop closes this example.</p>
+        <form method="dialog"><button class="button">Close</button></form>
+      </dialog>
+      <template id="html-card-template"
+        ><style>
+          :host {
+            display: block;
+            border: 1px solid var(--border);
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 12px;
+          }
+          strong {
+            font-size: 12px;
+          }</style
+        ><strong><slot name="title">Default title</slot></strong
+        ><slot></slot></template
+      ><luna-html-card
+        ><span slot="title">Slotted card heading</span>
+        <p>This content passes through a shadow DOM slot.</p></luna-html-card
+      ><canvas
+        id="html-canvas"
+        width="300"
+        height="60"
+        aria-label="Canvas progress drawing"
+        >Canvas is unavailable.</canvas
+      ><noscript
+        >JavaScript is disabled. Interactive examples need JavaScript.</noscript
+      >
+    </article>
+    <article class="specimen full html-prose">
+      <h3>Element coverage</h3>
+      <p id="html-coverage-summary"></p>
+      <div id="html-coverage-list" class="html-coverage-list"></div>
+      <details>
+        <summary>Nonvisual, experimental and obsolete elements</summary>
+        <p>
+          Document metadata and scripting are covered by the page shell and
+          isolated document. <code>template</code> and <code>slot</code> have a
+          working example above. <code>selectedcontent</code> and
+          <code>geolocation</code> are experimental and documented here rather
+          than used as required controls. Deprecated tags are excluded from the
+          supported design system.
+        </p>
+        <pre><code>&lt;select&gt;&lt;button&gt;&lt;selectedcontent&gt;&lt;/selectedcontent&gt;&lt;/button&gt;…&lt;/select&gt;
+&lt;geolocation&gt;Request location&lt;/geolocation&gt;</code></pre>
+        <template id="html-experimental"
+          ><select>
+            <button><selectedcontent></selectedcontent></button>
+            <option>Experimental select</option></select
+          ><geolocation>Request location</geolocation></template
+        >
+      </details>
+    </article>
+  </div>
+</section>

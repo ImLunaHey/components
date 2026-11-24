@@ -1,0 +1,292 @@
+.workflow-intro {
+  margin: 0 0 16px;
+}
+.workflow-toolbar {
+  display: flex;
+  align-items: end;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 14px 0;
+}
+.workflow-toolbar > input {
+  flex: 1;
+  min-width: 180px !important;
+}
+.workflow-toolbar > .field {
+  flex: 1;
+  min-width: 180px;
+}
+.workflow-toolbar > .pc-field,
+.workflow-toolbar > div {
+  min-width: 135px;
+}
+.workflow-toolbar > div:has(.pc-field) {
+  max-width: 220px;
+  flex: 1;
+}
+.workflow-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+  margin-top: 14px;
+}
+.workflow-card-grid p {
+  margin-top: 8px;
+}
+.media-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 250px;
+  gap: 16px;
+}
+.media-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+  align-content: start;
+}
+.media-card {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--secondary);
+  overflow: hidden;
+  min-width: 0;
+}
+.media-card:has(input:checked) {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+.media-preview {
+  border: 0;
+  background: none;
+  display: block;
+  padding: 0;
+  width: 100%;
+  aspect-ratio: 3/2;
+}
+.media-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.media-caption {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 10px;
+  font-size: 11px;
+}
+.media-caption span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.editor-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 250px;
+  gap: 20px;
+}
+.editor-stage {
+  display: grid;
+  place-items: center;
+  min-height: 220px;
+  background: var(--secondary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  padding: 12px;
+}
+.editor-stage canvas {
+  max-width: 100%;
+  max-height: 420px;
+  object-fit: contain;
+  width: auto;
+  height: auto;
+}
+.workflow-dialog {
+  width: min(560px, calc(100vw - 32px));
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--card);
+  color: var(--foreground);
+}
+.workflow-dialog::backdrop {
+  background: rgb(0 0 0 / 0.72);
+  backdrop-filter: blur(3px);
+}
+.workflow-dialog .ui-card-header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.workflow-person {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+.workflow-person > span:first-child {
+  flex: 1;
+  overflow-wrap: anywhere;
+}
+.workflow-person > div {
+  width: 115px;
+}
+.key-record {
+  display: grid;
+  gap: 8px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+.key-record code {
+  font: 11px var(--font-mono);
+  overflow-wrap: anywhere;
+}
+.workflow-board {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  align-items: stretch;
+}
+.board-column {
+  background: var(--secondary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  min-height: 210px;
+}
+.board-column h4 {
+  margin: 0 0 12px;
+  font-size: 12px;
+}
+.board-card {
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: var(--card);
+  padding: 12px;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 3px #0001;
+}
+.board-card:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+.board-card p {
+  font-size: 12px;
+  overflow-wrap: anywhere;
+  margin-bottom: 10px;
+}
+.board-card .row {
+  gap: 2px;
+}
+.comment-card {
+  border-bottom: 1px solid var(--border);
+  padding: 16px 0;
+  display: grid;
+  gap: 10px;
+}
+.comment-text {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: 12px;
+}
+.comment-text mark {
+  background: var(--accent-surface);
+  color: var(--accent);
+  padding: 1px 3px;
+  border-radius: 3px;
+}
+.comment-reply {
+  border-left: 2px solid var(--border);
+  margin-left: 12px;
+  padding: 8px 12px;
+}
+.comment-reply strong {
+  font-size: 11px;
+}
+.comment-attachment {
+  max-width: 200px;
+  max-height: 140px;
+  object-fit: contain;
+}
+.workflow-chart-pair,
+.billing-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.workflow-chart-pair h4 {
+  margin: 0 0 12px;
+}
+.workflow-chart-pair .ui-card {
+  min-width: 0;
+}
+.billing-grid {
+  margin-bottom: 16px;
+}
+.billing-grid h4 {
+  margin: 0;
+}
+.workflow-toolbar input[type="file"] {
+  font-size: 12px;
+}
+#view-results {
+  margin-top: 14px;
+}
+#csv-preview {
+  margin: 14px 0;
+}
+#csv-preview input {
+  min-width: 110px;
+}
+#media-inspector {
+  align-content: start;
+  overflow-wrap: anywhere;
+}
+#media-inspector .button {
+  justify-self: start;
+}
+#key-reveal {
+  margin-top: 14px;
+}
+.category[hidden],
+[hidden] {
+  display: none !important;
+}
+@media (max-width: 800px) {
+  .media-layout,
+  .editor-layout {
+    grid-template-columns: 1fr;
+  }
+  .media-grid {
+    grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+  }
+  .editor-layout form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .workflow-chart-pair {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 560px) {
+  .workflow-board,
+  .billing-grid,
+  .editor-layout form {
+    grid-template-columns: 1fr;
+  }
+  .workflow-toolbar > * {
+    max-width: 100% !important;
+  }
+  .workflow-dialog .ui-card-body {
+    padding: 14px;
+  }
+  .workflow-person {
+    font-size: 12px;
+  }
+}
+
+.csv-upload{display:flex;align-items:center;gap:14px;padding:20px;background:var(--secondary);border:1px dashed var(--border);border-radius:8px}.csv-upload-icon{display:grid;place-items:center;flex:none;width:38px;height:42px;background:var(--card);border:1px solid var(--border);border-radius:6px;color:var(--muted-foreground)}.csv-upload-icon svg{width:22px;height:22px}.csv-upload-copy{flex:1;min-width:0}.csv-upload-copy strong{display:block;font-size:12px;font-weight:500;overflow-wrap:anywhere}.csv-upload-copy p{margin-top:4px}.csv-upload>.button{flex:none}#csv-mapping:empty,#csv-preview:empty{display:none}#csv-import>.row{margin-top:20px}#csv-status{margin-top:14px}@media(max-width:560px){.csv-upload{padding:16px;flex-wrap:wrap}.csv-upload-copy{flex-basis:calc(100% - 60px)}.csv-upload>.button{margin-left:52px}}

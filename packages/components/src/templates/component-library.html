@@ -1,0 +1,1695 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Luna components</title>
+<style>
+:root{color-scheme:light;--background:#f7f7f5;--foreground:#242524;--muted:#f0f1ef;--muted-foreground:#696e66;--card:#fff;--secondary:#f7f8f6;--border:#e0e3dc;--accent:#795ab4;--accent-surface:#eee8f8;--primary:#242623;--primary-foreground:#fff;--success:#287a61;--warning:#996c1f;--destructive:#b94f43;--info:#377da8;--ring:#9577cd;--radius:10px;--font-sans:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;--font-mono:ui-monospace,SFMono-Regular,Consolas,monospace}
+:root[data-theme=dark]{color-scheme:dark;--background:#141414;--foreground:#eeeeee;--muted:#292929;--muted-foreground:#a6a6a6;--card:#202020;--secondary:#252525;--border:#3c3c3c;--accent:#baa0e2;--accent-surface:#393242;--primary:#e8e8e8;--primary-foreground:#202020;--success:#8bc5a6;--warning:#dfb568;--destructive:#ee998b;--info:#8fbfdd}
+*{box-sizing:border-box}body{margin:0;color:var(--foreground);font:13px/1.45 var(--font-sans)}button,input,select,textarea{font:inherit;color:inherit}button,summary{cursor:pointer}button:disabled,input:disabled{opacity:.45;cursor:not-allowed}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible,a:focus-visible{outline:2px solid var(--ring);outline-offset:3px}h1,h2,h3,p{margin:0}h1{font-size:19px;font-weight:550;letter-spacing:-.5px}h2{font-size:14px;font-weight:550}h3{font-size:12px;font-weight:550}a{color:var(--accent)}.muted{color:var(--muted-foreground)}.small{font-size:11px}.mono,kbd{font:11px/1.5 var(--font-mono)}kbd{background:var(--muted);padding:1px 5px;border:1px solid var(--border);border-radius:4px}.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.between{justify-content:space-between}.stack{display:grid;gap:13px}.header{padding-right:90px;margin:3px 0 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.header p{font-size:11px;color:var(--muted-foreground);margin-top:3px}.button{display:inline-flex;justify-content:center;align-items:center;gap:7px;background:var(--card);border:1px solid var(--border);border-radius:6px;padding:6px 10px;font-size:12px;min-height:32px;box-shadow:0 1px 2px color-mix(in srgb,var(--foreground) 5%,transparent)}.button:hover:not(:disabled){background:var(--muted)}.button.primary{background:var(--primary);border-color:var(--primary);color:var(--primary-foreground)}.button.danger{color:var(--destructive);border-color:color-mix(in srgb,var(--destructive) 35%,var(--border))}.button.ghost{background:transparent;border-color:transparent;box-shadow:none}.button.small-button{font-size:11px;padding:3px 8px;min-height:26px}.button.large{padding:9px 15px;min-height:39px}.button[aria-pressed=true]{color:var(--accent);background:var(--accent-surface);border-color:color-mix(in srgb,var(--accent) 35%,var(--border))}.categories{display:flex;gap:4px;flex-wrap:wrap;padding-bottom:14px;border-bottom:1px solid var(--border);margin-bottom:18px}.categories button{background:none;border:0;padding:7px 9px;border-radius:6px;font-size:12px;color:var(--muted-foreground)}.categories button[aria-pressed=true]{background:var(--muted);color:var(--foreground)}.category{margin:0 0 24px}.section-label{display:flex;align-items:center;gap:10px;margin:0 0 9px}.section-label span{font:10px var(--font-mono);color:var(--accent)}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.specimen{padding:16px;border:1px solid var(--border);border-radius:var(--radius);background:var(--card);min-width:0}.specimen>h3{margin-bottom:14px}.full{grid-column:1/-1}.inset{background:var(--secondary);border-radius:7px;padding:10px}.divider{height:1px;background:var(--border);margin:12px 0}.field{display:grid;gap:5px;font-size:12px}.field small{font-size:11px;color:var(--muted-foreground)}input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=file]),textarea,select{width:100%;min-width:0;border:1px solid var(--border);background:var(--card);padding:7px 9px;border-radius:6px;min-height:33px}input::placeholder,textarea::placeholder{color:var(--muted-foreground)}textarea{resize:vertical;line-height:1.5}input[aria-invalid=true]{border-color:var(--destructive)!important}.error{color:var(--destructive)!important}.field-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}.input-group{display:flex;align-items:center;border:1px solid var(--border);border-radius:6px;overflow:hidden}.input-group span{padding:6px 9px;color:var(--muted-foreground);background:var(--secondary);font-size:11px}.input-group input{border:0!important}.input-group button{border:0;border-radius:0;box-shadow:none}.check{display:flex;gap:8px;align-items:center;font-size:12px}.check input{accent-color:var(--accent);width:15px;height:15px;margin:0}.switch{appearance:none;width:30px!important;height:18px!important;border-radius:12px;background:var(--border);position:relative;flex-shrink:0;cursor:pointer}.switch:before{content:'';position:absolute;width:14px;height:14px;left:2px;top:2px;border-radius:50%;background:var(--card);box-shadow:0 1px 2px #0002}.switch:checked{background:var(--accent)}.switch:checked:before{left:14px}.range{width:100%;accent-color:var(--accent)}.segment{display:inline-flex;padding:3px;background:var(--muted);border-radius:7px;gap:2px}.segment button{border:1px solid transparent;background:none;border-radius:5px;padding:5px 9px;color:var(--muted-foreground);font-size:11px}.segment button[aria-pressed=true]{background:var(--card);border-color:var(--border);color:var(--foreground);box-shadow:0 1px 2px #0000000a}.tag{display:inline-flex;align-items:center;gap:5px;font-size:11px;padding:2px 6px;border-radius:5px;background:var(--muted)}.tag button{padding:0 2px;border:0;background:none;color:var(--muted-foreground)}.badge{display:inline-flex;gap:5px;align-items:center;padding:3px 6px;border-radius:5px;font-size:10px;background:var(--muted);color:var(--muted-foreground)}.badge:before{content:'';width:4px;height:4px;background:currentColor;border-radius:50%}.success{color:var(--success)}.warning{color:var(--warning)}.info{color:var(--info)}.badge.success{background:color-mix(in srgb,var(--success) 10%,var(--card))}.badge.warning{background:color-mix(in srgb,var(--warning) 10%,var(--card))}.badge.error{background:color-mix(in srgb,var(--destructive) 9%,var(--card))}.badge.info{background:color-mix(in srgb,var(--info) 10%,var(--card))}.avatar{display:inline-grid;place-items:center;width:27px;height:27px;border-radius:50%;background:var(--accent-surface);color:var(--accent);font-size:10px;border:2px solid var(--card)}.avatars{display:flex}.avatars .avatar+.avatar{margin-left:-6px}.avatar.square{border-radius:6px}.breadcrumb{display:flex;gap:7px;align-items:center;font-size:11px;flex-wrap:wrap}.breadcrumb button{background:none;border:0;color:var(--muted-foreground);padding:0}.tabs{display:flex;gap:15px;border-bottom:1px solid var(--border)}.tabs button{padding:8px 0;border:0;border-bottom:2px solid transparent;background:none;font-size:12px;color:var(--muted-foreground)}.tabs button[aria-selected=true]{color:var(--foreground);border-bottom-color:var(--accent)}.navdemo{background:var(--secondary);padding:8px;border-radius:7px;display:grid;gap:3px}.navdemo button{display:flex;justify-content:space-between;border:0;background:none;color:var(--muted-foreground);border-radius:5px;padding:7px 8px;font-size:12px}.navdemo button[aria-pressed=true]{background:var(--muted);color:var(--foreground)}details{font-size:12px}summary{padding:7px 0}details p{padding:5px 0 10px;color:var(--muted-foreground);font-size:11px}.tree{border-left:1px solid var(--border);margin-left:6px;padding-left:13px}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:12px}th{font-weight:400;color:var(--muted-foreground);font-size:11px;text-align:left;background:var(--secondary)}th,td{padding:10px 8px;border-bottom:1px solid var(--border);white-space:nowrap}td:first-child,th:first-child{width:28px}td input,th input{accent-color:var(--accent)}th button{border:0;background:none;padding:0;color:inherit;font-size:inherit}.link-button{border:0;padding:0;background:none;color:var(--foreground);text-align:left}.link-button:hover{text-decoration:underline}.table-tools{margin-bottom:12px}.table-tools input{max-width:220px}.table-tools select{max-width:145px}.pagination{margin-top:12px}.metric{font-size:27px;letter-spacing:-1px;font-variant-numeric:tabular-nums}.metric span{font-size:14px;color:var(--muted-foreground)}.meter{display:flex;gap:3px;height:12px;margin:10px 0}.meter i{flex:1;min-width:0;border-radius:1px;background:var(--border)}.meter i.on{background:var(--accent)}.timeline{list-style:none;padding:0 0 0 10px;margin:0}.timeline li{position:relative;border-left:1px solid var(--border);padding:0 0 15px 15px;font-size:12px}.timeline li:before{content:'';position:absolute;left:-4px;top:5px;width:7px;height:7px;border-radius:50%;background:var(--success)}.timeline li:last-child{border-color:transparent;padding-bottom:0}.timeline li.pending:before{background:var(--warning)}.timeline small{display:block;font-size:11px;color:var(--muted-foreground);margin-top:2px}.menu{border:1px solid var(--border);border-radius:8px;background:var(--card);box-shadow:0 5px 14px #0000000c;padding:5px}.menu button{display:flex;justify-content:space-between;align-items:center;width:100%;border:0;background:none;padding:8px;border-radius:4px;text-align:left;font-size:12px}.menu button:hover{background:var(--muted)}.menu hr{border:0;border-top:1px solid var(--border);margin:4px}.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-top:10px}.calendar span{text-align:center;color:var(--muted-foreground);font-size:10px;padding:4px}.calendar button{border:0;background:none;border-radius:5px;padding:6px 0;font-size:12px}.calendar button:hover{background:var(--muted)}.calendar button[aria-pressed=true]{background:var(--primary);color:var(--primary-foreground)}.upload{border:1px dashed var(--border);background:var(--secondary);padding:16px;text-align:center;border-radius:7px}.upload input{max-width:100%;font-size:11px;margin-top:10px}.upload input::file-selector-button{background:var(--card);border:1px solid var(--border);padding:5px 8px;border-radius:5px;color:var(--foreground);margin-right:8px}.alert{padding:10px 12px;border-radius:6px;border:1px solid var(--border);font-size:12px;background:var(--secondary)}.alert.warning{background:color-mix(in srgb,var(--warning) 7%,var(--card));border-color:color-mix(in srgb,var(--warning) 25%,var(--border))}.alert.error{background:color-mix(in srgb,var(--destructive) 6%,var(--card));border-color:color-mix(in srgb,var(--destructive) 25%,var(--border))}.empty{padding:20px 10px;text-align:center;background:var(--secondary);border-radius:7px}.empty p{font-size:11px;color:var(--muted-foreground);margin:6px 0 12px}.skeleton{height:10px;border-radius:4px;background:var(--muted);margin:8px 0}.spinner{display:inline-block;width:13px;height:13px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 1s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.spinner{animation:none}}.footer{font-size:11px;color:var(--muted-foreground);padding:6px 0 12px}.feedback{font-size:11px;color:var(--success);min-height:16px}.toast{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;box-shadow:0 4px 12px #00000010;display:flex;align-items:center;justify-content:space-between;gap:8px}.tooltip-wrap{position:relative;display:inline-flex}.tip{display:none;position:absolute;bottom:calc(100% + 7px);left:0;min-width:160px;border-radius:5px;background:var(--primary);color:var(--primary-foreground);padding:6px 8px;font-size:11px;z-index:2}.tooltip-wrap:hover .tip,.tooltip-wrap:focus-within .tip{display:block}.popover{border:1px solid var(--border);border-radius:8px;background:var(--card);box-shadow:0 5px 18px #0002;padding:16px;color:var(--foreground);max-width:290px}.popover h3{margin-bottom:12px}dialog{color:var(--foreground);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;width:min(440px,calc(100% - 32px));max-height:85%;box-shadow:0 16px 60px #0003}dialog::backdrop{background:#15161766}dialog header{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:14px}dialog footer{display:flex;justify-content:flex-end;gap:8px;border-top:1px solid var(--border);margin-top:20px;padding-top:14px}.close{background:none;border:0;color:var(--muted-foreground);font-size:20px;padding:0 3px}.drawer{margin-right:8px;width:min(350px,calc(100% - 16px))}.command-results{margin-top:10px}.command-results button{width:100%;display:flex;justify-content:space-between;border:0;background:none;padding:10px;border-radius:5px;text-align:left;font-size:12px}.command-results button:hover{background:var(--muted)}.command-results button:focus{background:var(--muted)}.command-results kbd{margin-left:10px}[hidden]{display:none!important}.stepper{display:inline-flex;align-items:center;gap:7px}.stepper output{min-width:28px;text-align:center;font:12px var(--font-mono)}.steps{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:11px}.steps span{padding:5px 8px;background:var(--muted);border-radius:5px}.steps span[aria-current=step]{background:var(--accent-surface);color:var(--accent)}
+@media(max-width:560px){.grid{grid-template-columns:1fr}.full{grid-column:auto}.header{padding-right:0}.specimen{padding:14px}.categories{gap:1px}.categories button{padding:7px}.table-wrap table{min-width:520px}}@media(pointer:coarse){button,.button,.segment button,.navdemo button,.calendar button,summary{min-height:44px}input:not([type=checkbox]):not([type=radio]):not([type=range]),textarea,select{font-size:16px}.check{min-height:36px}}
+.pc-field{position:relative;min-width:0;--pc-bg:var(--card,#1e1e1e);--pc-raised:var(--secondary,#292929);--pc-text:var(--foreground,#eee);--pc-muted:var(--muted-foreground,#aaa);--pc-border:var(--border,#ffffff18);color:var(--pc-text);font:13px/1.45 var(--font-sans,system-ui)}
+.pc-field .pc-trigger{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;min-height:36px;margin:0;padding:7px 10px;background:var(--pc-bg);border:1px solid var(--pc-border);border-radius:6px;color:inherit;font:inherit;text-align:left;cursor:pointer;white-space:nowrap}
+.pc-field .pc-trigger:hover{background:var(--pc-raised)}.pc-field .pc-trigger[aria-expanded=true]{border-color:var(--chart-1,#89b9ed)}.pc-field .pc-trigger:disabled{opacity:.45;cursor:not-allowed}.pc-field .pc-label{overflow:hidden;text-overflow:ellipsis}.pc-field .pc-arrow{color:var(--pc-muted);font-size:11px}.pc-field input.pc-trigger{cursor:text}.pc-field .pc-trigger:focus-visible{outline:2px solid var(--chart-1,#89b9ed);outline-offset:2px}
+.pc-popup{position:fixed;inset:auto;margin:0;padding:5px;border:1px solid var(--pc-border,#ffffff18);border-radius:8px;background:var(--pc-bg,#1e1e1e);color:var(--pc-text,#eee);box-shadow:0 12px 32px #0006,0 2px 6px #0004;z-index:1000;font:13px/1.45 var(--font-sans,system-ui);overflow:auto;max-height:300px;box-sizing:border-box}.pc-popup[hidden]{display:none}.pc-popup .pc-caption{padding:5px 8px 7px;font-size:10px;color:var(--pc-muted,#aaa);letter-spacing:.07em;text-transform:uppercase}.pc-option{padding:8px;border-radius:4px;display:flex;align-items:center;gap:8px;cursor:pointer;min-height:34px}.pc-option.pc-active{background:var(--pc-raised,#292929)}.pc-option[aria-disabled=true]{opacity:.4;cursor:not-allowed}.pc-option .pc-check{margin-left:auto;color:var(--chart-1,#89b9ed);width:14px;text-align:center}.pc-option .pc-option-text{flex:1;min-width:0}.pc-option .pc-description{display:block;color:var(--pc-muted,#aaa);font-size:11px}.pc-option .pc-status{width:6px;height:6px;border-radius:50%;flex-shrink:0;background:var(--tone)}.pc-popup .pc-empty{padding:14px 8px;color:var(--pc-muted,#aaa);font-size:12px}.pc-help{padding:6px 8px 3px;border-top:1px solid var(--pc-border,#ffffff18);font-size:10px;color:var(--pc-muted,#aaa)}.pc-sr{position:absolute;width:1px;height:1px;clip-path:inset(50%);overflow:hidden;white-space:nowrap}
+@media(pointer:coarse){.pc-field .pc-trigger,.pc-option{min-height:44px}}
+
+.pc-select.pc-searchable:after{content:"⌄";position:absolute;right:10px;top:9px;pointer-events:none;color:var(--pc-muted);font-size:11px}.pc-select.pc-searchable input.pc-trigger{padding-right:28px}
+
+.pc-field .pc-prefix{position:absolute;left:10px;top:10px;display:flex;align-items:center;pointer-events:none}.pc-field.pc-has-prefix input.pc-trigger{padding-left:38px!important}.pc-editing .pc-prefix{visibility:hidden}.pc-flag{display:block;width:20px;height:15px;object-fit:cover;border-radius:2px;flex:none}.pc-language{display:flex;align-items:center;gap:10px;flex:1;min-width:0}.pc-language .pc-language-copy{flex:1}.pc-language small{display:block;font-size:11px;color:var(--pc-muted,#aaa)}.pc-language-code{font:11px ui-monospace,monospace;color:var(--pc-muted,#aaa);text-transform:uppercase}.pc-all-languages{width:20px;height:15px;display:flex;align-items:center;justify-content:center;font-size:20px;line-height:15px;color:var(--pc-muted,#aaa)}
+</style><link rel="stylesheet" href="/gallery-enhancements.css"><link rel="stylesheet" href="/data-components.css"><link rel="stylesheet" href="/developer-components.css"><link rel="stylesheet" href="/app-components.css"><link rel="stylesheet" href="/surface-components.css"><link rel="stylesheet" href="/workflow-components.css"><link rel="stylesheet" href="/html-elements.css"></head><body>
+<main id="library">
+<header class="header"><div><h1>Component library</h1><p>Compact workspace style · interactive specimens</p></div><div class="segment" aria-label="Appearance"><button data-theme="light" aria-pressed="true">Light</button><button data-theme="dark" aria-pressed="false">Dark</button></div></header>
+<nav class="categories" aria-label="Component categories"><button data-category="all" aria-pressed="true">All</button><button data-category="controls" aria-pressed="false">Controls</button><button data-category="forms" aria-pressed="false">Forms</button><button data-category="navigation" aria-pressed="false">Navigation</button><button data-category="charts" aria-pressed="false">Charts</button><button data-category="data" aria-pressed="false">Data</button><button data-category="html" aria-pressed="false">HTML foundations</button><button data-category="workflows" aria-pressed="false">Product workflows</button><button data-category="surfaces" aria-pressed="false">Cards & panels</button><button data-category="apps" aria-pressed="false">App workflows</button><button data-category="developer" aria-pressed="false">Developer</button><button data-category="overlays" aria-pressed="false">Overlays</button><button data-category="feedback" aria-pressed="false">Feedback</button></nav>
+<section class="category" data-group="controls"><div class="section-label"><span>01</span><h2>Actions & selection</h2></div><div class="grid">
+<article class="specimen"><h3>Buttons · variants, sizes & states</h3><div class="stack"><div class="row"><button class="button primary" data-notify="Changes saved in this preview.">Save changes</button><button class="button" data-notify="Preview opened locally.">Preview</button><button class="button ghost" data-notify="Cancelled.">Cancel</button></div><div class="row"><button class="button danger" data-open="confirm">Delete project</button><button class="button" disabled>Unavailable</button><button class="button" disabled><span class="spinner" aria-hidden="true"></span> Saving</button></div><div class="row"><button class="button small-button" data-notify="Small button pressed.">Small</button><button class="button" data-notify="Default button pressed.">Default</button><button class="button large" data-notify="Large button pressed.">Large</button><button class="button" aria-label="Add item" data-open="edit">+</button></div><div class="feedback" data-feedback></div></div></article>
+<article class="specimen"><h3>Checkboxes, radios & switches</h3><div class="field-pair"><div class="stack"><label class="check"><input type="checkbox" checked> Email updates</label><label class="check"><input type="checkbox"> Product news</label><label class="check"><input type="checkbox" disabled> Managed by team</label></div><div class="stack"><label class="check"><input type="radio" name="visibility" checked> Private</label><label class="check"><input type="radio" name="visibility"> Team</label><label class="check"><input class="switch" type="checkbox" checked> Live updates</label></div></div><div class="divider"></div><label class="check"><input type="checkbox" id="mixed"> Some items selected</label></article>
+<article class="specimen"><h3>Segmented control, slider & stepper</h3><div class="stack"><div class="segment" data-single aria-label="Billing interval"><button aria-pressed="true">Monthly</button><button aria-pressed="false">Yearly</button></div><div><div class="row between"><label for="capacity">Capacity</label><output id="capacity-value" class="mono">65%</output></div><input id="capacity" class="range" type="range" min="0" max="100" value="65"></div><div class="row between"><span class="small muted">Retry attempts</span><div class="stepper"><button class="button small-button" id="less" aria-label="Fewer retries">−</button><output id="retries">3</output><button class="button small-button" id="more" aria-label="More retries">+</button></div></div></div></article>
+<article class="specimen"><h3>Tags, badges & identity</h3><div class="stack"><div class="row"><span class="badge success">Online</span><span class="badge info">Running</span><span class="badge warning">Review</span><span class="badge error">Failed</span><span class="badge">Queued</span></div><div class="row"><span class="tag">Frontend <button aria-label="Remove Frontend tag" data-remove>×</button></span><span class="tag">Design <button aria-label="Remove Design tag" data-remove>×</button></span><button class="button small-button" id="add-tag">+ Add label</button></div><div class="row between"><div class="avatars" aria-label="Luna, Alex, Sam and four others"><span class="avatar">LH</span><span class="avatar">AK</span><span class="avatar">SM</span><span class="avatar">+4</span></div><div class="row"><span class="avatar square">UI</span><span class="small">Components<br><span class="muted">Personal workspace</span></span></div></div></div></article>
+</div></section>
+<section class="category" data-group="forms"><div class="section-label"><span>02</span><h2>Inputs & forms</h2></div><div class="grid">
+<article class="specimen full"><h3>Custom select & searchable combobox</h3><div class="grid"><div class="field"><span>Status</span><select id="picker-status" aria-label="Example status"><option value="all">All statuses</option><option value="done">Done</option><option value="partial">In progress</option><option value="empty">Not started</option><option disabled>Archived · unavailable</option></select></div><div class="field"><span>Language · searchable select</span><select id="picker-language" aria-label="Example language"><option>All languages</option><option>English</option><option>Japanese</option><option>French</option><option>German</option></select></div><div class="field"><span>Find a set · free-text combobox</span><label><input id="picker-search" aria-label="Example set search" placeholder="Search sets…"></label></div><div class="field"><span>Disabled select</span><select id="picker-disabled" disabled aria-label="Unavailable workspace"><option>Workspace unavailable</option></select></div></div><p class="small muted" style="margin-top:12px">Selected, active, disabled and no-results states · ↑ ↓ navigate · Enter select · Esc close</p></article>
+
+<article class="specimen"><h3>Text fields & validation</h3><div class="stack"><label class="field">Project name<input value="Component library"><small>Visible to everyone in the workspace.</small></label><label class="field">Workspace URL<div class="input-group"><span>luna.app/</span><input aria-label="Workspace slug" value="components"></div></label><label class="field">Email<input id="email" type="email" value="luna@" aria-invalid="true" aria-describedby="email-error"><small class="error" id="email-error">Enter a complete email address.</small></label><label class="field">Organisation<input disabled value="Managed by your administrator"></label></div></article>
+<article class="specimen"><h3>Password, search & multiline</h3><div class="stack"><label class="field">Password<div class="input-group"><input id="password" type="password" value="sample-password"><button class="button" id="show-password" aria-pressed="false">Show</button></div></label><label class="field">Search<input type="search" placeholder="Search projects…"></label><label class="field">Description<textarea rows="3" placeholder="What is this project for?">Reusable components for the things I build.</textarea></label><div class="row between small muted"><span>Markdown supported</span><kbd>⌘ Enter</kbd></div></div></article>
+<article class="specimen"><h3>Assignee, environment & file upload</h3><div class="stack"><div class="field-pair"><label class="field">Environment<select><option>Production</option><option>Preview</option><option>Development</option></select></label><label class="field">Assignee<input list="people" placeholder="Find a person"><datalist id="people"><option value="Luna H."><option value="Alex K."><option value="Sam M."></datalist></label></div><div class="upload"><h3>Attach a file</h3><p class="small muted">Choose a document or image</p><input type="file" id="file" aria-label="Attach a file"><p id="file-status" class="small muted" style="margin-top:8px">No file selected</p></div><label class="field">Budget<div class="input-group"><span>£</span><input type="number" value="250" min="0" step="10" aria-label="Budget in pounds"></div></label></div></article>
+<article class="specimen"><h3>Date picker · compact calendar</h3><div class="date-demo"><div class="date-surface"><div class="row between"><button class="button small-button" id="prev-month" aria-label="Previous month">‹</button><span id="month-title">November 2026</span><button class="button small-button" id="next-month" aria-label="Next month">›</button></div><div class="calendar" id="calendar" aria-label="Choose a date"></div><div class="divider"></div><div class="row between"><output class="small muted" id="date-value">23 November 2026</output><button class="button small-button" id="clear-date">Clear</button></div></div></div></article>
+</div></section>
+<section class="category" data-group="navigation"><div class="section-label"><span>03</span><h2>Navigation & structure</h2></div><div class="grid">
+<article class="specimen"><h3>Breadcrumbs, tabs & pagination</h3><div class="stack"><nav class="breadcrumb" aria-label="Breadcrumb"><button data-notify="Workspace selected.">Workspace</button><span class="muted">/</span><button data-notify="Projects selected.">Projects</button><span class="muted">/</span><span aria-current="page">Components</span></nav><div><div class="tabs" role="tablist" aria-label="Project settings"><button id="tab-general" role="tab" aria-selected="true" aria-controls="tab-content" data-tab="General">General</button><button id="tab-members" role="tab" aria-selected="false" aria-controls="tab-content" data-tab="Members">Members</button><button id="tab-billing" role="tab" aria-selected="false" aria-controls="tab-content" data-tab="Billing">Billing</button></div><div class="inset small muted" id="tab-content" role="tabpanel" aria-labelledby="tab-general" style="margin-top:10px">Project name, description, and visibility.</div></div><nav class="row between" aria-label="Pagination"><button class="button small-button" id="page-prev" disabled>Previous</button><span class="mono" id="page-number">1 / 8</span><button class="button small-button" id="page-next">Next</button></nav><div class="feedback" data-feedback></div></div></article>
+<article class="specimen"><h3>Sidebar, tree & disclosure</h3><div class="field-pair"><nav class="navdemo" data-single aria-label="Example sidebar"><button aria-pressed="true">Overview <span class="mono">8</span></button><button aria-pressed="false">Activity <span class="mono">12</span></button><button aria-pressed="false">Settings</button></nav><div><details open><summary>Components</summary><div class="tree"><details><summary>Forms</summary><p>Input · Select · Checkbox</p></details><details><summary>Navigation</summary><p>Tabs · Sidebar · Breadcrumbs</p></details></div></details></div></div><div class="divider"></div><details><summary>Advanced settings</summary><p>Optional settings stay out of the way until you need them.</p><label class="check"><input type="checkbox"> Enable debug logs</label></details></article>
+<article class="specimen full"><h3>Step navigation</h3><div class="row between"><nav class="steps" aria-label="Setup progress"><span id="step-1" aria-current="step">1 · Details</span><span id="step-2">2 · Members</span><span id="step-3">3 · Review</span></nav><div class="row"><button class="button small-button" id="step-back" disabled>Back</button><button class="button primary small-button" id="step-next">Continue</button></div></div><p class="small muted" id="step-copy" style="margin-top:12px">Name your workspace and choose its visibility.</p></article>
+</div></section>
+<section class="category" data-group="data"><div class="section-label"><span>04</span><h2>Tables & data display</h2></div><div class="grid">
+<article class="specimen full"><h3>TanStack Table · search, filter, sort, selection & pagination</h3><div class="row between table-tools"><input id="table-search" type="search" placeholder="Find a project…" aria-label="Find a project"><select id="status-filter" aria-label="Filter by status"><option value="all">All statuses</option><option>Ready</option><option>Building</option><option>Failed</option></select><details class="column-menu"><summary class="button small-button">Columns ⌄</summary><div class="column-options" id="column-options"></div></details></div><div class="inset row between" id="bulk" hidden style="margin-bottom:10px"><span id="selected-count" class="small"></span><button class="button small-button" id="clear-selection">Clear selection</button></div><div class="table-wrap"><table><thead><tr><th><input type="checkbox" id="select-all" aria-label="Select visible projects"></th><th><button id="sort-name">Project ↑</button></th><th>Status</th><th>Owner</th><th>Updated</th></tr></thead><tbody id="project-rows"></tbody></table></div><div class="row between pagination"><span class="small muted" id="table-count"></span><span class="small muted">Select a project to inspect</span></div><div class="table-pagination"><div class="row"><span class="small muted">Rows per page</span><select id="table-size" aria-label="Rows per page"><option value="5">5</option><option value="10">10</option><option value="25">25</option></select></div><span class="small muted" id="table-page"></span><div class="row"><button class="button small-button" id="table-prev">Previous</button><button class="button small-button" id="table-next">Next</button></div></div></article>
+<article class="specimen"><h3>Metric, usage meter & key/value rows</h3><div class="row between"><span class="small muted">Storage used</span><span class="badge success">Healthy</span></div><div class="metric">24.8 <span>/ 40 GB</span></div><div class="meter" data-meter="62" role="meter" aria-label="Storage used" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100"></div><div class="row between small muted"><span>62% used</span><span>15.2 GB available</span></div><div class="divider"></div><div class="stack small"><div class="row between"><span class="muted">Region</span><span>London · eu-west-2</span></div><div class="row between"><span class="muted">Last backup</span><span class="mono">23 Nov, 09:42</span></div></div></article>
+<article class="specimen"><h3>Activity timeline</h3><ol class="timeline"><li>Deployment created<small>Luna · 09:40</small></li><li>Build completed<small>32 checks passed · 09:41</small></li><li class="pending">Waiting for approval<small>Production environment</small></li></ol><div class="divider"></div><div class="row"><button class="button primary small-button" data-notify="Deployment approved in this preview.">Approve</button><button class="button small-button" data-open="drawer">View details</button></div><div class="feedback" data-feedback style="margin-top:8px"></div></article>
+</div></section>
+<section class="category" data-group="overlays"><div class="section-label"><span>05</span><h2>Menus & overlays</h2></div><div class="grid">
+<article class="specimen"><h3>Dropdown menu & contextual actions</h3><div class="menu"><button data-open="edit">Rename project <kbd>↵</kbd></button><button data-notify="Project duplicated in this preview.">Duplicate <kbd>⌘ D</kbd></button><button data-notify="Sample link: luna.app/projects/components">Copy link <kbd>⌘ L</kbd></button><hr><button class="error" data-open="confirm">Delete project</button></div><div class="feedback" data-feedback style="margin-top:8px"></div></article>
+<article class="specimen"><h3>Popover & tooltip</h3><div class="stack"><p class="small muted">Small controls keep supporting detail close.</p><div class="row"><button class="button" popovertarget="filter-popover">Filter projects ▾</button><span class="tooltip-wrap"><button class="button" aria-describedby="tip-copy">Hover or focus</button><span role="tooltip" class="tip" id="tip-copy">More detail, without leaving your place.</span></span></div><div class="inset"><div class="row between"><h3>Current filters</h3><span class="mono" id="popover-count">0 active</span></div><p class="small muted" id="popover-summary" style="margin-top:6px">All environments and owners</p></div></div></article>
+<article class="specimen"><h3>Dialog, confirmation & drawer</h3><div class="stack"><button class="button" data-open="edit">Open edit dialog</button><button class="button danger" data-open="confirm">Open delete confirmation</button><button class="button" data-open="drawer">Open detail drawer</button><p class="small muted">Escape closes overlays. Focus returns to the trigger.</p></div></article>
+<article class="specimen"><h3>Command palette</h3><button class="button row between" data-open="command" style="width:100%"><span>Search commands…</span><kbd>⌘ K</kbd></button><div class="inset" style="margin-top:12px"><p class="small muted">Projects, navigation, and actions in one searchable menu.</p><div class="row" style="margin-top:10px"><kbd>↑</kbd><kbd>↓</kbd><span class="small muted">navigate</span><kbd>Enter</kbd><span class="small muted">select</span></div></div></article>
+</div></section>
+<section class="category" data-group="feedback"><div class="section-label"><span>06</span><h2>Feedback & application states</h2></div><div class="grid">
+<article class="specimen"><h3>Alerts & inline recovery</h3><div class="stack"><div class="alert row between"><span>Changes saved successfully.</span><span class="success">✓</span></div><div class="alert warning">Storage is almost full.<br><span class="small">Remove unused files or increase your limit.</span></div><div class="alert error" id="connection-alert"><div class="row between"><span>Couldn’t connect.</span><button class="button small-button" id="retry">Retry</button></div><p class="small" id="connection-copy">Your changes are saved locally.</p></div></div></article>
+<article class="specimen"><h3>Toast & undo</h3><div class="toast" id="example-toast"><span class="small"><span class="success">✓</span> Project archived</span><button class="button small-button ghost" id="undo">Undo</button><button class="close" aria-label="Dismiss notification" id="dismiss-toast">×</button></div><button class="button small-button" id="show-toast" style="margin-top:13px">Show notification</button><div class="feedback" id="toast-result" style="margin-top:8px" aria-live="polite"></div><div class="divider"></div><div class="row between"><span class="small muted">Saving your changes</span><span class="spinner" role="status" aria-label="Saving"></span></div><div class="meter" data-meter="70" role="progressbar" aria-label="Upload progress" data-progress-detail="7 of 10 files uploaded" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div><span class="small muted">7 of 10 files uploaded</span></article>
+<article class="specimen"><h3>Empty state</h3><div class="empty" id="empty-state"><h3>No projects yet</h3><p>Your projects will appear here once created.</p><button class="button primary" id="create-first">+ Create project</button></div></article>
+<article class="specimen"><h3>Skeleton & loaded state</h3><div id="skeleton" aria-label="Loading project details"><div class="row"><div class="skeleton" style="height:28px;width:28px"></div><div style="flex:1"><div class="skeleton" style="width:65%"></div><div class="skeleton" style="width:40%"></div></div></div><div class="skeleton"></div><div class="skeleton" style="width:80%"></div></div><div class="inset" id="loaded" hidden><div class="row"><span class="avatar square">UI</span><div><h3>Component library</h3><span class="small muted">Updated just now</span></div></div></div><button class="button small-button" id="toggle-load" style="margin-top:12px">Show loaded content</button></article>
+</div></section>
+<section class="category" data-group="forms"><div class="section-label"><span>07</span><h2>Advanced inputs</h2></div><div class="grid">
+<article class="specimen"><h3>Multi-select · removable people chips</h3><div class="tags-value" id="team-tags" aria-live="polite"></div><div class="multi-options" id="team-options"><button class="button" aria-pressed="true">Luna H.</button><button class="button" aria-pressed="false">Alex K.</button><button class="button" aria-pressed="false">Sam M.</button><button class="button" aria-pressed="false">Ella M.</button></div></article>
+<article class="specimen"><h3>Verification code · paste and keyboard support</h3><div class="otp" id="otp" aria-label="Six digit verification code"></div><p id="otp-status" class="feedback" aria-live="polite" style="margin-top:12px">Enter the six-digit code.</p></article>
+<article class="specimen"><h3>Radio cards</h3><div class="radio-cards"><label class="radio-card"><input type="radio" name="visibility" checked> Private<p>Only invited people can access this project.</p></label><label class="radio-card"><input type="radio" name="visibility"> Team<p>Everyone in the workspace can access it.</p></label></div></article>
+<article class="specimen"><h3>Time & duration</h3><label class="field">Start time<div class="duration-input"><input type="number" id="time-hour" min="0" max="23" value="9" aria-label="Hour"><span>:</span><input type="number" id="time-minute" min="0" max="59" step="5" value="30" aria-label="Minute"></div></label><label class="field" style="margin-top:14px">Duration<select aria-label="Duration"><option>15 minutes</option><option selected>30 minutes</option><option>1 hour</option><option>2 hours</option></select></label></article>
+<article class="specimen full"><h3>Date range · start and end dates</h3><div class="range-demo"><div class="date-surface"><div class="row between"><strong>November 2026</strong><span class="small muted">Start</span></div><div class="calendar" id="range-start"></div></div><div class="date-surface"><div class="row between"><strong>December 2026</strong><span class="small muted">End</span></div><div class="calendar" id="range-end"></div></div></div><output class="feedback" id="range-value" style="display:block;margin-top:12px">Choose a start and end date.</output><button class="button small-button" id="range-clear">Clear range</button></article>
+</div></section>
+<section class="category" data-group="overlays"><div class="section-label"><span>08</span><h2>More app patterns</h2></div><div class="grid">
+<article class="specimen"><h3>Split action button</h3><div class="split-button"><button class="button primary" id="publish-action">Publish now</button><button class="button primary" popovertarget="publish-menu" aria-label="Publishing options">⌄</button></div><div class="split-menu" popover id="publish-menu"><button data-publish="Publish now">Publish now</button><button data-publish="Save draft">Save draft</button><button data-publish="Schedule publication">Schedule publication</button></div><p id="publish-result" class="feedback" style="margin-top:12px" aria-live="polite"></p></article>
+<article class="specimen"><h3>Copyable code</h3><div class="copy-block"><code id="copy-text">npm run dev</code><button class="button small-button" id="copy-command">Copy</button></div><p class="feedback" id="copy-result" aria-live="polite" style="margin-top:12px"></p></article>
+<article class="specimen"><h3>Context menu</h3><div class="context-target" id="context-target" tabindex="0">Project assets<br><span class="small">Right-click or press Shift + F10</span><div style="margin-top:12px"><button class="button small-button" id="context-open">Open actions</button></div></div><div class="split-menu" id="context-menu" popover><button data-context="Renamed in this preview">Rename</button><button data-context="Duplicated in this preview">Duplicate</button><button data-context="Archived in this preview">Archive</button></div><p class="feedback" id="context-result" aria-live="polite"></p></article>
+<article class="specimen"><h3>Notifications</h3><div class="row between"><span class="small muted" id="unread-count">2 unread</span><button class="button small-button ghost" id="mark-read">Mark all read</button></div><div class="notification-list"><div class="notification unread"><div>Deployment completed<small>Production · 2 minutes ago</small></div></div><div class="notification unread"><div>Alex joined the workspace<small>Team · 18 minutes ago</small></div></div><div class="notification"><div>Backup completed<small>Storage · 1 hour ago</small></div></div></div></article>
+<article class="specimen full"><h3>Resizable split panel</h3><div class="split-panels" id="split-panels"><section><h3>Files</h3><p class="muted" style="margin-top:10px">components/<br>tokens/<br>examples/</p></section><div role="separator" id="resize-handle" tabindex="0" aria-label="Resize navigation" aria-orientation="vertical" aria-valuenow="40" aria-valuemin="20" aria-valuemax="70"></div><section><h3>Component preview</h3><p class="muted" style="margin-top:10px">Drag the divider, or focus it and use the arrow keys.</p></section></div></article>
+<article class="specimen full"><h3>Accordion · one section open at a time</h3><details name="settings-accordion" open><summary>Workspace access</summary><div class="expanded-details">Invite people and manage their roles.</div></details><details name="settings-accordion"><summary>Data retention</summary><div class="expanded-details">Activity is kept for 90 days.</div></details><details name="settings-accordion"><summary>Export settings</summary><div class="expanded-details">Exports include projects, members and activity.</div></details></article>
+</div></section>
+
+<section class="category" data-group="charts" id="charts"><div class="section-label"><span>09</span><h2>Charts & analytics</h2><span class="chart-engine">TanStack Charts · sample data</span></div><div class="grid">
+<article class="specimen full"><div class="chart-heading"><div><h3>Request traffic</h3><p class="muted small">Line chart · compare services and inspect each time bucket</p></div><div class="segment" id="chart-window" aria-label="Traffic time window"><button data-window="12" aria-pressed="true">1 hour</button><button data-window="24" aria-pressed="false">6 hours</button><button data-window="48" aria-pressed="false">24 hours</button></div></div><div class="chart-legends" id="traffic-legend"><button aria-pressed="true" data-series="API"><i style="background:var(--info)"></i>API</button><button aria-pressed="true" data-series="Worker"><i style="background:var(--accent)"></i>Worker</button></div><div class="chart-host" id="traffic-chart"></div><p class="small muted chart-caption">Requests / minute · focus the chart and use arrow keys to inspect values.</p></article>
+<article class="specimen"><div class="chart-heading"><div><h3>Memory allocation</h3><p class="muted small">Stacked area · application and cache usage</p></div><span class="badge success">Healthy</span></div><div class="chart-host" id="memory-chart"></div><div class="chart-legends"><span><i style="background:var(--info)"></i>Application</span><span><i style="background:var(--accent)"></i>Cache</span></div></article>
+<article class="specimen"><div class="chart-heading"><div><h3>Deployments by day</h3><p class="muted small">Stacked bars · completed and failed builds</p></div><button class="button small-button" id="bar-sort">Sort by total</button></div><div class="chart-host" id="deploy-chart"></div><div class="chart-legends"><span><i style="background:var(--success)"></i>Completed</span><span><i style="background:var(--destructive)"></i>Failed</span></div></article>
+<article class="specimen chart-detail-card"><div class="chart-heading"><div><h3>Storage breakdown</h3><p class="muted small">Donut · select a segment for details</p></div><span class="mono">5.1 TB total</span></div><div class="chart-host" id="storage-chart"></div><div class="chart-legends"><span><i style="background:var(--info)"></i>Media · 2.4 TB</span><span><i style="background:var(--accent)"></i>Backups · 1.6 TB</span><span><i style="background:var(--warning)"></i>Projects · 1.1 TB</span></div><p class="chart-selection" id="storage-selection" aria-live="polite">Select a storage category.</p></article>
+<article class="specimen chart-detail-card"><div class="chart-heading"><div><h3>Load & latency</h3><p class="muted small">Scatter · inspect an individual request sample</p></div><span class="badge info">48 samples</span></div><div class="chart-host" id="latency-chart"></div><p class="chart-selection" id="latency-selection" aria-live="polite">Select a point to see its CPU load and latency.</p></article>
+<article class="specimen full"><div class="chart-heading"><div><h3>Service activity</h3><p class="muted small">Heatmap · requests across services and hours</p></div><div class="chart-legends"><span>Less</span><span class="heat-ramp" aria-hidden="true"></span><span>More</span></div></div><div class="chart-host" id="activity-chart"></div><p class="small muted chart-caption">Hover or use arrow keys for exact counts. Colour represents request volume.</p></article>
+</div></section>
+<section class="category" data-group="data" id="advanced-data"><div class="section-label"><span>10</span><h2>Large datasets & hierarchy</h2></div><div class="grid">
+<article class="specimen full"><div class="chart-heading"><div><h3>Virtualized event log</h3><p class="muted small">TanStack Virtual · 10,000 sample events</p></div><button class="button small-button" id="log-latest">Jump to latest</button></div><div class="data-toolbar"><input type="search" id="log-search" placeholder="Search events…" aria-label="Search event log"><select id="log-level" aria-label="Log level"><option value="all">All levels</option><option value="ERROR">Errors</option><option value="WARN">Warnings</option><option value="INFO">Information</option></select></div><div class="virtual-log" id="virtual-log" tabindex="0" role="list" aria-label="Event log"><div id="log-spacer" role="presentation"></div></div><p class="small muted chart-caption" id="log-count" role="status"></p></article>
+<article class="specimen full"><div class="chart-heading"><div><h3>Grouped resource table</h3><p class="muted small">TanStack Table · expand environments and compare resource totals</p></div><button class="button small-button" id="group-expand">Collapse all</button></div><div class="table-wrap"><table id="grouped-table"><caption class="pc-sr">Services grouped by environment with request and memory totals</caption><thead><tr><th scope="col">Environment / service</th><th scope="col">Requests / min</th><th scope="col">Memory (GiB)</th><th scope="col">Services</th></tr></thead><tbody></tbody></table></div></article>
+<article class="specimen full"><div class="chart-heading"><div><h3>File explorer</h3><p class="muted small">@pierre/trees + @pierre/diffs · searchable files and syntax highlighting</p></div></div><div class="file-explorer"><div class="tree-sidebar"><div class="tree-search"><input id="file-search" type="search" placeholder="Find a file…" aria-label="Search project files"></div><div class="pierre-tree" id="pierre-file-tree"></div></div><section class="file-preview" aria-label="Selected file preview"><div class="row between"><strong id="file-preview-name">TrafficChart.ts</strong><span class="muted small">Read only</span></div><div class="pierre-file-preview pierre-surface" id="file-preview-code"></div></section></div></article>
+</div></section>
+
+<section class="category" data-group="developer" id="developer"><div class="section-label"><span>11</span><h2>Code & developer tools</h2><span class="chart-engine">Pierre libraries · local examples</span></div><p id="developer-status" class="small muted" role="status">Loading developer components…</p><div class="grid">
+<article class="specimen full"><div class="chart-heading"><div><h3>Code diff</h3><p class="muted small">@pierre/diffs · line selection and word-level changes</p></div><div class="row"><div class="segment" id="diff-layout" aria-label="Diff layout"><button data-layout="split" aria-pressed="true">Split</button><button data-layout="unified" aria-pressed="false">Unified</button></div><label class="check"><input type="checkbox" id="diff-wrap" checked>Wrap lines</label></div></div><div class="pierre-surface" id="code-diff"></div><p class="dev-feedback" id="diff-selection" role="status">Select line numbers to inspect a range.</p></article>
+<article class="specimen full"><div class="chart-heading"><div><h3>Merge conflict resolution</h3><p class="muted small">Choose current, incoming or both changes · @pierre/diffs</p></div><button class="button small-button" id="conflict-reset">Reset example</button></div><div class="pierre-surface" id="merge-conflict"></div><p class="dev-feedback" id="conflict-status" role="status">1 unresolved conflict · retry policy</p></article>
+<article class="specimen full"><div class="chart-heading"><div><h3>Inline code review</h3><p class="muted small">Line annotations with a resolvable review thread</p></div><span class="badge warning" id="review-badge">1 open thread</span></div><div class="pierre-surface" id="annotated-code"></div></article>
+<article class="specimen full"><div class="chart-heading"><div><h3>Markdown composer</h3><p class="muted small">@pierre/words · live Markdown preview</p></div><button class="button small-button" id="markdown-reset">Reset</button></div><div class="dev-columns"><label class="field">Markdown<textarea id="markdown-input" rows="12" spellcheck="false"></textarea></label><section><h4 class="dev-label">Preview</h4><div class="markdown-preview" id="markdown-preview"></div></section></div><p class="dev-feedback" id="markdown-status" role="status"></p></article>
+<article class="specimen full"><div class="chart-heading"><div><h3>Syntax highlighting playground</h3><p class="muted small">@pierre/highlights · real language tokens and matching light/dark themes</p></div><select id="syntax-language" aria-label="Syntax language"><option value="typescript">TypeScript</option><option value="json">JSON</option><option value="css">CSS</option><option value="bash">Shell</option></select></div><div class="dev-columns"><label class="field">Source<textarea id="syntax-input" rows="10" spellcheck="false"></textarea></label><section><h4 class="dev-label">Highlighted output</h4><div class="highlight-preview" id="syntax-preview"></div></section></div></article>
+<article class="specimen"><div class="chart-heading"><div><h3>JSON inspector</h3><p class="muted small">Validate, format and expand structured data</p></div><button class="button small-button" id="json-format">Format JSON</button></div><label class="field">Payload<textarea id="json-input" rows="5" spellcheck="false"></textarea></label><p class="dev-feedback" id="json-status" role="status"></p><div class="json-inspector" id="json-preview"></div></article>
+<article class="specimen"><div class="chart-heading"><div><h3>Terminal panel</h3><p class="muted small">Local demo commands · help, status, build, clear</p></div><span class="badge success">Ready</span></div><div class="terminal-output" id="terminal-output" role="log" aria-label="Demo terminal output"></div><form id="terminal-form" class="terminal-prompt"><label for="terminal-command">❯</label><input id="terminal-command" aria-label="Demo terminal command" placeholder="Type help…" autocomplete="off" spellcheck="false"><button class="button small-button" type="submit">Run</button></form></article>
+</div></section>
+
+<section class="category" data-group="apps" id="app-patterns">
+  <div class="section-label">
+    <span>12</span>
+    <h2>Everyday app workflows</h2>
+  </div>
+  <div class="grid">
+    <article class="specimen">
+      <div class="chart-heading">
+        <div>
+          <h3>Project picker</h3>
+          <p class="muted small">Search by project, team or environment</p>
+        </div>
+        <span class="badge info">6 projects</span>
+      </div>
+      <label class="field"
+        >Working project<select
+          id="app-resource"
+          data-custom-renderer
+          aria-label="Working project"
+        >
+          <option value="fleet">Fleet Monitor</option>
+          <option value="cards">Cardlattice</option>
+          <option value="components">Component library</option>
+          <option value="checkout">Checkout</option>
+          <option value="docs">Documentation</option>
+          <option value="sandbox">Sandbox</option>
+        </select></label
+      >
+      <div class="resource-details" id="resource-details"></div>
+      <p class="app-feedback" id="resource-feedback" role="status"></p>
+    </article>
+    <article class="specimen">
+      <div class="chart-heading">
+        <div>
+          <h3>Filter builder</h3>
+          <p class="muted small">
+            Combine rules and see matching projects immediately
+          </p>
+        </div>
+        <button class="button small-button ghost" id="filter-reset">
+          Reset
+        </button>
+      </div>
+      <div class="row" style="margin-bottom: 12px">
+        <span>Match</span
+        ><select id="filter-mode" aria-label="Filter matching">
+          <option value="all">All rules</option>
+          <option value="any">Any rule</option>
+        </select>
+      </div>
+      <div id="filter-rules" class="filter-rules"></div>
+      <button
+        class="button small-button"
+        id="filter-add"
+        style="margin-top: 12px"
+      >
+        + Add rule
+      </button>
+      <div class="filter-results" id="filter-results" role="status"></div>
+    </article>
+    <article class="specimen full">
+      <div class="chart-heading">
+        <div>
+          <h3>Editable project table</h3>
+          <p class="muted small">
+            Edit settings inline · Enter saves, Escape cancels
+          </p>
+        </div>
+        <span class="muted small">Local preview</span>
+      </div>
+      <div class="table-wrap">
+        <table id="editable-projects" class="app-table">
+          <caption class="pc-sr">
+            Project settings
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">Project</th>
+              <th scope="col">Daily run limit</th>
+              <th scope="col">State</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p class="app-feedback" id="editable-feedback" role="status"></p>
+    </article>
+    <article class="specimen full">
+      <div class="chart-heading">
+        <div>
+          <h3>File upload queue</h3>
+          <p class="muted small">
+            Image previews, validation, progress, cancellation and retry
+          </p>
+        </div>
+        <button class="button small-button" id="queue-clear">
+          Clear completed
+        </button>
+      </div>
+      <div class="queue-drop" id="queue-drop">
+        <strong>Drop files here</strong
+        ><span class="muted small"
+          >Images, PDF, text, CSV or JSON · up to 10 MB per file</span
+        ><button class="button" id="queue-browse">Choose files</button
+        ><input
+          type="file"
+          id="queue-files"
+          multiple
+          accept="image/*,.pdf,.txt,.csv,.json"
+          hidden
+        />
+      </div>
+      <p class="muted small" style="margin-top: 10px">
+        Transfer progress is simulated in this gallery. Files stay on your
+        device.
+      </p>
+      <ul class="upload-items" id="upload-items" aria-label="Upload queue"></ul>
+      <p class="app-feedback" id="queue-feedback" role="status">
+        No files queued.
+      </p>
+    </article>
+    <article class="specimen full">
+      <div class="chart-heading">
+        <div>
+          <h3>Workspace access</h3>
+          <p class="muted small">
+            Manage member roles, review permissions and save or discard changes
+          </p>
+        </div>
+        <span class="muted small">Local preview</span>
+      </div>
+      <form class="member-add" id="member-add">
+        <label class="field"
+          >Email<input
+            type="email"
+            id="member-email"
+            placeholder="name@example.com"
+            required
+            aria-describedby="access-feedback" /></label
+        ><label class="field"
+          >Role<select id="member-role" aria-label="New member role">
+            <option value="Viewer">Viewer</option>
+            <option value="Editor">Editor</option>
+            <option value="Admin">Admin</option>
+          </select></label
+        ><button class="button" type="submit">Add member</button>
+      </form>
+      <div class="table-wrap">
+        <table class="app-table" id="access-table">
+          <caption class="pc-sr">
+            Workspace members and access
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">Member</th>
+              <th scope="col">Role</th>
+              <th scope="col">Can do</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="access-footer">
+        <p class="app-feedback" id="access-feedback" role="status">
+          No unsaved changes.
+        </p>
+        <div class="row">
+          <button class="button" id="access-discard" disabled>Discard</button
+          ><button class="button primary" id="access-save" disabled>
+            Save changes
+          </button>
+        </div>
+      </div>
+    </article>
+    <article class="specimen full">
+      <div class="chart-heading">
+        <div>
+          <h3>Activity feed</h3>
+          <p class="muted small">
+            Search events, filter by type and open the details
+          </p>
+        </div>
+        <select id="activity-type" aria-label="Activity type">
+          <option value="all">All activity</option>
+          <option value="deployment">Deployments</option>
+          <option value="settings">Settings</option>
+          <option value="access">Access</option>
+          <option value="file">Files</option>
+        </select>
+      </div>
+      <input
+        type="search"
+        id="activity-search"
+        placeholder="Search people, projects or changes…"
+        aria-label="Search activity"
+      />
+      <ol class="app-activity" id="app-activity"></ol>
+      <div class="row between">
+        <p class="app-feedback" id="activity-count" role="status"></p>
+        <button class="button small-button" id="activity-more">
+          Load more
+        </button>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="category" data-group="surfaces" id="cards-panels">
+  <div class="section-label">
+    <span>13</span>
+    <h2>Cards, panels & utilities</h2>
+  </div>
+  <div class="grid">
+    <article class="specimen full" id="qr-generator">
+      <div class="chart-heading">
+        <div>
+          <h3>QR code generator</h3>
+          <p class="muted small">
+            URLs, text and Wi-Fi credentials · generated on your device
+          </p>
+        </div>
+        <span class="badge">SVG + PNG</span>
+      </div>
+      <div class="qr-layout">
+        <div class="stack">
+          <label class="field"
+            >Content type<select id="qr-kind" aria-label="QR content type">
+              <option value="url">Website URL</option>
+              <option value="text">Plain text</option>
+              <option value="wifi">Wi-Fi network</option>
+            </select></label
+          >
+          <label class="field" id="qr-text-field"
+            ><span id="qr-text-label">Website URL</span
+            ><textarea
+              id="qr-text"
+              rows="3"
+              maxlength="6000"
+              aria-labelledby="qr-text-label"
+              aria-describedby="qr-message"
+            >
+https://github.com/ImLunaHey/fleet-monitor</textarea>
+          </label>
+          <div id="qr-wifi-fields" class="stack" hidden>
+            <label class="field"
+              >Network name<input
+                id="qr-ssid"
+                maxlength="32"
+                placeholder="Home network"
+                autocomplete="off" /></label
+            ><label class="field"
+              >Security<select id="qr-security" aria-label="Wi-Fi security">
+                <option value="WPA">WPA / WPA2</option>
+                <option value="nopass">Open network</option>
+              </select></label
+            ><label class="field" id="qr-password-field"
+              >Password<input
+                id="qr-password"
+                type="password"
+                autocomplete="off"
+                maxlength="128"
+            /></label>
+            <p class="muted small">
+              Anyone with this code can read the network credentials.
+            </p>
+          </div>
+          <div class="field-pair">
+            <label class="field"
+              >Error correction<select
+                id="qr-correction"
+                aria-label="QR error correction"
+              >
+                <option value="L">Low</option>
+                <option value="M" selected>Medium</option>
+                <option value="Q">Quartile</option>
+                <option value="H">High</option>
+              </select></label
+            ><label class="field"
+              >PNG dimensions<select
+                id="qr-size"
+                aria-label="QR PNG dimensions"
+              >
+                <option value="512">512 × 512</option>
+                <option value="1024" selected>1024 × 1024</option>
+                <option value="2048">2048 × 2048</option>
+              </select></label
+            >
+          </div>
+          <p class="app-feedback" id="qr-message" role="status"></p>
+        </div>
+        <div class="qr-output">
+          <div
+            class="qr-preview"
+            id="qr-preview"
+            role="img"
+            aria-label="Generated QR code"
+          ></div>
+          <p class="muted small" id="qr-meta"></p>
+          <div class="row">
+            <button class="button" id="qr-svg">Download SVG</button
+            ><button class="button primary" id="qr-png">Download PNG</button>
+          </div>
+        </div>
+      </div>
+    </article>
+    <article class="specimen">
+      <h3>Metric card</h3>
+      <section class="ui-card">
+        <header class="ui-card-header">
+          <div>
+            <h4>Requests</h4>
+            <p>Production API</p>
+          </div>
+          <select id="metric-window" aria-label="Requests time window">
+            <option value="24h">Last 24 hours</option>
+            <option value="7d">Last 7 days</option>
+            <option value="30d">Last 30 days</option>
+          </select>
+        </header>
+        <div class="ui-card-body">
+          <div class="metric-value" id="surface-metric-value">128,430</div>
+          <p class="metric-change" id="surface-metric-change">
+            ↑ 12.8% vs previous 24 hours
+          </p>
+          <div
+            class="metric-bars"
+            id="surface-metric-bars"
+            aria-hidden="true"
+          ></div>
+        </div>
+        <footer class="ui-card-footer">
+          <span class="muted small" id="surface-metric-note"
+            >24 hourly samples · sample data</span
+          ><button
+            class="button small-button ghost"
+            id="metric-inspect"
+            aria-expanded="false"
+            aria-controls="metric-detail"
+          >
+            Breakdown
+          </button>
+        </footer>
+        <dl class="surface-description" id="metric-detail" hidden></dl>
+      </section>
+    </article>
+    <article class="specimen">
+      <h3>Resource card</h3>
+      <section class="ui-card">
+        <header class="ui-card-header">
+          <div class="row">
+            <span class="resource-symbol">FM</span>
+            <div>
+              <h4>Fleet Monitor</h4>
+              <p>Infrastructure · Production</p>
+            </div>
+          </div>
+          <button
+            class="button small-button ghost"
+            id="resource-pin"
+            aria-pressed="false"
+          >
+            Pin
+          </button>
+        </header>
+        <div class="ui-card-body">
+          <p>
+            Hardware telemetry, storage health and live alerts across your
+            machines.
+          </p>
+          <dl class="surface-description">
+            <div>
+              <dt>Machines</dt>
+              <dd>5 connected</dd>
+            </div>
+            <div>
+              <dt>Latest release</dt>
+              <dd>v1.8.2</dd>
+            </div>
+            <div>
+              <dt>Updated</dt>
+              <dd>2 minutes ago</dd>
+            </div>
+          </dl>
+        </div>
+        <footer class="ui-card-footer">
+          <span class="badge success">Healthy</span
+          ><a class="button small-button" href="/fleet">Open dashboard ↗</a>
+        </footer>
+      </section>
+      <p id="resource-pin-status" class="app-feedback" role="status"></p>
+    </article>
+    <article class="specimen full">
+      <h3>Settings panel</h3>
+      <form class="ui-card" id="surface-settings">
+        <header class="ui-card-header">
+          <div>
+            <h4>Project preferences</h4>
+            <p>Inline editing with validation and an unsaved state</p>
+          </div>
+          <span class="badge" id="panel-dirty">Saved</span>
+        </header>
+        <div class="ui-card-body settings-fields">
+          <label class="field"
+            >Project name<input
+              id="panel-name"
+              value="Fleet Monitor"
+              required
+              maxlength="60" /></label
+          ><label class="field"
+            >Default environment<select
+              id="panel-environment"
+              aria-label="Default environment"
+            >
+              <option>Production</option>
+              <option>Preview</option>
+              <option>Development</option>
+            </select></label
+          ><label class="check settings-checkbox"
+            ><input id="panel-notify" type="checkbox" checked /><span
+              >Email me when a deployment fails<small class="muted"
+                >Only failures in the selected environment.</small
+              ></span
+            ></label
+          >
+        </div>
+        <footer class="ui-card-footer">
+          <p class="small muted" id="panel-save-status" role="status">
+            Changes stay in this preview.
+          </p>
+          <div class="row">
+            <button class="button" id="panel-discard" type="button" disabled>
+              Discard</button
+            ><button
+              class="button primary"
+              id="panel-save"
+              type="submit"
+              disabled
+            >
+              Save changes
+            </button>
+          </div>
+        </footer>
+      </form>
+    </article>
+    <article class="specimen">
+      <h3>Tabbed detail panel</h3>
+      <section class="ui-card">
+        <header class="ui-card-header">
+          <div>
+            <h4>Production deployment</h4>
+            <p>deploy_4812 · Fleet Monitor</p>
+          </div>
+          <span class="badge success">Ready</span>
+        </header>
+        <div
+          class="surface-tabs"
+          role="tablist"
+          aria-label="Deployment details"
+        >
+          <button
+            id="surface-tab-overview"
+            role="tab"
+            aria-selected="true"
+            aria-controls="surface-overview"
+          >
+            Overview</button
+          ><button
+            id="surface-tab-activity"
+            role="tab"
+            aria-selected="false"
+            aria-controls="surface-activity"
+            tabindex="-1"
+          >
+            Activity</button
+          ><button
+            id="surface-tab-config"
+            role="tab"
+            aria-selected="false"
+            aria-controls="surface-config"
+            tabindex="-1"
+          >
+            Configuration
+          </button>
+        </div>
+        <div
+          class="ui-card-body surface-tab-body"
+          id="surface-overview"
+          role="tabpanel"
+          aria-labelledby="surface-tab-overview"
+          tabindex="0"
+        >
+          <dl class="surface-description">
+            <div>
+              <dt>Branch</dt>
+              <dd class="mono">main</dd>
+            </div>
+            <div>
+              <dt>Commit</dt>
+              <dd class="mono">4kx92ab</dd>
+            </div>
+            <div>
+              <dt>Region</dt>
+              <dd>London · eu-west-2</dd>
+            </div>
+            <div>
+              <dt>Duration</dt>
+              <dd>48 seconds</dd>
+            </div>
+          </dl>
+        </div>
+        <div
+          class="ui-card-body surface-tab-body"
+          id="surface-activity"
+          role="tabpanel"
+          aria-labelledby="surface-tab-activity"
+          tabindex="0"
+          hidden
+        >
+          <ol class="surface-timeline">
+            <li><span>Build queued</span><time>09:41:00</time></li>
+            <li><span>Dependencies installed</span><time>09:41:12</time></li>
+            <li><span>Health checks passed</span><time>09:41:42</time></li>
+            <li><span>Traffic switched</span><time>09:41:48</time></li>
+          </ol>
+        </div>
+        <div
+          class="ui-card-body surface-tab-body"
+          id="surface-config"
+          role="tabpanel"
+          aria-labelledby="surface-tab-config"
+          tabindex="0"
+          hidden
+        >
+          <dl class="surface-description">
+            <div>
+              <dt>Runtime</dt>
+              <dd>Node.js</dd>
+            </div>
+            <div>
+              <dt>Instances</dt>
+              <dd>2 replicas</dd>
+            </div>
+            <div>
+              <dt>Memory</dt>
+              <dd>1 GiB per instance</dd>
+            </div>
+            <div>
+              <dt>Health check</dt>
+              <dd class="mono">/health</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+    </article>
+    <article class="specimen">
+      <h3>Collapsible diagnostics panel</h3>
+      <div class="ui-card diagnostics-panel">
+        <header class="ui-card-header">
+          <div>
+            <h4>System checks</h4>
+            <p>Expand a check to inspect its result</p>
+          </div>
+          <span class="badge warning">1 warning</span>
+        </header>
+        <details open>
+          <summary>
+            <span>Storage pool</span><span class="badge warning">Degraded</span>
+          </summary>
+          <div class="diagnostic-body">
+            <p>
+              One drive is unavailable. The pool is rebuilding with the
+              remaining drives.
+            </p>
+            <dl class="surface-description">
+              <div>
+                <dt>Rebuild</dt>
+                <dd>97.4%</dd>
+              </div>
+              <div>
+                <dt>Data errors</dt>
+                <dd>0</dd>
+              </div>
+            </dl>
+            <a href="/fleet" class="button small-button">View storage</a>
+          </div>
+        </details>
+        <details>
+          <summary>
+            <span>Network</span><span class="badge success">Passed</span>
+          </summary>
+          <div class="diagnostic-body">
+            Gateway reachable · 8 ms latency · no packet loss.
+          </div>
+        </details>
+        <details>
+          <summary>
+            <span>Backups</span><span class="badge success">Passed</span>
+          </summary>
+          <div class="diagnostic-body">
+            Latest snapshot completed at 03:00. Seven daily snapshots retained.
+          </div>
+        </details>
+      </div>
+    </article>
+    <article class="specimen full">
+      <h3>Selectable option cards</h3>
+      <fieldset class="surface-options" id="surface-options">
+        <legend>Choose an instance size</legend>
+        <label class="ui-card option-card"
+          ><input
+            type="radio"
+            name="surface-instance"
+            value="starter"
+            checked
+          /><span
+            ><strong>Starter</strong><small>1 vCPU · 1 GiB memory</small
+            ><b>£6 <span>/ month</span></b></span
+          ></label
+        ><label class="ui-card option-card"
+          ><input type="radio" name="surface-instance" value="standard" /><span
+            ><strong>Standard</strong><small>2 vCPU · 4 GiB memory</small
+            ><b>£18 <span>/ month</span></b></span
+          ></label
+        ><label class="ui-card option-card"
+          ><input
+            type="radio"
+            name="surface-instance"
+            value="performance"
+          /><span
+            ><strong>Performance</strong><small>4 vCPU · 8 GiB memory</small
+            ><b>£36 <span>/ month</span></b></span
+          ></label
+        ><label class="ui-card option-card"
+          ><input
+            type="radio"
+            name="surface-instance"
+            value="gpu"
+            disabled
+          /><span
+            ><strong>GPU</strong><small>Unavailable in this region</small
+            ><b>Unavailable</b></span
+          ></label
+        >
+      </fieldset>
+      <div class="ui-card-footer surface-option-footer">
+        <p class="muted small" id="instance-summary" role="status">
+          Starter selected · £6 / month · example pricing
+        </p>
+        <button class="button primary" id="instance-apply">Apply size</button>
+      </div>
+    </article>
+    <article class="specimen full">
+      <div class="chart-heading">
+        <div>
+          <h3>Async content panel</h3>
+          <p class="muted small">
+            Loading, empty, error and ready states with a retry action
+          </p>
+        </div>
+        <label class="check"
+          ><input type="checkbox" id="panel-simulate-error" />Simulate
+          failure</label
+        >
+      </div>
+      <section class="ui-card" id="async-surface" aria-busy="false">
+        <header class="ui-card-header">
+          <div>
+            <h4>Recent exports</h4>
+            <p>Local sample data</p>
+          </div>
+          <button class="button small-button" id="export-refresh">
+            Refresh
+          </button>
+        </header>
+        <div class="ui-card-body async-panel-body" id="export-content"></div>
+        <footer class="ui-card-footer">
+          <p class="muted small" id="export-status" role="status">
+            No exports yet.
+          </p>
+          <button class="button small-button ghost" id="export-clear" disabled>
+            Clear list
+          </button>
+        </footer>
+      </section>
+    </article>
+  </div>
+</section>
+<section class="category" data-group="workflows" id="product-workflows">
+  <div class="section-label">
+    <span>14</span>
+    <h2>Product workflows</h2>
+  </div>
+  <p class="workflow-intro muted small">
+    Interactive local examples based on Linear, Shopify, Notion, Stripe and
+    Grafana. Account changes, invitations and payments are simulated.
+  </p>
+  <div class="grid">
+    <article class="specimen full" id="saved-views">
+      <div class="chart-heading">
+        <div>
+          <h3>Saved views</h3>
+          <p class="muted small">
+            Filters, sorting, columns and layout · saved in this browser
+          </p>
+        </div>
+      </div>
+      <div id="views-controls" class="workflow-toolbar"></div>
+      <form id="view-save-form" class="workflow-toolbar">
+        <label class="field"
+          >View name<input
+            id="view-name"
+            required
+            maxlength="50"
+            placeholder="My production projects" /></label
+        ><button class="button" type="submit">Save view</button
+        ><button class="button" type="button" id="view-reset">
+          Reset changes</button
+        ><button class="button" type="button" id="view-duplicate">
+          Duplicate</button
+        ><button class="button danger" type="button" id="view-delete">
+          Delete view
+        </button>
+      </form>
+      <div id="view-columns" class="row"></div>
+      <div id="view-results"></div>
+      <p id="view-status" role="status" class="app-feedback"></p>
+    </article>
+    <article class="specimen full" id="media-library">
+      <div class="chart-heading">
+        <div>
+          <h3>Media library & picker</h3>
+          <p class="muted small">
+            Search, select, inspect, replace and edit · files stay on your
+            device
+          </p>
+        </div>
+        <button class="button" id="media-add">Upload images</button
+        ><input
+          id="media-files"
+          type="file"
+          accept="image/png,image/jpeg,image/webp,image/gif"
+          multiple
+          hidden
+        /><input
+          id="media-replace-file"
+          type="file"
+          accept="image/png,image/jpeg,image/webp,image/gif"
+          hidden
+        />
+      </div>
+      <div class="workflow-toolbar">
+        <input
+          id="media-search"
+          type="search"
+          aria-label="Search media"
+          placeholder="Search images…"
+        />
+        <div id="media-type-control"></div>
+        <button class="button" id="media-use" disabled>Use selected</button
+        ><button class="button danger" id="media-delete" disabled>
+          Delete selected
+        </button>
+      </div>
+      <div class="media-layout">
+        <div id="media-grid" class="media-grid"></div>
+        <aside
+          id="media-inspector"
+          class="inset stack"
+          aria-label="Image details"
+        ></aside>
+      </div>
+      <p id="media-status" role="status" class="app-feedback"></p>
+    </article>
+    <article class="specimen full" id="image-editor">
+      <div class="chart-heading">
+        <div>
+          <h3>Image editor</h3>
+          <p class="muted small">
+            Crop, position, rotate, resize and edit alt text
+          </p>
+        </div>
+        <button class="button" id="editor-reset">Reset edits</button>
+      </div>
+      <div class="editor-layout">
+        <div class="editor-stage">
+          <canvas id="editor-canvas" aria-label="Edited image preview"
+            >Your browser does not support canvas previews.</canvas
+          >
+        </div>
+        <form class="stack" id="editor-form">
+          <div id="editor-ratio-control"></div>
+          <label class="field"
+            >Zoom<input
+              id="editor-zoom"
+              type="range"
+              min="1"
+              max="3"
+              step="0.05"
+              value="1" /></label
+          ><label class="field"
+            >Horizontal position<input
+              id="editor-x"
+              type="range"
+              min="0"
+              max="100"
+              value="50" /></label
+          ><label class="field"
+            >Vertical position<input
+              id="editor-y"
+              type="range"
+              min="0"
+              max="100"
+              value="50"
+          /></label>
+          <div class="row">
+            <button class="button" type="button" id="editor-rotate">
+              Rotate 90°</button
+            ><span id="editor-angle" class="mono">0°</span>
+          </div>
+          <label class="field"
+            >Output width (px)<input
+              id="editor-width"
+              type="number"
+              min="64"
+              max="2048"
+              step="1"
+              value="800"
+              required /></label
+          ><label class="field"
+            >Alt text<input
+              id="editor-alt"
+              maxlength="250"
+              value="Blue mountain landscape" /></label
+          ><button class="button primary" type="submit" id="editor-save">
+            Save copy to library</button
+          ><button class="button" type="button" id="editor-download">
+            Download PNG
+          </button>
+        </form>
+      </div>
+      <p id="editor-status" role="status" class="app-feedback"></p>
+    </article>
+    <article class="specimen full" id="csv-import">
+      <div class="chart-heading">
+        <div>
+          <h3>CSV import</h3>
+          <p class="muted small">
+            Upload → map columns → fix rows → import into a local catalogue
+          </p>
+        </div>
+        <button class="button" id="csv-sample">Load sample</button>
+      </div>
+      <div class="csv-upload"><span class="csv-upload-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 3h8l4 4v14H6zM14 3v5h4M9 12h6M9 16h6"/></svg></span><div class="csv-upload-copy"><strong id="csv-file-name">Choose a CSV file</strong><p class="muted small">Up to 1 MB · 100 rows · names, quantities and prices</p></div><button class="button" id="csv-browse" type="button">Choose file</button><input id="csv-file" type="file" accept=".csv,text/csv" aria-label="CSV file" hidden></div>
+      <div id="csv-mapping" class="workflow-toolbar"></div>
+      <div id="csv-preview"></div>
+      <div class="row">
+        <button class="button primary" id="csv-commit" disabled>
+          Import records</button
+        ><button class="button" id="csv-reset">Reset import</button
+        ><button class="button" id="csv-export" disabled>
+          Download imported CSV
+        </button>
+      </div>
+      <p id="csv-status" role="status" class="app-feedback">
+        Choose a file or load the example.
+      </p>
+    </article>
+    <article class="specimen" id="resource-sharing">
+      <h3>Share dialog</h3>
+      <div class="ui-card">
+        <div class="ui-card-body">
+          <h4>Fleet dashboard</h4>
+          <p>
+            Manage access to this resource independently of workspace
+            membership.
+          </p>
+        </div>
+        <footer class="ui-card-footer">
+          <span class="badge">Local demo</span
+          ><button class="button primary" id="share-open">
+            Share dashboard
+          </button>
+        </footer>
+      </div>
+      <p id="share-status" role="status" class="app-feedback">
+        Only invited people have access.
+      </p>
+    </article>
+    <article class="specimen" id="api-keys">
+      <h3>API key manager</h3>
+      <p class="muted small">Demo keys cannot authenticate to any service.</p>
+      <form id="key-form" class="stack">
+        <label class="field"
+          >Key name<input
+            id="key-name"
+            required
+            maxlength="50"
+            placeholder="Production monitor"
+        /></label>
+        <div id="key-scope-control"></div>
+        <div id="key-expiry-control"></div>
+        <button class="button primary" type="submit">Create demo key</button>
+      </form>
+      <div id="key-reveal" class="inset stack" hidden></div>
+      <div id="key-list"></div>
+      <p id="key-status" role="status" class="app-feedback"></p>
+    </article>
+    <article class="specimen full" id="kanban-board">
+      <div class="chart-heading">
+        <div>
+          <h3>Board & sortable cards</h3>
+          <p class="muted small">
+            Drag to a column · use card controls or Alt + arrow keys to move
+          </p>
+        </div>
+      </div>
+      <form id="board-add" class="workflow-toolbar">
+        <input
+          id="board-title"
+          required
+          maxlength="100"
+          aria-label="New task title"
+          placeholder="Add a task to Todo"
+        /><button class="button" type="submit">Add task</button>
+      </form>
+      <div id="board-columns" class="workflow-board"></div>
+      <p id="board-status" role="status" class="app-feedback"></p>
+    </article>
+    <article class="specimen full" id="comment-threads">
+      <h3>Comment thread</h3>
+      <div id="comment-list"></div>
+      <form id="comment-form" class="stack">
+        <label class="field"
+          >Comment<textarea
+            id="comment-text"
+            rows="3"
+            required
+            maxlength="2000"
+            placeholder="Write a comment. Type @ to mention someone…"
+          ></textarea>
+        </label>
+        <div id="comment-mentions" class="row" hidden></div>
+        <div class="workflow-toolbar">
+          <div id="comment-attachment-field"></div><button class="button primary" type="submit">Post comment</button>
+        </div>
+      </form>
+      <p id="comment-status" role="status" class="app-feedback"></p>
+    </article>
+    <article class="specimen full" id="dashboard-controls">
+      <div class="chart-heading">
+        <div>
+          <h3>Dashboard time controls</h3>
+          <p class="muted small">
+            Shared range, timezone, refresh and live state for both charts
+          </p>
+        </div>
+        <span class="badge">Synthetic telemetry</span>
+      </div>
+      <div id="dashboard-time-toolbar" class="workflow-toolbar"></div>
+      <form id="dashboard-absolute" class="workflow-toolbar">
+        <label class="field"
+          >From (UTC)<input
+            id="dashboard-from"
+            type="datetime-local"
+            required /></label
+        ><label class="field"
+          >To (UTC)<input
+            id="dashboard-to"
+            type="datetime-local"
+            required /></label
+        ><button class="button" type="submit">Apply exact range</button>
+      </form>
+      <div class="workflow-chart-pair">
+        <div class="ui-card ui-card-body">
+          <h4>CPU load</h4>
+          <div id="workflow-cpu-chart"></div>
+        </div>
+        <div class="ui-card ui-card-body">
+          <h4>Request latency</h4>
+          <div id="workflow-latency-chart"></div>
+        </div>
+      </div>
+      <p id="dashboard-time-status" role="status" class="app-feedback"></p>
+    </article>
+    <article class="specimen full" id="billing-panels">
+      <div class="chart-heading">
+        <div>
+          <h3>Subscription & billing</h3>
+          <p class="muted small">
+            Local demo · no charges, real card numbers or external requests
+          </p>
+        </div>
+        <span class="badge success" id="billing-state">Active</span>
+      </div>
+      <div class="billing-grid">
+        <section class="ui-card">
+          <header class="ui-card-header"><h4>Subscription</h4></header>
+          <div class="ui-card-body stack">
+            <div id="billing-plan-control"></div>
+            <div id="billing-cycle-control"></div>
+            <p id="billing-quote"></p>
+            <button class="button primary" id="billing-review">
+              Review change</button
+            ><button class="button danger" id="billing-cancel">
+              Cancel at renewal
+            </button>
+            <p id="billing-current" class="muted small"></p>
+          </div>
+        </section>
+        <section class="ui-card">
+          <header class="ui-card-header"><h4>Billing details</h4></header>
+          <form class="ui-card-body stack" id="billing-details">
+            <label class="field"
+              >Billing email<input
+                id="billing-email"
+                type="email"
+                value="luna@example.com"
+                required /></label
+            ><label class="field"
+              >Company<input
+                id="billing-company"
+                maxlength="80"
+                value="Luna's workspace"
+            /></label>
+            <div id="billing-method-control"></div>
+            <button class="button" type="submit">Save details</button>
+          </form>
+        </section>
+      </div>
+      <div id="billing-invoices"></div>
+      <p id="billing-status" role="status" class="app-feedback"></p>
+    </article>
+  </div>
+</section>
+<section class="category" data-group="html" id="html-elements">
+  <div class="section-label">
+    <span>15</span>
+    <h2>HTML foundations</h2>
+  </div>
+  <p class="workflow-intro muted small">
+    Semantic elements, form types and media, checked against the MDN element
+    reference. Native select data is rendered through our custom controls.
+    Experimental and nonvisual elements are identified separately.
+  </p>
+  <div class="grid">
+    <article class="specimen html-prose">
+      <h3>Headings & document text</h3>
+      <hgroup>
+        <h1>Heading one</h1>
+        <p class="muted">A document introduction.</p>
+      </hgroup>
+      <h2>Heading two</h2>
+      <h3>Heading three</h3>
+      <h4>Heading four</h4>
+      <h5>Heading five</h5>
+      <h6>Heading six</h6>
+      <p>
+        Paragraph with <strong>strong importance</strong>, <em>emphasis</em>,
+        <b>attention</b>, <i>an alternate voice</i>, <u>an annotation</u> and
+        <small>supporting text</small>.
+      </p>
+      <blockquote>
+        <p>Keep operational information readable at a glance.</p>
+        <footer>— <cite>Interface notes</cite></footer>
+      </blockquote>
+      <p>
+        A short <q>inline quotation</q> and
+        <abbr title="Application programming interface">API</abbr> abbreviation.
+      </p>
+      <hr />
+      <address>
+        Project owner: <a href="mailto:luna@example.com">luna@example.com</a>
+      </address>
+    </article>
+    <article class="specimen html-prose">
+      <h3>Inline semantics & code</h3>
+      <p>
+        <dfn>Latency</dfn> is measured in milliseconds.
+        <mark>Highlighted result</mark>, <s>outdated value</s>,
+        <del>removed text</del> and <ins>inserted text</ins>.
+      </p>
+      <p>
+        H<sub>2</sub>O and x<sup>2</sup>.
+        <data value="128430">128,430 requests</data> at
+        <time datetime="2026-11-24T09:42:00Z">09:42 UTC</time>.
+      </p>
+      <p>
+        Press <kbd>Ctrl</kbd> + <kbd>K</kbd>. Run <code>npm run build</code>;
+        <samp>Build complete</samp>. Formula: <var>x</var> + 1.
+      </p>
+      <pre><code>const ready = true;
+console.log(ready);</code></pre>
+      <p>
+        Bidirectional name: <bdi>علي</bdi>. Explicit reversal:
+        <bdo dir="rtl">ABC</bdo>.
+      </p>
+      <p>
+        <ruby>漢<rp>(</rp><rt>kan</rt><rp>)</rp></ruby> · Long label with break
+        opportunities:<br />infrastructure<wbr />-production<wbr />-eu-west
+      </p>
+      <math display="block" aria-label="x squared plus one"
+        ><mrow
+          ><msup><mi>x</mi><mn>2</mn></msup
+          ><mo>+</mo><mn>1</mn></mrow
+        ></math
+      >
+    </article>
+    <article class="specimen html-prose">
+      <h3>Lists & semantic regions</h3>
+      <main>
+        <header><h4>Release overview</h4></header>
+        <nav aria-label="Foundation example navigation">
+          <a href="#html-table-example">Data</a> ·
+          <a href="#html-form-example">Form</a>
+        </nav>
+        <section>
+          <h5>Checklist</h5>
+          <ul>
+            <li>Review the changes</li>
+            <li>
+              Run checks
+              <ul>
+                <li>Validate inputs</li>
+              </ul>
+            </li>
+          </ul>
+          <ol>
+            <li>Build</li>
+            <li>Deploy</li>
+          </ol>
+          <dl>
+            <dt>Region</dt>
+            <dd>London</dd>
+            <dt>State</dt>
+            <dd>Ready</dd>
+          </dl>
+        </section>
+        <aside class="inset">
+          Related information belongs beside the primary content.
+        </aside>
+        <footer><small>Updated today</small></footer>
+      </main>
+      <menu class="row">
+        <li>
+          <button class="button small-button" type="button" data-html-copy>
+            Copy sample text
+          </button>
+        </li>
+      </menu>
+      <search>
+        <label class="field"
+          >Find an HTML element<input
+            type="search"
+            id="html-find"
+            placeholder="For example: meter"
+        /></label>
+      </search>
+      <output
+        id="html-find-result"
+        class="app-feedback"
+        aria-live="polite"
+      ></output>
+    </article>
+    <article class="specimen html-prose" id="html-table-example">
+      <h3>Semantic table & meters</h3>
+      <div class="table-wrap">
+        <table class="app-table">
+          <caption>
+            Monthly storage usage
+          </caption>
+          <colgroup>
+            <col />
+            <col span="2" />
+          </colgroup>
+          <thead>
+            <tr>
+              <th scope="col">Volume</th>
+              <th scope="col">Used</th>
+              <th scope="col">Capacity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Media</th>
+              <td>240 GB</td>
+              <td>500 GB</td>
+            </tr>
+            <tr>
+              <th scope="row">Backups</th>
+              <td>160 GB</td>
+              <td>500 GB</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th scope="row">Total</th>
+              <td>400 GB</td>
+              <td>1,000 GB</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <label class="field"
+        >Storage capacity<meter
+          min="0"
+          max="100"
+          low="20"
+          high="85"
+          optimum="40"
+          value="40"
+        >
+          40%
+        </meter></label
+      ><label class="field"
+        >Upload progress<progress max="100" value="65">65%</progress></label
+      ><label class="field"
+        >Working<progress aria-label="Working"></progress
+      ></label>
+    </article>
+    <article class="specimen full" id="html-form-example">
+      <h3>HTML form controls</h3>
+      <form id="html-form">
+        <fieldset class="html-fieldset">
+          <legend>Contact & scheduling</legend>
+          <div class="html-form-grid">
+            <label class="field"
+              >Name<input
+                name="name"
+                type="text"
+                value="Luna"
+                required /></label
+            ><label class="field"
+              >Email<input
+                name="email"
+                type="email"
+                value="luna@example.com"
+                required /></label
+            ><label class="field"
+              >Telephone<input
+                name="phone"
+                type="tel"
+                placeholder="+44 20 1234 5678" /></label
+            ><label class="field"
+              >Website<input
+                name="url"
+                type="url"
+                placeholder="https://example.com" /></label
+            ><label class="field"
+              >Password<input
+                name="password"
+                type="password"
+                autocomplete="new-password"
+                placeholder="Demo password" /></label
+            ><label class="field"
+              >Search<input
+                name="search"
+                type="search"
+                placeholder="Search…" /></label
+            ><label class="field"
+              >Quantity<input
+                name="quantity"
+                type="number"
+                min="1"
+                max="100"
+                value="3" /></label
+            ><label class="field"
+              >Date<input name="date" type="date" value="2026-11-24" /></label
+            ><label class="field"
+              >Time<input name="time" type="time" value="09:30" /></label
+            ><label class="field"
+              >Date & time<input
+                name="datetime"
+                type="datetime-local"
+                value="2026-11-24T09:30" /></label
+            ><label class="field"
+              >Month<input name="month" type="month" value="2026-11" /></label
+            ><label class="field"
+              >Week<input name="week" type="week" value="2026-W48" /></label
+            ><label class="field"
+              >Accent colour<input
+                name="color"
+                type="color"
+                value="#89b9ed" /></label
+            ><label class="field"
+              >Volume<input
+                name="volume"
+                type="range"
+                min="0"
+                max="100"
+                value="40" /></label
+            ><label class="field">File<input name="file" type="file" /></label
+            ><label class="field"
+              >Grouped select<select name="region" aria-label="Example region">
+                <optgroup label="Europe">
+                  <option>London</option>
+                  <option>Berlin</option>
+                </optgroup>
+                <optgroup label="Asia"><option>Tokyo</option></optgroup>
+              </select></label
+            ><label class="field"
+              >Suggested value<input
+                id="html-suggestion"
+                list="html-suggestions"
+                placeholder="Choose or type"
+                aria-label="Suggested framework" /><datalist
+                id="html-suggestions"
+              >
+                <option value="React"></option>
+                <option value="Vue"></option>
+                <option value="Svelte"></option></datalist></label
+            ><label class="field"
+              >Notes<textarea
+                name="notes"
+                rows="2"
+                placeholder="Add notes"
+              ></textarea>
+            </label>
+          </div>
+          <div class="row">
+            <label class="check"
+              ><input name="updates" type="checkbox" checked />Email
+              updates</label
+            ><label class="check"
+              ><input
+                name="mode"
+                type="radio"
+                value="daily"
+                checked
+              />Daily</label
+            ><label class="check"
+              ><input name="mode" type="radio" value="weekly" />Weekly</label
+            >
+          </div>
+          <input name="source" type="hidden" value="html-gallery" />
+          <div class="row">
+            <input
+              type="submit"
+              class="button primary"
+              value="Validate form"
+            /><input type="reset" class="button" value="Reset" /><input
+              type="button"
+              class="button"
+              value="Show help"
+              id="html-help"
+            /><input
+              type="image"
+              src="/assets/examples/diagram.svg"
+              alt="Submit with image button"
+              width="80"
+              height="30"
+            />
+          </div>
+        </fieldset>
+        <output id="html-form-status" class="app-feedback" aria-live="polite"
+          >Form values stay on this device.</output
+        >
+      </form>
+    </article>
+    <article class="specimen html-prose">
+      <h3>Images, figures & image maps</h3>
+      <figure>
+        <picture
+          ><source
+            media="(max-width: 600px)"
+            srcset="/assets/examples/diagram.svg" />
+          <img
+            src="/assets/examples/diagram.svg"
+            alt="Source connected to output"
+            width="320"
+            height="120"
+        /></picture>
+        <figcaption>
+          A responsive picture with descriptive alternative text.
+        </figcaption>
+      </figure>
+      <div class="html-map-scroll">
+        <img
+          src="/assets/examples/diagram.svg"
+          alt="Jump to source form or output table"
+          width="320"
+          height="120"
+          usemap="#html-example-map"
+        /><map name="html-example-map"
+          ><area
+            shape="rect"
+            coords="20,30,130,90"
+            href="#html-form-example"
+            alt="Go to form" /><area
+            shape="rect"
+            coords="190,30,300,90"
+            href="#html-table-example"
+            alt="Go to table"
+        /></map>
+      </div>
+    </article>
+    <article class="specimen html-prose">
+      <h3>Audio & video</h3>
+      <label class="field"
+        >One-second tone<audio controls preload="none">
+          <source src="/assets/examples/tone.wav" type="audio/wav" />
+          <a href="/assets/examples/tone.wav">Download audio</a>
+        </audio></label
+      ><video
+        controls
+        preload="metadata"
+        width="320"
+        aria-label="Bee visiting a flower"
+      >
+        <source src="/assets/examples/flower.webm" type="video/webm" />
+        <track
+          kind="captions"
+          src="/assets/examples/demo.vtt"
+          srclang="en"
+          label="English"
+          default
+        />
+        <a href="/assets/examples/flower.webm">Download video</a>
+      </video>
+      <p class="muted small">
+        CC0 sample video from MDN. Playback starts only when requested.
+      </p>
+    </article>
+    <article class="specimen html-prose">
+      <h3>Embedded & vector content</h3>
+      <iframe
+        title="Isolated HTML document"
+        sandbox
+        srcdoc="<!doctype html><html lang='en'><head><base href='/'><meta charset='utf-8'><title>Embedded example</title><style>body{font:14px system-ui;background:#292929;color:#eee;padding:12px}</style></head><body><p>An isolated document with its own base URL.</p></body></html>"
+      ></iframe
+      ><object
+        type="image/svg+xml"
+        data="/assets/examples/diagram.svg"
+        aria-label="Object image example"
+      >
+        <p>Image unavailable.</p></object
+      ><embed
+        type="image/svg+xml"
+        src="/assets/examples/diagram.svg"
+        title="Embedded diagram"
+      /><svg viewBox="0 0 240 50" role="img" aria-label="A rising line chart">
+        <path
+          d="M5 45L50 30L90 35L140 12L180 20L235 5"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        />
+      </svg>
+    </article>
+    <article class="specimen html-prose">
+      <h3>Disclosure, dialog & web components</h3>
+      <details>
+        <summary>Semantic disclosure</summary>
+        <p>Native keyboard support with themed content.</p>
+      </details>
+      <button class="button" id="html-dialog-open">Open dialog</button>
+      <dialog id="html-dialog" aria-labelledby="html-dialog-title">
+        <h4 id="html-dialog-title">Native dialog</h4>
+        <p>Escape or the backdrop closes this example.</p>
+        <form method="dialog"><button class="button">Close</button></form>
+      </dialog>
+      <template id="html-card-template"
+        ><style>
+          :host {
+            display: block;
+            border: 1px solid var(--border);
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 12px;
+          }
+          strong {
+            font-size: 12px;
+          }</style
+        ><strong><slot name="title">Default title</slot></strong
+        ><slot></slot></template
+      ><luna-html-card
+        ><span slot="title">Slotted card heading</span>
+        <p>This content passes through a shadow DOM slot.</p></luna-html-card
+      ><canvas
+        id="html-canvas"
+        width="300"
+        height="60"
+        aria-label="Canvas progress drawing"
+        >Canvas is unavailable.</canvas
+      ><noscript
+        >JavaScript is disabled. Interactive examples need JavaScript.</noscript
+      >
+    </article>
+    <article class="specimen full html-prose">
+      <h3>Element coverage</h3>
+      <p id="html-coverage-summary"></p>
+      <div id="html-coverage-list" class="html-coverage-list"></div>
+      <details>
+        <summary>Nonvisual, experimental and obsolete elements</summary>
+        <p>
+          Document metadata and scripting are covered by the page shell and
+          isolated document. <code>template</code> and <code>slot</code> have a
+          working example above. <code>selectedcontent</code> and
+          <code>geolocation</code> are experimental and documented here rather
+          than used as required controls. Deprecated tags are excluded from the
+          supported design system.
+        </p>
+        <pre><code>&lt;select&gt;&lt;button&gt;&lt;selectedcontent&gt;&lt;/selectedcontent&gt;&lt;/button&gt;…&lt;/select&gt;
+&lt;geolocation&gt;Request location&lt;/geolocation&gt;</code></pre>
+        <template id="html-experimental"
+          ><select>
+            <button><selectedcontent></selectedcontent></button>
+            <option>Experimental select</option></select
+          ><geolocation>Request location</geolocation></template
+        >
+      </details>
+    </article>
+  </div>
+</section>
+<div class="footer">Design specimens · local interactions only · not the production component library</div>
+<div id="global-status" class="feedback" role="status" aria-live="polite"></div>
+</main>
+<div id="filter-popover" class="popover" popover><h3>Filter projects</h3><div class="stack"><label class="check"><input type="checkbox" id="pop-production"> Production only</label><label class="check"><input type="checkbox" id="pop-mine"> Assigned to me</label><button class="button primary" id="apply-popover">Apply filters</button></div></div>
+<dialog id="edit" aria-labelledby="edit-title"><header><h2 id="edit-title">Edit project</h2><button class="close" data-close aria-label="Close dialog">×</button></header><form id="edit-form"><div class="stack"><label class="field">Name<input id="edit-name" value="Component library" required></label><label class="field">Description<textarea rows="3">Reusable components for my apps.</textarea></label><label class="check"><input type="checkbox" checked> Private project</label></div><footer><button class="button" type="button" data-close>Cancel</button><button class="button primary" type="submit">Save changes</button></footer></form></dialog>
+<dialog id="confirm" aria-labelledby="confirm-title"><header><h2 id="confirm-title">Delete “Component library”?</h2><button class="close" data-close aria-label="Close confirmation">×</button></header><p class="small muted">The project and its settings will be removed. This preview won’t delete any real data.</p><footer><button class="button" data-close>Keep project</button><button class="button danger" id="confirm-delete">Delete project</button></footer></dialog>
+<dialog id="drawer" class="drawer" aria-labelledby="drawer-title"><header><h2 id="drawer-title">Component library</h2><button class="close" data-close aria-label="Close detail drawer">×</button></header><span class="badge success" id="drawer-status">Ready</span><div class="divider"></div><div class="stack small"><div class="row between"><span class="muted">Owner</span><span>Luna H.</span></div><div class="row between"><span class="muted">Environment</span><span>Production</span></div><div class="row between"><span class="muted">Commit</span><span class="mono">a7c2e41</span></div></div><div class="divider"></div><h3 style="margin-bottom:15px">Timeline</h3><ol class="timeline"><li>Created<small>23 Nov, 09:40</small></li><li>Build passed<small>32 checks · 09:41</small></li><li>Deployment ready<small>09:42</small></li></ol><footer><button class="button" data-close>Close details</button></footer></dialog>
+<dialog id="command" aria-labelledby="command-title"><header><h2 id="command-title">Workspace commands</h2><button class="close" data-close aria-label="Close commands">×</button></header><input type="search" id="command-search" placeholder="Search commands or jump to…" aria-label="Search commands"><div class="command-results" id="command-results"><button data-command="new">Create project <kbd>N</kbd></button><button data-command="theme">Toggle appearance <kbd>T</kbd></button><button data-command="forms">Go to forms <kbd>F</kbd></button><button data-command="data">Go to data tables <kbd>D</kbd></button></div><p class="small muted" id="no-commands" hidden>No commands found. Try “forms” or “project”.</p><footer><span>↑ ↓ Navigate &nbsp; ↵ Run</span><span><kbd>esc</kbd> Close</span></footer></dialog>
+<script>
+const root=document.getElementById('library'),$=id=>document.getElementById(id);
+function announce(message){$('global-status').textContent=message}
+root.querySelectorAll('[data-theme]').forEach(b=>b.onclick=()=>{document.documentElement.dataset.theme=b.dataset.theme;root.querySelectorAll('[data-theme]').forEach(n=>n.setAttribute('aria-pressed',String(n===b)))});
+function category(value){root.querySelectorAll('[data-category]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.category===value)));root.querySelectorAll('[data-group]').forEach(s=>s.hidden=value!=='all'&&s.dataset.group!==value)}
+root.querySelectorAll('[data-category]').forEach(b=>b.onclick=()=>category(b.dataset.category));
+root.querySelectorAll('[data-single]').forEach(group=>group.querySelectorAll('button').forEach(b=>b.onclick=()=>group.querySelectorAll('button').forEach(n=>n.setAttribute('aria-pressed',String(n===b)))));
+root.querySelectorAll('[data-notify]').forEach(b=>b.onclick=()=>{const output=b.closest('.specimen')?.querySelector('[data-feedback]');if(output)output.textContent=b.dataset.notify;announce(b.dataset.notify)});
+root.querySelectorAll('[data-remove]').forEach(b=>b.onclick=()=>b.parentElement.remove());$('add-tag').onclick=()=>{const tag=document.createElement('span');tag.className='tag';tag.textContent='Backend';$('add-tag').before(tag);$('add-tag').disabled=true};
+$('mixed').indeterminate=true;$('capacity').oninput=e=>$('capacity-value').value=e.target.value+'%';let retries=3;function retryCount(){ $('retries').value=retries;$('less').disabled=retries===0;$('more').disabled=retries===10 }$('less').onclick=()=>{retries=Math.max(0,retries-1);retryCount()};$('more').onclick=()=>{retries=Math.min(10,retries+1);retryCount()};
+$('show-password').onclick=()=>{const shown=$('password').type==='text';$('password').type=shown?'password':'text';$('show-password').textContent=shown?'Show':'Hide';$('show-password').setAttribute('aria-pressed',String(!shown))};
+$('email').oninput=()=>{const valid=$('email').validity.valid&&$('email').value.includes('.');$('email').setAttribute('aria-invalid',String(!valid));$('email-error').textContent=valid?'Email looks good.':'Enter a complete email address.';$('email-error').className=valid?'success':'error'};
+// Old file handler removed
+$('file').onchange=()=>{$('file-status').textContent=$('file').files[0]?$('file').files[0].name+' · selected locally':'No file selected'};
+
+const tabCopy={General:'Project name, description, and visibility.',Members:'Luna H. · Owner. Alex K. · Member.',Billing:'Personal plan · no upcoming charges.'};root.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{root.querySelectorAll('[data-tab]').forEach(n=>n.setAttribute('aria-selected',String(n===b)));$('tab-content').textContent=tabCopy[b.dataset.tab];$('tab-content').setAttribute('aria-labelledby',b.id)});
+let page=1;function pages(){ $('page-number').textContent=page+' / 8';$('page-prev').disabled=page===1;$('page-next').disabled=page===8 }$('page-prev').onclick=()=>{page--;pages()};$('page-next').onclick=()=>{page++;pages()};let step=1;function steps(){for(let i=1;i<=3;i++){if(i===step)$('step-'+i).setAttribute('aria-current','step');else $('step-'+i).removeAttribute('aria-current')}$('step-copy').textContent=['Name your workspace and choose its visibility.','Invite people and choose their roles.','Review the details before creating your workspace.'][step-1];$('step-back').disabled=step===1;$('step-next').textContent=step===3?'Finish':'Continue'}$('step-back').onclick=()=>{step--;steps()};$('step-next').onclick=()=>{if(step<3){step++;steps()}else{$('step-copy').textContent='Workspace created in this preview.';$('step-next').disabled=true}};
+root.querySelectorAll('[data-meter]').forEach(m=>{for(let i=0;i<32;i++){const b=document.createElement('i');if(i<Math.round(Number(m.dataset.meter)*32/100))b.className='on';m.append(b)}});
+document.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>{$(b.dataset.open).showModal();if(b.dataset.open==='command')$('command-search').focus()});document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>b.closest('dialog').close());$('edit-form').onsubmit=e=>{e.preventDefault();$('edit').close();announce('Saved “'+$('edit-name').value+'” in this preview.')};$('confirm-delete').onclick=()=>{$('confirm').close();announce('Project deleted in this preview. No real data changed.')};
+$('apply-popover').onclick=()=>{const filters=[];if($('pop-production').checked)filters.push('Production');if($('pop-mine').checked)filters.push('Assigned to me');$('popover-count').textContent=filters.length+' active';$('popover-summary').textContent=filters.join(' · ')||'All environments and owners';$('filter-popover').hidePopover()};
+$('undo').onclick=()=>{$('example-toast').hidden=true;$('toast-result').textContent='Project restored.'};$('dismiss-toast').onclick=()=>{$('example-toast').hidden=true};$('show-toast').onclick=()=>{$('example-toast').hidden=false;$('toast-result').textContent=''};$('retry').onclick=()=>{$('connection-alert').className='alert success';$('connection-alert').textContent='Connection restored in this preview.'};$('create-first').onclick=()=>{$('empty-state').replaceChildren();const h=document.createElement('h3');h.textContent='Untitled project';const p=document.createElement('p');p.textContent='Created just now in this preview.';$('empty-state').append(h,p)};$('toggle-load').onclick=()=>{const loaded=$('loaded').hidden;$('loaded').hidden=!loaded;$('skeleton').hidden=loaded;$('toggle-load').textContent=loaded?'Show skeleton':'Show loaded content'};
+</script><script>
+/* Shared prototype controls. Native selects remain the form/reset source of truth. */
+window.ComponentPickers=(()=>{
+ let serial=0,openPicker=null;
+ function mount({host,trigger,options,searchable=false,label,readValue,onChoose,freeText=false,renderOption,onClose}){
+  const id='pc-'+(++serial),popup=document.createElement('div'),list=document.createElement('div'),live=document.createElement('span');
+  popup.className='pc-popup';popup.hidden=true;popup.setAttribute('popover','manual');
+  const caption=document.createElement('div');caption.className='pc-caption';caption.textContent=label;popup.append(caption);
+  list.id=id;list.setAttribute('role','listbox');list.setAttribute('aria-label',label);popup.append(list);
+  const help=document.createElement('div');help.className='pc-help';help.textContent='↑ ↓ Navigate · Enter Select · Esc Close';popup.append(help);host.append(popup);
+  live.className='pc-sr';live.setAttribute('role','status');host.append(live);
+  trigger.setAttribute('role','combobox');trigger.setAttribute('aria-haspopup','listbox');trigger.setAttribute('aria-controls',id);trigger.setAttribute('aria-expanded','false');trigger.setAttribute('aria-label',label);
+  if(searchable){trigger.setAttribute('aria-autocomplete','list');trigger.autocomplete='off'}
+  let opened=false,active=-1,filtered=[],query='',typeahead='',timer;
+  function place(){if(!opened)return;const box=trigger.getBoundingClientRect(),width=Math.min(Math.max(box.width,searchable?280:210),innerWidth-16);popup.style.width=width+'px';popup.style.maxHeight=Math.min(300,innerHeight-16)+'px';const h=popup.getBoundingClientRect().height;const below=innerHeight-box.bottom-8,above=box.top-8;const useAbove=below<h&&above>below;popup.style.maxHeight=Math.max(60,Math.min(300,useAbove?above:below))+'px';popup.style.left=Math.max(8,Math.min(box.left,innerWidth-width-8))+'px';popup.style.top=(useAbove?Math.max(8,box.top-popup.getBoundingClientRect().height-5):box.bottom+5)+'px'}
+  function activate(index){active=index;[...list.querySelectorAll('[role=option]')].forEach((n,i)=>n.classList.toggle('pc-active',i===index));const item=list.querySelectorAll('[role=option]')[index];if(item){trigger.setAttribute('aria-activedescendant',item.id);item.scrollIntoView({block:'nearest'})}else trigger.removeAttribute('aria-activedescendant')}
+  function render(){filtered=options().filter(o=>!query||[o.label,o.description||'',o.keywords||''].join(' ').toLowerCase().includes(query.toLowerCase()));list.replaceChildren();filtered.forEach((o,i)=>{const item=document.createElement('div');item.id=id+'-'+i;item.className='pc-option';item.setAttribute('role','option');item.setAttribute('aria-selected',String(!freeText&&o.value===readValue()));item.setAttribute('aria-disabled',String(!!o.disabled));
+   if(o.tone){const dot=document.createElement('span');dot.className='pc-status';dot.style.setProperty('--tone',o.tone);dot.setAttribute('aria-hidden','true');item.append(dot)}
+   if(renderOption){item.append(renderOption(o))}else{const text=document.createElement('span');text.className='pc-option-text';text.textContent=o.label;if(o.description){const desc=document.createElement('span');desc.className='pc-description';desc.textContent=o.description;text.append(desc)}item.append(text)}const check=document.createElement('span');check.className='pc-check';check.setAttribute('aria-hidden','true');check.textContent=!freeText&&o.value===readValue()?'✓':'';item.append(check);item.onpointermove=()=>{if(!o.disabled)activate(i)};item.onpointerdown=e=>e.preventDefault();item.onclick=()=>choose(i);list.append(item)});
+   if(!filtered.length){const empty=document.createElement('div');empty.className='pc-empty';empty.textContent='No matches found';list.append(empty)}
+   live.textContent=filtered.length+' options available';activate(filtered.findIndex(o=>!o.disabled&&o.value===readValue()));place();
+  }
+  function open(){if(trigger.disabled)return;if(openPicker&&openPicker!==api)openPicker.close();if(opened)return;opened=true;openPicker=api;query='';popup.hidden=false;trigger.setAttribute('aria-expanded','true');popup.showPopover?.();render()}
+  function close(){if(!opened)return;opened=false;popup.hidePopover?.();popup.hidden=true;trigger.setAttribute('aria-expanded','false');trigger.removeAttribute('aria-activedescendant');if(searchable&&!freeText)trigger.value=options().find(o=>o.value===readValue())?.label||'';host.classList.remove('pc-editing');onClose?.();if(openPicker===api)openPicker=null}
+  function choose(i){const o=filtered[i];if(!o||o.disabled)return;onChoose(o);close();trigger.focus()}
+  function move(direction){let i=active;for(let count=0;count<filtered.length;count++){i=(i+direction+filtered.length)%filtered.length;if(!filtered[i].disabled){activate(i);break}}}
+  trigger.addEventListener('click',()=>{if(opened&&!searchable)close();else open()});
+  if(searchable){trigger.addEventListener('focus',open);trigger.addEventListener('input',()=>{open();query=trigger.value;host.classList.add('pc-editing');render();activate(filtered.findIndex(o=>!o.disabled))})}
+  trigger.addEventListener('keydown',e=>{if(e.isComposing)return;if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();const was=opened;open();if(!was&&active<0)activate(e.key==='ArrowDown'?filtered.findIndex(o=>!o.disabled):filtered.findLastIndex(o=>!o.disabled));else move(e.key==='ArrowDown'?1:-1)}else if(e.key==='Enter'||(!searchable&&e.key===' ')){e.preventDefault();if(opened&&active>=0)choose(active);else if(!opened)open()}else if(e.key==='Escape'&&opened){e.preventDefault();e.stopPropagation();close()}else if(e.key==='Tab'){close()}else if(!searchable&&(e.key==='Home'||e.key==='End')){e.preventDefault();open();activate(e.key==='Home'?filtered.findIndex(o=>!o.disabled):filtered.findLastIndex(o=>!o.disabled))}else if(!searchable&&e.key.length===1&&!e.ctrlKey&&!e.metaKey){open();clearTimeout(timer);typeahead+=e.key.toLowerCase();activate(filtered.findIndex(o=>!o.disabled&&o.label.toLowerCase().startsWith(typeahead)));timer=setTimeout(()=>typeahead='',600)}});
+  const outside=e=>{if(!host.contains(e.target))close()};document.addEventListener('pointerdown',outside);host.addEventListener('focusout',()=>setTimeout(()=>{if(!host.contains(document.activeElement))close()},0));window.addEventListener('resize',place);document.addEventListener('scroll',place,true);
+  const api={open,close,destroy(){close();clearTimeout(timer);document.removeEventListener('pointerdown',outside);window.removeEventListener('resize',place);document.removeEventListener('scroll',place,true);popup.remove()},sync(){if(searchable&&!freeText)trigger.value=options().find(o=>o.value===readValue())?.label||'';if(opened)render()},trigger};return api;
+ }
+ function select(native,{searchable=false,describe={},tones={},keywords={},renderOption,renderPrefix}={}){
+  const label=native.getAttribute('aria-label')||native.id;const host=document.createElement('div');host.className='pc-field pc-select'+(searchable?' pc-searchable':'');native.before(host);host.append(native);native.hidden=true;
+  const trigger=document.createElement(searchable?'input':'button');trigger.className='pc-trigger';trigger.disabled=native.disabled;if(!searchable)trigger.type='button';host.append(trigger);if(searchable)trigger.addEventListener('focus',()=>trigger.select());
+  const prefix=renderPrefix?document.createElement('span'):null;if(prefix){prefix.className='pc-prefix';prefix.setAttribute('aria-hidden','true');host.classList.add('pc-has-prefix');host.append(prefix)}
+  const options=()=>[...native.options].map(o=>({value:o.value,label:o.textContent,disabled:o.disabled,description:describe[o.value],tone:tones[o.value],keywords:keywords[o.value]}));
+  function sync(){if(prefix){prefix.replaceChildren();const selected=options().find(o=>o.value===native.value);if(selected)prefix.append(renderPrefix(selected))}if(searchable)trigger.value=native.selectedOptions[0]?.textContent||'';else{trigger.replaceChildren();const text=document.createElement('span');text.className='pc-label';text.textContent=native.selectedOptions[0]?.textContent||'';const arrow=document.createElement('span');arrow.className='pc-arrow';arrow.setAttribute('aria-hidden','true');arrow.textContent='⌄';trigger.append(text,arrow)}}
+  const api=mount({host,trigger,options,searchable,label,renderOption,onClose:sync,readValue:()=>native.value,onChoose:o=>{native.value=o.value;sync();native.dispatchEvent(new Event('change',{bubbles:true}))}});native.addEventListener('change',()=>{sync();api.sync()});native.form?.addEventListener('reset',()=>setTimeout(()=>{sync();api.close();api.sync()},0));sync();return api;
+ }
+ function combobox(input,items){const host=input.parentElement;host.classList.remove('search');host.classList.add('pc-field','pc-search');input.classList.add('pc-trigger');return mount({host,trigger:input,searchable:true,freeText:true,label:input.getAttribute('aria-label')||'Search',options:()=>items,readValue:()=>input.value,onChoose:o=>{input.value=o.value;input.dispatchEvent(new Event('input',{bubbles:true}))}})}
+ return {select,combobox};
+})();
+
+
+/* Same language/flag mapping as Cardlattice LanguageIcon; country-flag-icons dependency assets. */
+window.LanguagePicker=(()=>{
+const flags=Object.fromEntries(['us','jp','fr','de'].map(country=>[country,'/assets/flags/'+country.toUpperCase()+'.svg']));
+const metadata={English:{country:'us',code:'en',native:'English'},Japanese:{country:'jp',code:'ja',native:'日本語'},French:{country:'fr',code:'fr',native:'Français'},German:{country:'de',code:'de',native:'Deutsch'}};
+function icon(option){const entry=metadata[option.value];if(entry){const image=document.createElement('img');image.className='pc-flag';image.src=flags[entry.country];image.alt='';image.setAttribute('aria-hidden','true');return image}const globe=document.createElement('span');globe.className='pc-all-languages';globe.textContent='◎';globe.setAttribute('aria-hidden','true');return globe}
+function renderOption(option){const row=document.createElement('span');row.className='pc-language';row.append(icon(option));const copy=document.createElement('span');copy.className='pc-language-copy';copy.textContent=option.label;const entry=metadata[option.value];if(entry&&entry.code!=='ja'&&entry.native!==option.label){const native=document.createElement('small');native.textContent=entry.native;copy.append(native)}row.append(copy);if(entry){const code=document.createElement('span');code.className='pc-language-code';code.textContent=entry.code;row.append(code)}return row}
+return {mount(native){return ComponentPickers.select(native,{searchable:true,keywords:Object.fromEntries(Object.entries(metadata).map(([name,m])=>[name,m.code+' '+m.native])),renderOption,renderPrefix:icon})}};})();
+
+ComponentPickers.select(document.getElementById('picker-status'),{tones:{done:'var(--success)',partial:'var(--warning)',empty:'var(--destructive)'}});LanguagePicker.mount(document.getElementById('picker-language'));ComponentPickers.select(document.getElementById('picker-disabled'));ComponentPickers.combobox(document.getElementById('picker-search'),[{value:'Base Set',label:'Base Set',description:'Pokémon · Original'},{value:'Jungle',label:'Jungle',description:'Pokémon · Original'},{value:'Team Rocket',label:'Team Rocket',description:'Pokémon · Original'}]);
+</script><script type="module" src="/gallery-enhancements.js"></script></body></html>

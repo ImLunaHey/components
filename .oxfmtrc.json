@@ -1,0 +1,15 @@
+{
+  "ignorePatterns": [
+    "design/**",
+    "**/dist/**",
+    "**/node_modules/**",
+    "src/pages/**",
+    "docs/**",
+    ".runtime/**",
+    ".turbo/**",
+    "packages/components/src/*.js",
+    "packages/components/src/*.mjs",
+    "packages/components/src/templates/**",
+    "packages/components/src/workflows/**"
+  ]
+}

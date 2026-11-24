@@ -1,0 +1,8 @@
+/* Only document normalization is global; all component styling is compiled StyleX. */
+html,
+body {
+  margin: 0;
+}
+* {
+  box-sizing: border-box;
+}

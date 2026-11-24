@@ -1,0 +1,75 @@
+# Luna components
+
+React components styled with StyleX, in a pnpm/Turborepo workspace with six
+independently launchable Vite apps. The shared Oxlint rules live in
+[ImLunaHey/oxlint-config](https://github.com/ImLunaHey/oxlint-config).
+
+## Install and run
+
+The lint dependency is installed from GitHub Packages, not vendored. Configure
+your existing GitHub CLI login and pnpm token helper using the
+[registry setup instructions](https://github.com/ImLunaHey/oxlint-config/blob/luna/initial-project/README.md#install-from-github-packages).
+The committed `.npmrc` contains only the scope mapping. CI uses `GITHUB_TOKEN`.
+
+```sh
+pnpm install --frozen-lockfile
+pnpm build
+pnpm dev
+# Or launch a single app and its build dependencies:
+pnpm exec turbo dev --filter=@imlunahey/demo-catalogue
+```
+
+| App                | Port | Package                       |
+| ------------------ | ---- | ----------------------------- |
+| Components gallery | 5230 | `@imlunahey/demo-gallery`     |
+| Orbit projects     | 5231 | `@imlunahey/demo-projects`    |
+| Shelf catalogue    | 5232 | `@imlunahey/demo-catalogue`   |
+| Control account    | 5233 | `@imlunahey/demo-account`     |
+| Cardlattice        | 5234 | `@imlunahey/demo-cardlattice` |
+| Fleet              | 5235 | `@imlunahey/demo-fleet`       |
+
+Each app has its own `index.html`, React entry point, Vite configuration and
+production output. `dev` provides Vite hot reload; `start` previews its build.
+Apps use TanStack Router pathname routes and share the React library. After
+editing the library, rebuild it to update the consuming demos.
+
+## Components
+
+```tsx
+import "@imlunahey/components/styles.css";
+import { Theme } from "@imlunahey/components/theme";
+import { Button } from "@imlunahey/components/button";
+
+<Theme mode="dark">
+  <Button variant="primary">Save changes</Button>
+</Theme>;
+```
+
+See [the package API](packages/components/README.md) for all subpath exports.
+StyleX compiles the package styles at build time; consumers import the emitted
+CSS and do not need a StyleX compiler. New app layouts use StyleX too. Language
+flags are React SVG components from the `country-flag-icons` npm dependency.
+
+## Source and validation
+
+- `packages/components/src/react`: public React implementations and StyleX tokens.
+- `apps/*/src`: interactive app demos.
+- `src/demos`: shared demo layout and routing.
+- Other files in `packages/components/src`, `src/pages`, and `design/*.css`:
+  preserved original DOM prototypes, not public React exports.
+
+Native controls belong only in `packages/components/src`. Apps import custom
+components, including file uploads, selects and TanStack tables. Oxlint and its
+HTML companion enforce this boundary using `@imlunahey/oxlint-config@0.1.0`.
+React Doctor's applicable default rules run through Oxlint, with no ESLint runner.
+
+`pnpm check` checks TypeScript, Oxlint, HTML boundaries, production builds,
+prototype regressions, React interaction tests, an independent package install,
+HTTP smoke tests, and Playwright/axe checks for all apps. Before the first full
+check, install the test browser with `pnpm exec playwright install chromium`. `pnpm format:check` checks formatting.
+
+The original full prototype gallery remains accessible using
+`pnpm build:preview && node dev-server.mjs` on port 5220. The React gallery
+currently covers the exported library; additional original specimens (including
+advanced editors and date pickers) remain reference implementations until ported.
+No existing prototype is removed or silently embedded inside a React component.
