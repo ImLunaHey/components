@@ -13,7 +13,7 @@
     "format": "oxfmt --write .",
     "format:check": "oxfmt --check .",
     "test:apps": "node scripts/smoke-apps.mjs",
-    "typecheck": "tsc -p tsconfig.json",
+    "typecheck": "turbo run build --filter=@imlunahey/components && tsc -p tsconfig.json",
     "test:e2e": "playwright test"
   },
   "dependencies": {
