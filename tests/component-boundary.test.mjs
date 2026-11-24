@@ -1,4 +1,4 @@
-import test from "node:test";
+import { test } from "vitest";
 import assert from "node:assert/strict";
 import { lintSource, lintProject } from "../scripts/component-boundary.mjs";
 import { compileComponents } from "../packages/components/src/compile.mjs";

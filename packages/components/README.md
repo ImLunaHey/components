@@ -1,28 +1,47 @@
 # @imlunahey/components
 
-Custom DOM components with shared light/dark styles. These are framework-independent
-DOM APIs, not React components. Import defining modules directly; there is no barrel.
+Custom React components with compiled StyleX styles and neutral light/dark themes.
+Import components from explicit subpaths; there is no handwritten barrel.
 
-```js
+```tsx
 import "@imlunahey/components/styles.css";
-import { mountSelect, mountCombobox } from "@imlunahey/components/select";
-import { mountFileAttachment } from "@imlunahey/components/file-attachment";
-import { initProgressTooltips } from "@imlunahey/components/progress-tooltips";
-import { table, button, input, dialog } from "@imlunahey/components/controls";
+import { Theme } from "@imlunahey/components/theme";
+import { LanguageSelect } from "@imlunahey/components/language-select";
+import { FileUpload } from "@imlunahey/components/file-upload";
 
-mountFileAttachment(document.querySelector("#attachment"), { id: "upload" });
+<Theme mode="dark">
+  <LanguageSelect value={language} onValueChange={setLanguage} />
+  <FileUpload label="Images" accept="image/*" multiple onFilesChange={setFiles} />
+</Theme>;
 ```
 
-Mount DOM APIs in a client lifecycle, after elements exist. `mountSelect` wraps a
-native select with the custom picker while preserving form values and events.
-Call its `destroy()` when disposing the picker. Progress tooltip initialization
-returns a cleanup function. Table rendering uses TanStack Table.
+Exports: `button`, `input`, `textarea`, `panel`, `badge`, `select`, `combobox`,
+`language-select`, `file-upload`, `data-table`, `line-chart`, `dialog`, `progress`,
+`tabs`, `toggle`, `qr-code`, `theme`, `app-shell`, and `styles.css`.
+TypeScript declarations are generated from the React sources.
 
-Set `data-theme="dark"` or `data-theme="light"` on the document element. Styles
-currently include the prototype's global base styles: adopt them at an app boundary,
-not inside an unrelated page expecting fully scoped CSS.
+Selects are controlled custom listboxes with keyboard navigation, optional search
+and outside dismissal. Flags come from `country-flag-icons`. File uploads preview
+images and release object URLs when attachments change or unmount. Progress bars
+show details on hover and keyboard focus. Dialog uses the native modal focus and
+Escape behavior with a dark backdrop and outside dismissal.
 
-From this repository: `pnpm --filter @imlunahey/components build`, then
-`pnpm --filter @imlunahey/components pack --pack-destination ../../artifacts`.
-Install the resulting tarball in any project with `pnpm add /path/to/package.tgz`.
-No npm registry release has been published yet.
+DataTable uses `@tanstack/react-table` column definitions and sorting; memoize
+column definitions that render interactive cells. LineChart uses
+`@tanstack/charts` and disposes its renderer on unmount. QRCode renders with `qrcode`.
+
+The package requires React 19. Import the stylesheet once. It includes minimal
+body-margin and box-sizing normalization; component rules are compiled StyleX
+classes. Your application does not need a StyleX build plugin to consume it.
+
+Build and pack:
+
+```sh
+pnpm --filter @imlunahey/components build
+pnpm --filter @imlunahey/components pack --pack-destination ../../artifacts
+# Install the output in a separate React project:
+pnpm add /path/to/artifacts/imlunahey-components-0.1.0.tgz
+```
+
+The components package has not been published to a registry. The separate
+`@imlunahey/oxlint-config` dependency is published on GitHub Packages.

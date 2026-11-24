@@ -1,15 +1,21 @@
 # Luna components
 
-A pnpm + Turborepo workspace containing `@imlunahey/components` and six launchable
-app demos. The reusable Oxlint package lives separately in
+React components styled with StyleX, in a pnpm/Turborepo workspace with six
+independently launchable Vite apps. The shared Oxlint rules live in
 [ImLunaHey/oxlint-config](https://github.com/ImLunaHey/oxlint-config).
+
+## Install and run
+
+The lint dependency is installed from GitHub Packages, not vendored. Configure
+your existing GitHub CLI login and pnpm token helper using the
+[registry setup instructions](https://github.com/ImLunaHey/oxlint-config/blob/luna/initial-project/README.md#install-from-github-packages).
+The committed `.npmrc` contains only the scope mapping. CI uses `GITHUB_TOKEN`.
 
 ```sh
 pnpm install --frozen-lockfile
 pnpm build
-pnpm dev                         # all six apps
-pnpm --filter @imlunahey/demo-catalogue dev  # one built app
-# Or build and launch one app, including dependencies:
+pnpm dev
+# Or launch a single app and its build dependencies:
 pnpm exec turbo dev --filter=@imlunahey/demo-catalogue
 ```
 
@@ -22,53 +28,48 @@ pnpm exec turbo dev --filter=@imlunahey/demo-catalogue
 | Cardlattice        | 5234 | `@imlunahey/demo-cardlattice` |
 | Fleet              | 5235 | `@imlunahey/demo-fleet`       |
 
-`PORT` overrides a single app's port. `start` serves an existing build; `dev`
-currently serves the generated build too (rebuild after edits). Every app has its
-own `dist` and can run without the combined preview server. Fleet also exposes
-`/fleet/fullscreen`. Existing combined preview remains available through
-`pnpm build:preview && node dev-server.mjs` on port 5220.
+Each app has its own `index.html`, React entry point, Vite configuration and
+production output. `dev` provides Vite hot reload; `start` previews its build.
+Apps use TanStack Router pathname routes and share the React library. After
+editing the library, rebuild it to update the consuming demos.
 
-## Import the components
+## Components
 
-```sh
-pnpm --filter @imlunahey/components pack --pack-destination ../../artifacts
-# In another project:
-pnpm add /path/to/artifacts/imlunahey-components-0.1.0.tgz
-```
-
-```js
+```tsx
 import "@imlunahey/components/styles.css";
-import { mountSelect } from "@imlunahey/components/select";
-import { mountFileAttachment } from "@imlunahey/components/file-attachment";
-import { table } from "@imlunahey/components/controls";
+import { Theme } from "@imlunahey/components/theme";
+import { Button } from "@imlunahey/components/button";
+
+<Theme mode="dark">
+  <Button variant="primary">Save changes</Button>
+</Theme>;
 ```
 
-See [package API and lifecycle notes](packages/components/README.md). These are
-the existing custom DOM components, not React wrappers. No registry publication
-has occurred. The package has explicit subpath exports and no handwritten barrel.
+See [the package API](packages/components/README.md) for all subpath exports.
+StyleX compiles the package styles at build time; consumers import the emitted
+CSS and do not need a StyleX compiler. New app layouts use StyleX too. Language
+flags are React SVG components from the `country-flag-icons` npm dependency.
 
 ## Source and validation
 
-- `packages/components/src`: component implementations and specimen templates.
-- `src/pages`: authored Fleet/Cardlattice study templates.
-- `apps/*`: app package manifests, launch commands and generated builds.
-- `design/*.css` and `design/assets/examples`: authored styling and sample media.
-- `design/*.html`, `design/*.js`, `design/assets/js`: generated legacy preview.
+- `packages/components/src/react`: public React implementations and StyleX tokens.
+- `apps/*/src`: interactive app demos.
+- `src/demos`: shared demo layout and routing.
+- Other files in `packages/components/src`, `src/pages`, and `design/*.css`:
+  preserved original DOM prototypes, not public React exports.
 
-`pnpm check` runs Oxlint, the HTML boundary check, all Turbo builds, prototype
-interaction tests and the package consumer test. `pnpm format:check` checks
-formatting. The consumer test packs and installs the component library in a
-fresh directory and imports every exported module.
+Native controls belong only in `packages/components/src`. Apps import custom
+components, including file uploads, selects and TanStack tables. Oxlint and its
+HTML companion enforce this boundary using `@imlunahey/oxlint-config@0.1.0`.
+React Doctor's applicable default rules run through Oxlint, with no ESLint runner.
 
-Native controls are restricted to `packages/components/src`. App templates use
-`ui-*` references; file uploads use the shared attachment component. The build
-imports `@imlunahey/oxlint-config/boundary`, and `oxlint.config.ts` imports the
-same package's Oxlint preset. `vendor/` contains the exact bootstrap tarball,
-so CI does not need credentials to read a second private repo. Replace this
-versioned dependency when adopting a later lint release; do not edit the archive.
+`pnpm check` checks TypeScript, Oxlint, HTML boundaries, production builds,
+prototype regressions, React interaction tests, an independent package install,
+HTTP smoke tests, and Playwright/axe checks for all apps. Before the first full
+check, install the test browser with `pnpm exec playwright install chromium`. `pnpm format:check` checks formatting.
 
-This extraction preserves the existing CSS, JavaScript DOM implementations and
-Node test runner. It deliberately does not redesign the UI or migrate it to
-React/Tailwind/Vitest. Existing hash-based demo panes are retained. The exported
-stylesheet currently includes global base styles. See `docs/prototype-notes.md`
-for the pre-extraction implementation notes.
+The original full prototype gallery remains accessible using
+`pnpm build:preview && node dev-server.mjs` on port 5220. The React gallery
+currently covers the exported library; additional original specimens (including
+advanced editors and date pickers) remain reference implementations until ported.
+No existing prototype is removed or silently embedded inside a React component.

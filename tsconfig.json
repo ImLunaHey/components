@@ -2,11 +2,25 @@
   "compilerOptions": {
     "strict": true,
     "noEmit": true,
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "target": "ES2022",
-    "lib": ["ES2022", "DOM"],
-    "skipLibCheck": false
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "skipLibCheck": true,
+    "jsx": "react-jsx",
+    "allowImportingTsExtensions": true,
+    "types": ["vite/client"]
   },
-  "include": ["packages/components/types/**/*.d.ts", "packages/components/tests/types.ts"]
+  "include": [
+    "apps/**/*.tsx",
+    "apps/**/*.ts",
+    "src/demos/**/*.tsx",
+    "src/demos/**/*.ts",
+    "packages/components/src/react/**/*.tsx",
+    "packages/components/src/react/**/*.ts",
+    "scripts/vite-demo.ts",
+    "e2e/**/*.ts",
+    "playwright.config.ts",
+    "vitest.config.ts"
+  ]
 }

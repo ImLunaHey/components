@@ -1,50 +1,113 @@
 {
   "name": "@imlunahey/components",
   "version": "0.1.0",
-  "description": "Luna's custom DOM components and shared visual tokens",
+  "description": "Custom React components with StyleX styling",
   "files": [
     "dist",
-    "README.md",
-    "types"
+    "README.md"
   ],
   "type": "module",
   "exports": {
-    "./controls": {
-      "types": "./types/controls.d.ts",
-      "import": "./dist/controls.js"
+    "./button": {
+      "types": "./dist/types/button.d.ts",
+      "import": "./dist/button.js"
+    },
+    "./input": {
+      "types": "./dist/types/input.d.ts",
+      "import": "./dist/input.js"
+    },
+    "./textarea": {
+      "types": "./dist/types/textarea.d.ts",
+      "import": "./dist/textarea.js"
+    },
+    "./panel": {
+      "types": "./dist/types/panel.d.ts",
+      "import": "./dist/panel.js"
+    },
+    "./badge": {
+      "types": "./dist/types/badge.d.ts",
+      "import": "./dist/badge.js"
     },
     "./select": {
-      "types": "./types/select.d.ts",
+      "types": "./dist/types/select.d.ts",
       "import": "./dist/select.js"
     },
-    "./file-attachment": {
-      "types": "./types/file-attachment.d.ts",
-      "import": "./dist/file-attachment.js"
+    "./combobox": {
+      "types": "./dist/types/combobox.d.ts",
+      "import": "./dist/combobox.js"
     },
-    "./progress-tooltips": {
-      "types": "./types/progress-tooltips.d.ts",
-      "import": "./dist/progress-tooltips.js"
+    "./language-select": {
+      "types": "./dist/types/language-select.d.ts",
+      "import": "./dist/language-select.js"
+    },
+    "./file-upload": {
+      "types": "./dist/types/file-upload.d.ts",
+      "import": "./dist/file-upload.js"
+    },
+    "./data-table": {
+      "types": "./dist/types/data-table.d.ts",
+      "import": "./dist/data-table.js"
+    },
+    "./dialog": {
+      "types": "./dist/types/dialog.d.ts",
+      "import": "./dist/dialog.js"
+    },
+    "./progress": {
+      "types": "./dist/types/progress.d.ts",
+      "import": "./dist/progress.js"
+    },
+    "./tabs": {
+      "types": "./dist/types/tabs.d.ts",
+      "import": "./dist/tabs.js"
+    },
+    "./toggle": {
+      "types": "./dist/types/toggle.d.ts",
+      "import": "./dist/toggle.js"
     },
     "./qr-code": {
-      "types": "./types/qr-code.d.ts",
+      "types": "./dist/types/qr-code.d.ts",
       "import": "./dist/qr-code.js"
     },
-    "./compile": {
-      "types": "./types/compile.d.ts",
-      "import": "./dist/compile.mjs"
+    "./theme": {
+      "types": "./dist/types/theme.d.ts",
+      "import": "./dist/theme.js"
     },
-    "./styles.css": "./dist/styles.css"
+    "./app-shell": {
+      "types": "./dist/types/app-shell.d.ts",
+      "import": "./dist/app-shell.js"
+    },
+    "./styles.css": "./dist/components.css",
+    "./line-chart": {
+      "types": "./dist/types/line-chart.d.ts",
+      "import": "./dist/line-chart.js"
+    }
   },
   "scripts": {
-    "build": "node build.mjs",
-    "test": "node --test tests/*.test.mjs"
+    "build": "vite build && tsc -p tsconfig.build.json",
+    "test": "vitest run --config vitest.config.ts"
   },
   "dependencies": {
+    "@stylexjs/stylex": "^0.19.2",
+    "@tanstack/charts": "^1.5.0",
+    "@tanstack/react-table": "^8.21.3",
     "@tanstack/table-core": "^8.21.3",
+    "country-flag-icons": "^1.6.20",
+    "lucide-react": "^1.78.0",
     "qrcode": "^1.5.4"
   },
   "devDependencies": {
-    "esbuild": "^0.25.12",
-    "jsdom": "^31.0.1"
+    "@stylexjs/unplugin": "^0.19.2",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.3.0",
+    "jsdom": "^31.0.1",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.8"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   }
 }

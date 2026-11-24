@@ -3,11 +3,13 @@
     "design/**",
     "**/dist/**",
     "**/node_modules/**",
-    "packages/components/src/**",
     "src/pages/**",
     "docs/**",
-    "vendor/**",
     ".runtime/**",
-    ".turbo/**"
+    ".turbo/**",
+    "packages/components/src/*.js",
+    "packages/components/src/*.mjs",
+    "packages/components/src/templates/**",
+    "packages/components/src/workflows/**"
   ]
 }

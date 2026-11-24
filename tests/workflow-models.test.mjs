@@ -1,4 +1,4 @@
-import test from "node:test";
+import { test } from "vitest";
 import assert from "node:assert/strict";
 import { parseImport, validateImport } from "../packages/components/src/workflows/data.js";
 import { cropBounds } from "../packages/components/src/workflows/media.js";

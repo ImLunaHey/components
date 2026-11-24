@@ -42,5 +42,6 @@ minimumReleaseAgeExclude:
   - "@oxlint/binding-win32-x64-msvc@1.95.0"
   - oxfmt@0.80.0
   - oxlint@1.95.0
+  - "@imlunahey/oxlint-config@0.1.0"
 allowBuilds:
   esbuild: true

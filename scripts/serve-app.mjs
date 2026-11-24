@@ -13,7 +13,7 @@ const entries = {
 };
 if (!entries[name]) throw Error("Unknown demo");
 const root = fileURLToPath(new URL(`../apps/${name}/dist/`, import.meta.url));
-await stat(path.join(root, entries[name]));
+await stat(path.join(root, "index.html"));
 const port = Number(process.env.PORT || process.argv[3]);
 const types = {
   ".html": "text/html",
@@ -29,13 +29,8 @@ http
   .createServer(async (req, res) => {
     try {
       const url = new URL(req.url, "http://localhost");
-      const route =
-        url.pathname === "/"
-          ? entries[name]
-          : url.pathname === "/fleet/fullscreen"
-            ? "fleet-monitor-fullscreen.html"
-            : (entries[url.pathname.slice(1)] ??
-              decodeURIComponent(url.pathname).replace(/^\//, ""));
+      const requested = decodeURIComponent(url.pathname).replace(/^\//, "");
+      const route = !path.extname(requested) ? "index.html" : requested;
       const file = path.resolve(root, route);
       if (!file.startsWith(root)) {
         res.writeHead(403).end();

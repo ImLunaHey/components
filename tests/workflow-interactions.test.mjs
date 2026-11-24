@@ -1,4 +1,4 @@
-import test from "node:test";
+import { test } from "vitest";
 import assert from "node:assert/strict";
 import { setup, fragment, wait, change, type, submit, clickText } from "./dom.mjs";
 import { initViews, initImport } from "../packages/components/src/workflows/data.js";

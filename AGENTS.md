@@ -25,7 +25,10 @@
 - Edit authored templates and source, not generated `design/*.html`, bundled JS,
   or app/package `dist` output.
 - The lint package is maintained in the separate `ImLunaHey/oxlint-config` repo.
-  Update its versioned bootstrap archive as a dependency; do not fork rules here.
+  Install its versioned release from GitHub Packages with pnpm; never vendor it.
+- Components are React and styling uses StyleX. Flags come from the
+  `country-flag-icons` npm dependency. Legacy prototypes are reference material;
+  do not expose their DOM APIs as the React package.
 
 ## Validation
 
@@ -35,3 +38,6 @@ interaction tests, package installation tests, and HTTP smoke tests for all demo
 Report any checks that could not run. For UI changes, verify both themes,
 responsive layouts, keyboard behavior and accessibility; include before/after
 screenshots in the PR.
+
+Use Vitest for tests. React interaction tests use React Testing Library. Do not
+add a second node:test or Jest runner.
