@@ -14,6 +14,15 @@ test("published Cardlattice snapshot loads without mocks", async ({ page }) => {
   await expect(page.getByRole("banner")).toContainText("6,773 printings");
   await page.getByRole("searchbox", { name: "Search cards" }).fill("Charizard");
   await page.getByRole("searchbox", { name: "Search cards" }).press("Enter");
+  const englishImage = page.getByRole("img", {
+    name: "Charizard · 20 · en card artwork",
+    exact: true,
+  });
+  await expect(englishImage).toBeVisible({ timeout: 30000 });
+  await expect
+    .poll(() => englishImage.evaluate((img: HTMLImageElement) => img.naturalWidth))
+    .toBeGreaterThan(0);
+  await expect(page.getByText("Finding artwork…", { exact: true })).toHaveCount(0);
   for (const mode of ["dark", "light"] as const)
     for (const width of [390, 1720]) {
       await page.emulateMedia({ colorScheme: mode });
@@ -27,7 +36,7 @@ test("published Cardlattice snapshot loads without mocks", async ({ page }) => {
         .analyze();
       expect(result.violations.map((v) => v.id)).toEqual([]);
       await page.screenshot({
-        path: `.runtime/cardlattice-data/after-live-${mode}-${width}.png`,
+        path: `.runtime/cardlattice-art/after-live-${mode}-${width}.png`,
         fullPage: true,
       });
     }
@@ -36,6 +45,18 @@ test("published Cardlattice snapshot loads without mocks", async ({ page }) => {
     .first()
     .click();
   await expect(page.locator("h1")).toHaveText("Charizard");
-  await expect(page.getByText("Artwork is not included in the published snapshot.")).toBeVisible();
+  await expect(
+    page.getByText("No matching TCGdex artwork is available for this printing."),
+  ).toBeVisible();
+  await page.goto(base + "/pokemon/printings/pokemon-black-white-boundaries-crossed-en-global-20");
+  const detailed = page.getByRole("img", { name: "Charizard · 20 · en card artwork", exact: true });
+  await expect(detailed).toHaveAttribute("src", /high.webp$/);
+  await expect
+    .poll(() => detailed.evaluate((img: HTMLImageElement) => img.naturalWidth))
+    .toBeGreaterThan(0);
+  await page.screenshot({
+    path: ".runtime/cardlattice-art/after-detail-light.png",
+    fullPage: true,
+  });
   expect(errors).toEqual([]);
 });

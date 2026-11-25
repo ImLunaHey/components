@@ -92,7 +92,11 @@ export function App() {
             <a href="https://github.com/cardlattice/cardlattice-data" {...stylex.props(s.link)}>
               Cardlattice open metadata
             </a>{" "}
-            · CC0 · No artwork in this snapshot
+            · CC0 metadata · Images via{" "}
+            <a href="https://tcgdex.net" {...stylex.props(s.link)}>
+              TCGdex
+            </a>{" "}
+            · Pokémon artwork © respective owners
           </span>
         </footer>
       </div>

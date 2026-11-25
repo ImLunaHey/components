@@ -117,7 +117,10 @@ export function Information({ page }: { page: string }) {
             items={[
               { label: "Sets", value: sets.length },
               { label: "Printings", value: printings.length },
-              { label: "Includes", value: "Published metadata · no artwork" },
+              {
+                label: "Includes",
+                value: "Published metadata · artwork loaded separately from TCGdex",
+              },
               { label: "Source", value: "Cardlattice published snapshot" },
               { label: "Revision", value: manifest.sourceCommit.slice(0, 12) },
             ]}

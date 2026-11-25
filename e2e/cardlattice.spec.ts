@@ -156,7 +156,9 @@ test("type and set filters survive inspecting cards and returning to results", a
   await expect(page.getByRole("status")).toContainText("1–2 of 2");
   await page.getByRole("link", { name: /^Charizard ·/ }).click();
   await expect(page.locator("h1")).toHaveText("Charizard");
-  await expect(page.getByText("Artwork is not included in the published snapshot.")).toBeVisible();
+  await expect(
+    page.getByText("No matching TCGdex artwork is available for this printing."),
+  ).toBeVisible();
   await page.getByRole("link", { name: "Next card", exact: true }).click();
   await expect(page.locator("h1")).toHaveText("Ninetales");
   await page.getByRole("link", { name: "Back to results", exact: true }).click();
@@ -256,4 +258,42 @@ test("language options use only the published languages and include flags", asyn
   await page.getByRole("combobox", { name: "Search Language" }).fill("Korean");
   await page.keyboard.press("Enter");
   await expect(page.getByRole("heading", { name: "아라리", exact: true })).toBeVisible();
+});
+
+test("matching TCGdex artwork uses thumbnails, detailed images and a source link", async ({
+  page,
+}) => {
+  await page.goto(base + "/search?q=Charizard&language=en");
+  const image = page.getByRole("img", { name: "Charizard · 20 · en card artwork", exact: true });
+  await expect(image).toHaveAttribute("src", /\/low.webp$/);
+  await expect
+    .poll(() => image.evaluate((img: HTMLImageElement) => img.naturalWidth))
+    .toBeGreaterThan(0);
+  await page.getByRole("link", { name: /^Charizard ·/ }).click();
+  await expect(image).toHaveAttribute("src", /\/high.webp$/);
+  await expect
+    .poll(() => image.evaluate((img: HTMLImageElement) => img.naturalWidth))
+    .toBeGreaterThan(0);
+  await expect(page.getByRole("link", { name: "Card image via TCGdex ↗" })).toHaveAttribute(
+    "href",
+    "https://api.tcgdex.net/v2/en/cards/bw7-20",
+  );
+});
+test("TCGdex outages and broken assets do not block browsing", async ({ page, context }) => {
+  await context.route("https://api.tcgdex.net/v2/**", (route) =>
+    route.fulfill({ status: 503, body: "Unavailable" }),
+  );
+  await page.goto(base + "/search?q=Charizard&language=en");
+  await expect(page.locator("h1")).toHaveText("Results for “Charizard”");
+  await expect(page.getByText("Artwork temporarily unavailable")).toBeVisible();
+  await context.unroute("https://api.tcgdex.net/v2/**");
+  const { mockArtwork } = await import("./catalogue-fixture");
+  await mockArtwork(context);
+  await context.route("https://assets.tcgdex.net/**", (route) =>
+    route.fulfill({ status: 404, body: "Missing" }),
+  );
+  await page.reload();
+  await expect(page.getByRole("img", { name: /Charizard.*image unavailable/ })).toBeVisible();
+  await page.getByRole("link", { name: /^Charizard ·/ }).click();
+  await expect(page.locator("h1")).toHaveText("Charizard");
 });

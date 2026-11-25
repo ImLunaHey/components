@@ -8,3 +8,14 @@ https://cardlattice-status.pages.dev/data/manifest.json.
 These records are used only by tests. The app downloads the current published
 snapshot at runtime and never falls back to test fixtures. Test manifests are
 computed from these bytes so integrity checks run in browser tests too.
+
+The `tcgdex-en-*.json` files contain a small subset of actual TCGdex API responses
+from 2026-11-25. Image fixtures are the matching TCGdex assets, used for offline
+image-loading and screenshot tests:
+
+- https://assets.tcgdex.net/en/bw/bw7/20/high.webp
+- https://assets.tcgdex.net/en/me/30th/023/high.webp
+
+These images are Pokémon artwork, copyright their respective owners, not CC0.
+TCGdex matching and format documentation: https://tcgdex.dev/assets and
+https://tcgdex.dev/rest/set.

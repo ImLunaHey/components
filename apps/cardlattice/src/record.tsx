@@ -1,3 +1,4 @@
+import { useArtwork } from "./use-artwork";
 import { useCatalogue } from "./catalogue-provider";
 import { languageName } from "./data";
 import { useState } from "react";
@@ -33,6 +34,7 @@ export function Record() {
     browse,
     origin.startsWith("/pokemon/sets/") ? origin.split("/")[3] : undefined,
   );
+  const { artwork, pending: artworkPending } = useArtwork(card);
   if (!card)
     return (
       <EmptyState
@@ -104,8 +106,22 @@ export function Record() {
       />
       <section {...stylex.props(s.detail)}>
         <div {...stylex.props(s.detailVisual, s.stack)}>
-          <CardArt card={card} />
-          <p {...stylex.props(s.muted)}>Artwork is not included in the published snapshot.</p>
+          <CardArt card={card} detail />
+          <p {...stylex.props(s.muted)}>
+            {artwork ? (
+              <>
+                <a href={artwork.source} {...stylex.props(s.link)}>
+                  Card image via TCGdex ↗
+                </a>
+                <br />
+                Finish and stamps may vary.
+              </>
+            ) : artworkPending ? (
+              "Finding matching TCGdex artwork…"
+            ) : (
+              "No matching TCGdex artwork is available for this printing."
+            )}
+          </p>
         </div>
         <div {...stylex.props(s.stack)}>
           <div {...stylex.props(s.stack)}>
