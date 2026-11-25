@@ -52,3 +52,20 @@ test("gallery keyboard controls, image preview and modal backdrop", async ({ pag
   await page.mouse.click(5, 5);
   await expect(page.getByRole("dialog")).not.toBeVisible();
 });
+
+for (const mode of ["light", "dark"])
+  test(`catalogue component patterns ${mode}`, async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 1000 });
+    await page.addInitScript((mode) => localStorage.setItem("luna-theme", mode), mode);
+    await page.goto("http://127.0.0.1:5630/catalogue");
+    await expect(page.getByRole("heading", { name: "Record tiles and breadcrumbs" })).toBeVisible();
+    const result = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
+      .analyze();
+    expect(result.violations.map((v) => v.id)).toEqual([]);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
+      true,
+    );
+    await page.getByRole("button", { name: "Next", exact: true }).click();
+    await expect(page.getByRole("status").filter({ hasText: "9–16 of 18" })).toBeVisible();
+  });

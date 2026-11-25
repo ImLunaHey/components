@@ -14,10 +14,12 @@ export function LanguageSelect({
   value,
   onValueChange,
   label = "Language",
+  includeAll = false,
 }: {
   value: string;
   onValueChange: (value: string) => void;
   label?: string;
+  includeAll?: boolean;
 }) {
   return (
     <Select
@@ -25,11 +27,14 @@ export function LanguageSelect({
       value={value}
       onValueChange={onValueChange}
       searchable
-      options={languages.map(({ Flag, ...option }) => ({
-        ...option,
-        keywords: option.description,
-        icon: <Flag aria-hidden="true" {...stylex.props(styles.flag)} />,
-      }))}
+      options={[
+        ...(includeAll ? [{ value: "", label: "All languages" }] : []),
+        ...languages.map(({ Flag, ...option }) => ({
+          ...option,
+          keywords: option.description,
+          icon: <Flag aria-hidden="true" {...stylex.props(styles.flag)} />,
+        })),
+      ]}
     />
   );
 }

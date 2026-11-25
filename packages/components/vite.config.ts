@@ -21,6 +21,13 @@ const entries = [
   "theme",
   "app-shell",
   "line-chart",
+  "record-tile",
+  "description-list",
+  "filter-chip",
+  "pagination",
+  "empty-state",
+  "breadcrumbs",
+  "code-block",
 ];
 export default defineConfig({
   plugins: [

@@ -73,3 +73,28 @@ The original full prototype gallery remains accessible using
 currently covers the exported library; additional original specimens (including
 advanced editors and date pickers) remain reference implementations until ported.
 No existing prototype is removed or silently embedded inside a React component.
+
+## Cardlattice catalogue demo
+
+Cardlattice uses a public site header with searchable printings, set pages,
+card identities, URL-persisted language/rarity/sort/view filters, grid and TanStack
+table views, record metadata, coverage, documentation and a JSON download.
+Try `/pokemon/sets/base-set`, `/pokemon/printings/base-set-004`, `/data`, and
+`/contribute`. Corrections and review decisions stay in browser localStorage;
+they never update the live service or the fixture records. The 18 printings are
+sample metadata with original abstract artwork placeholders, not a live dataset.
+
+Launch it independently (build the shared package first):
+
+```sh
+pnpm --filter @imlunahey/components build
+pnpm --filter @imlunahey/demo-cardlattice dev
+```
+
+For a Tailscale HTTPS preview, explicitly allow your tailnet hostname and bind
+Vite to loopback so it can share the port with Tailscale Serve:
+
+```sh
+DEMO_ALLOWED_HOSTS=your-host.your-tailnet.ts.net pnpm --filter @imlunahey/demo-cardlattice exec vite --host 127.0.0.1 --port 5234 --strictPort
+tailscale serve --bg --https=5234 http://127.0.0.1:5234
+```
