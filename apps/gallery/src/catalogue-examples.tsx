@@ -1,7 +1,9 @@
+import { MediaImage } from "@imlunahey/components/media-image";
+import { renderRouterLink } from "../../../src/demos/router-link";
 import { useState } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Panel } from "@imlunahey/components/panel";
-import { RecordTile } from "@imlunahey/components/record-tile";
+import { RecordLink } from "../../../src/demos/record-link";
 import { DescriptionList } from "@imlunahey/components/description-list";
 import { Breadcrumbs } from "@imlunahey/components/breadcrumbs";
 import { FilterChip } from "@imlunahey/components/filter-chip";
@@ -17,10 +19,11 @@ export function CatalogueExamples() {
     <div {...stylex.props(layout.grid)}>
       <Panel title="Record tiles and breadcrumbs">
         <Breadcrumbs
+          renderLink={renderRouterLink}
           items={[{ label: "Components", href: "/" }, { label: "Catalogue patterns" }]}
         />
-        <RecordTile
-          href="/catalogue"
+        <RecordLink
+          to="/catalogue"
           eyebrow="RELEASE 01"
           title="A reusable catalogue tile"
           description="A linked record with optional artwork, metadata and a footer."
@@ -52,6 +55,9 @@ export function CatalogueExamples() {
           description="Give people a useful next step when a search returns no results."
           action={<Button onClick={() => setFiltered(false)}>Reset filters</Button>}
         />
+      </Panel>
+      <Panel title="Image fallback">
+        <MediaImage alt="Unavailable product photo" aspectRatio="16 / 9" />
       </Panel>
       <Panel title="Copyable code">
         <CodeBlock

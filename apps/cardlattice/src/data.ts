@@ -83,4 +83,23 @@ export function searchPrintings(query: string) {
   );
 }
 export const sampleNotice =
-  "Interactive design demo · sample catalogue, original abstract artwork placeholders. Not connected to live Cardlattice data.";
+  "Interactive design demo · sample catalogue with card images via TCGdex. Not connected to live Cardlattice data.";
+
+export function filterPrintings(search: Record<string, unknown>, setId?: string) {
+  const query = typeof search.q === "string" ? search.q : "";
+  return searchPrintings(query)
+    .filter(
+      (card) =>
+        (!(setId || search.set) || card.setId === (setId || search.set)) &&
+        (!search.language || card.language === search.language) &&
+        (!search.rarity || card.rarity === search.rarity) &&
+        (!search.type || card.element === search.type),
+    )
+    .sort((a, b) =>
+      search.sort === "name"
+        ? a.name.localeCompare(b.name)
+        : a.setId.localeCompare(b.setId) ||
+          a.number.localeCompare(b.number) ||
+          a.name.localeCompare(b.name),
+    );
+}

@@ -19,7 +19,7 @@ Exports: `button`, `input`, `textarea`, `panel`, `badge`, `select`, `combobox`,
 `language-select`, `file-upload`, `data-table`, `line-chart`, `dialog`, `progress`,
 `tabs`, `toggle`, `qr-code`, `theme`, `app-shell`, `record-tile`,
 `description-list`, `filter-chip`, `pagination`, `empty-state`, `breadcrumbs`,
-`code-block`, and `styles.css`.
+`code-block`, `media-image`, and `styles.css`.
 TypeScript declarations are generated from the React sources.
 
 Selects are controlled custom listboxes with keyboard navigation, optional search
@@ -54,3 +54,13 @@ CodeBlock text. Pagination is controlled with `page`, `pageSize`, `total`, and
 `onPageChange`. LanguageSelect accepts `includeAll` for an unfiltered option
 (value `""`); individual languages retain their flags. See the gallery’s
 `/catalogue` route and the Cardlattice app for composed examples.
+
+For client-side navigation, Breadcrumbs and AppShell accept a `renderLink`
+callback receiving anchor props (href, children, styling and accessibility props).
+Render your router’s Link with those props, mapping href to its destination prop.
+The default remains a native anchor for non-router consumers. RecordTile forwards
+anchor props and its ref, so it can be wrapped with TanStack Router’s `createLink`.
+See `src/demos/router-link.tsx` and `src/demos/record-link.tsx` for adapters.
+
+MediaImage reserves an aspect ratio for images and displays an accessible fallback
+when the image is missing or fails to load. It supports eager or lazy loading.

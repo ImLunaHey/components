@@ -69,3 +69,22 @@ for (const mode of ["light", "dark"])
     await page.getByRole("button", { name: "Next", exact: true }).click();
     await expect(page.getByRole("status").filter({ hasText: "9–16 of 18" })).toBeVisible();
   });
+
+for (const [index, name] of apps.entries()) {
+  if (name === "cardlattice") continue;
+  test(`${name} sidebar navigation preserves the document`, async ({ page }) => {
+    await page.goto(`http://127.0.0.1:${5630 + index}/`);
+    const documents: string[] = [];
+    page.on("request", (request) => {
+      if (request.resourceType() === "document") documents.push(request.url());
+    });
+    const links = page.getByRole("navigation").getByRole("link");
+    const link = links.nth((await links.count()) > 1 ? 1 : 0);
+    const href = await link.getAttribute("href");
+    await link.click();
+    await expect(page).toHaveURL(`http://127.0.0.1:${5630 + index}${href}`);
+    await page.goBack();
+    await expect(page).toHaveURL(`http://127.0.0.1:${5630 + index}/`);
+    expect(documents).toEqual([]);
+  });
+}

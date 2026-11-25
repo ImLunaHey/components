@@ -28,6 +28,7 @@ const entries = [
   "empty-state",
   "breadcrumbs",
   "code-block",
+  "media-image",
 ];
 export default defineConfig({
   plugins: [

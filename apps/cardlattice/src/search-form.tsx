@@ -1,34 +1,43 @@
 import { useState } from "react";
-import { useNavigate } from "@tanstack/react-router";
+import { useNavigate, useRouterState } from "@tanstack/react-router";
 import * as stylex from "@stylexjs/stylex";
 import { Search } from "lucide-react";
 import { Input } from "@imlunahey/components/input";
 import { Button } from "@imlunahey/components/button";
-import { s } from "./styles";
-const styles = stylex.create({ form: { alignItems: "end" } });
+const styles = stylex.create({
+  form: { display: "flex", gap: 8, alignItems: "end", width: "100%" },
+  field: { flex: 1, minWidth: 0 },
+});
 export function SearchForm() {
-  const [value, setValue] = useState("");
+  const query = useRouterState({
+    select: (state) => String((state.location.search as Record<string, unknown>).q ?? ""),
+  });
+  return <SearchField key={query} query={query} />;
+}
+function SearchField({ query }: { query: string }) {
+  const [value, setValue] = useState(query);
   const navigate = useNavigate();
   return (
     <form
       role="search"
       onSubmit={(event) => {
         event.preventDefault();
-        void navigate({ to: "/search", search: { q: value } });
+        void navigate({ to: "/search", search: { q: value.trim() } });
       }}
-      {...stylex.props(s.row, styles.form)}
+      {...stylex.props(styles.form)}
     >
-      <div {...stylex.props(s.grow)}>
+      <div {...stylex.props(styles.field)}>
         <Input
-          label="Search the catalogue"
+          label="Search cards"
           type="search"
           value={value}
           onChange={(event) => setValue(event.target.value)}
-          placeholder="Card name, set, collector number…"
+          placeholder="Name, number, set or illustrator…"
         />
       </div>
       <Button type="submit" variant="primary">
-        <Search size={15} /> Search
+        <Search size={16} />
+        <span>Search</span>
       </Button>
     </form>
   );

@@ -1,5 +1,6 @@
+import { MediaImage } from "../dist/media-image.js";
 import { it, expect, vi } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useState } from "react";
 import { Pagination } from "../dist/pagination.js";
@@ -47,4 +48,12 @@ it("copies the actual code and handles clipboard denial", async () => {
   write.mockRejectedValue(new Error("Denied"));
   await user.click(screen.getByRole("button", { name: "Copy JSON" }));
   expect(screen.getByRole("status")).toHaveTextContent("Clipboard unavailable");
+});
+
+it("reserves an image fallback and recovers when its source changes", async () => {
+  const { rerender } = render(<MediaImage src="/missing.webp" alt="Card photo" />);
+  fireEvent.error(screen.getByRole("img", { name: "Card photo" }));
+  expect(screen.getByRole("img", { name: "Card photo — image unavailable" })).toBeVisible();
+  rerender(<MediaImage src="/available.webp" alt="Card photo" />);
+  expect(screen.getByRole("img", { name: "Card photo" })).toHaveAttribute("src", "/available.webp");
 });

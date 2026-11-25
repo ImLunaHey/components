@@ -108,6 +108,10 @@
     "./code-block": {
       "types": "./dist/types/code-block.d.ts",
       "import": "./dist/code-block.js"
+    },
+    "./media-image": {
+      "types": "./dist/types/media-image.d.ts",
+      "import": "./dist/media-image.js"
     }
   },
   "scripts": {

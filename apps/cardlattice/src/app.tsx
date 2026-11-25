@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Outlet, useRouterState } from "@tanstack/react-router";
+import { Link, Outlet, useRouterState } from "@tanstack/react-router";
 import * as stylex from "@stylexjs/stylex";
-import { Layers, Sun, Moon, Search } from "lucide-react";
+import { Layers, Sun, Moon } from "lucide-react";
 import { Theme } from "@imlunahey/components/theme";
 import { Button } from "@imlunahey/components/button";
+import { SearchForm } from "./search-form";
 import { palette } from "./tokens.stylex";
 import { s } from "./styles";
 const light = stylex.createTheme(palette, {
@@ -18,7 +19,7 @@ const light = stylex.createTheme(palette, {
 });
 export function App() {
   const path = useRouterState({ select: (state) => state.location.pathname });
-  const [mode, setMode] = useState<"dark" | "light">(() => {
+  const [mode, setMode] = useState<"light" | "dark">(() => {
     const saved = localStorage.getItem("luna-theme");
     return saved === "light" || saved === "dark"
       ? saved
@@ -34,61 +35,80 @@ export function App() {
         </a>
         <header {...stylex.props(s.header)}>
           <div {...stylex.props(s.headerInner)}>
-            <a href="/" {...stylex.props(s.brand)}>
-              <Layers size={22} strokeWidth={1.5} /> cardlattice
-              <span {...stylex.props(s.eyebrow)}> / demo</span>
-            </a>
+            <Link to="/" {...stylex.props(s.brand)}>
+              <Layers size={23} />
+              cardlattice<span {...stylex.props(s.demo)}>DEMO</span>
+            </Link>
+            <div {...stylex.props(s.headerSearch)}>
+              <SearchForm />
+            </div>
+            <Button
+              aria-label={mode === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+              onClick={() => {
+                const next = mode === "dark" ? "light" : "dark";
+                setMode(next);
+                localStorage.setItem("luna-theme", next);
+              }}
+            >
+              {mode === "dark" ? <Sun size={17} /> : <Moon size={17} />}
+            </Button>
+          </div>
+          <div {...stylex.props(s.navBar)}>
             <nav aria-label="Main navigation" {...stylex.props(s.nav)}>
               {[
-                { href: "/pokemon/sets", label: "Catalogue" },
-                { href: "/data", label: "Data" },
-                { href: "/docs", label: "Docs" },
-                { href: "/contribute", label: "Contribute" },
+                {
+                  to: "/pokemon/cards",
+                  label: "Cards",
+                  active:
+                    path === "/" ||
+                    path === "/search" ||
+                    path.includes("/cards") ||
+                    path.includes("/printings"),
+                },
+                { to: "/pokemon/sets", label: "Sets", active: path.includes("/sets") },
               ].map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  aria-current={path === item.href ? "page" : undefined}
-                  {...stylex.props(s.link, path === item.href && s.active)}
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  aria-current={item.active ? "page" : undefined}
+                  {...stylex.props(s.navLink, item.active && s.navActive)}
                 >
                   {item.label}
-                </a>
+                </Link>
               ))}
             </nav>
-            <div {...stylex.props(s.row)}>
-              <a href="/search" aria-label="Search catalogue" {...stylex.props(s.link)}>
-                <Search size={18} />
-              </a>
-              <Button
-                aria-label={mode === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-                onClick={() => {
-                  const next = mode === "dark" ? "light" : "dark";
-                  setMode(next);
-                  localStorage.setItem("luna-theme", next);
-                }}
-              >
-                {mode === "dark" ? <Sun size={16} /> : <Moon size={16} />}
-              </Button>
-            </div>
+            <span {...stylex.props(s.muted)}>Pokémon TCG · 18 sample cards</span>
           </div>
         </header>
         <main id="main" {...stylex.props(s.container)}>
           <Outlet />
         </main>
         <footer {...stylex.props(s.footer)}>
-          <span>Cardlattice · An open catalogue, carefully connected.</span>
+          <span>Cardlattice demo · sample metadata</span>
           <div {...stylex.props(s.row)}>
-            <a href="/coverage" {...stylex.props(s.link)}>
+            <Link to="/contribute" {...stylex.props(s.link)}>
+              Contribute
+            </Link>
+            <Link to="/coverage" {...stylex.props(s.link)}>
               Coverage
-            </a>
-            <a href="/review" {...stylex.props(s.link)}>
+            </Link>
+            <Link to="/data" {...stylex.props(s.link)}>
+              Data
+            </Link>
+            <Link to="/docs" {...stylex.props(s.link)}>
+              Docs
+            </Link>
+            <Link to="/review" {...stylex.props(s.link)}>
               Demo review queue
-            </a>
-            <a href="https://github.com/cardlattice/cardlattice" {...stylex.props(s.link)}>
-              GitHub ↗
-            </a>
+            </Link>
           </div>
-          <span>Design demo · sample metadata and abstract artwork placeholders.</span>
+          <span>
+            Images via{" "}
+            <a href="https://tcgdex.net" {...stylex.props(s.link)}>
+              TCGdex
+            </a>{" "}
+            · Pokémon © Nintendo / Creatures / GAME FREAK
+          </span>
         </footer>
       </div>
     </Theme>

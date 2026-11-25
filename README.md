@@ -76,13 +76,16 @@ No existing prototype is removed or silently embedded inside a React component.
 
 ## Cardlattice catalogue demo
 
-Cardlattice uses a public site header with searchable printings, set pages,
+Cardlattice opens directly into a searchable card grid, with set pages,
 card identities, URL-persisted language/rarity/sort/view filters, grid and TanStack
 table views, record metadata, coverage, documentation and a JSON download.
 Try `/pokemon/sets/base-set`, `/pokemon/printings/base-set-004`, `/data`, and
 `/contribute`. Corrections and review decisions stay in browser localStorage;
 they never update the live service or the fixture records. The 18 printings are
-sample metadata with original abstract artwork placeholders, not a live dataset.
+sample metadata with card images from TCGdex, not a live dataset. Image source
+URLs are recorded in `apps/cardlattice/public/cards/sources.json`; copyright remains
+with the respective Pokémon rights holders. Results, filters and page position
+are retained when opening cards and returning to the catalogue.
 
 Launch it independently (build the shared package first):
 

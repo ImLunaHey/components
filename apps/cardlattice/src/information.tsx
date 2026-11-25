@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Button } from "@imlunahey/components/button";
@@ -46,7 +47,7 @@ export function Information({ page }: { page: string }) {
     return (
       <>
         <span {...stylex.props(s.eyebrow)}>Know what’s here. See what’s next.</span>
-        <h1 {...stylex.props(s.title)}>An honest picture.</h1>
+        <h1 {...stylex.props(s.title)}>Catalogue coverage</h1>
         <p {...stylex.props(s.lead)}>
           Coverage is measured against these sample records. It does not represent the completeness
           of a real set or the live catalogue.
@@ -83,9 +84,9 @@ export function Information({ page }: { page: string }) {
             },
           ]}
         />
-        <a href="/contribute" {...stylex.props(s.link)}>
+        <Link to="/contribute" {...stylex.props(s.link)}>
           Help fill a gap →
-        </a>
+        </Link>
       </>
     );
   }
@@ -93,7 +94,7 @@ export function Information({ page }: { page: string }) {
     return (
       <div {...stylex.props(s.narrow)}>
         <span {...stylex.props(s.eyebrow)}>Build something of your own</span>
-        <h1 {...stylex.props(s.title)}>The data, in your hands.</h1>
+        <h1 {...stylex.props(s.title)}>Catalogue data</h1>
         <p {...stylex.props(s.lead)}>
           Download exactly what powers this demo. No account or API key needed.
         </p>
@@ -137,7 +138,7 @@ export function Information({ page }: { page: string }) {
     return (
       <div {...stylex.props(s.narrow)}>
         <span {...stylex.props(s.eyebrow)}>A few useful distinctions</span>
-        <h1 {...stylex.props(s.title)}>A catalogue that connects.</h1>
+        <h1 {...stylex.props(s.title)}>About the catalogue</h1>
         <p {...stylex.props(s.lead)}>
           A card, its printing and its artwork are related—but each answers a different question.
         </p>
@@ -163,9 +164,9 @@ export function Information({ page }: { page: string }) {
         ].map((item) => (
           <Panel key={item.title} title={item.title}>
             <p {...stylex.props(s.lead)}>{item.text}</p>
-            <a href={item.href} {...stylex.props(s.link)}>
+            <Link to={item.href} {...stylex.props(s.link)}>
               {item.action} →
-            </a>
+            </Link>
           </Panel>
         ))}
         <Panel title="Stable links, useful filters">
@@ -184,7 +185,9 @@ export function Information({ page }: { page: string }) {
     <div {...stylex.props(s.narrow)}>
       <span {...stylex.props(s.eyebrow)}>Better, together</span>
       <h1 {...stylex.props(s.title)}>
-        {page === "review" ? "Review the details." : "One correction makes a difference."}
+        {page === "review"
+          ? "Suggest and review corrections"
+          : "One correction makes a difference."}
       </h1>
       <p {...stylex.props(s.lead)}>
         Propose a change, attach a source, then compare the values. This demo saves proposals in
@@ -205,9 +208,9 @@ export function Information({ page }: { page: string }) {
           description="Submit a correction above or from a printing page."
           action={
             page === "review" ? (
-              <a href="/contribute" {...stylex.props(s.cta)}>
+              <Link to="/contribute" {...stylex.props(s.cta)}>
                 Suggest a correction
-              </a>
+              </Link>
             ) : undefined
           }
         />

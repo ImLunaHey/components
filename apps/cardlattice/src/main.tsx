@@ -1,9 +1,10 @@
+import { sets } from "./data";
+import { Link } from "@tanstack/react-router";
 import { createRoot } from "react-dom/client";
 import { createRootRoute, createRoute, createRouter, RouterProvider } from "@tanstack/react-router";
 import "@imlunahey/components/styles.css";
 import { EmptyState } from "@imlunahey/components/empty-state";
 import { App } from "./app";
-import { Home } from "./home";
 import { Catalogue } from "./catalogue";
 import { Record } from "./record";
 import { Information } from "./information";
@@ -13,29 +14,58 @@ const root = createRootRoute({
     <EmptyState
       title="Page not found"
       description="This address is not part of the demo catalogue."
-      action={<a href="/">Return to the catalogue</a>}
+      action={<Link to="/">Return to the catalogue</Link>}
     />
   ),
 });
-const home = createRoute({ getParentRoute: () => root, path: "/", component: Home });
-const browse = ["/pokemon", "/pokemon/sets", "/pokemon/sets/$id", "/pokemon/cards", "/search"].map(
-  (path) =>
-    createRoute({
-      getParentRoute: () => root,
-      path,
-      validateSearch: (search: Record<string, unknown>) => ({
-        q: typeof search.q === "string" ? search.q : "",
-        language: typeof search.language === "string" ? search.language : "",
-        rarity: typeof search.rarity === "string" ? search.rarity : "",
-        view: search.view === "table" ? "table" : "grid",
-        sort: search.sort === "name" ? "name" : "number",
-        page: Math.max(1, Number.isSafeInteger(Number(search.page)) ? Number(search.page) : 1),
-      }),
-      component: Catalogue,
+const browse = [
+  "/",
+  "/pokemon",
+  "/pokemon/sets",
+  "/pokemon/sets/$id",
+  "/pokemon/cards",
+  "/search",
+].map((path) =>
+  createRoute({
+    getParentRoute: () => root,
+    path,
+    validateSearch: (search: Record<string, unknown>) => ({
+      q: typeof search.q === "string" ? search.q : "",
+      language: typeof search.language === "string" ? search.language : "",
+      set: typeof search.set === "string" ? search.set : "",
+      type: typeof search.type === "string" ? search.type : "",
+      rarity: typeof search.rarity === "string" ? search.rarity : "",
+      view: search.view === "table" ? "table" : "grid",
+      sort: search.sort === "name" ? "name" : "number",
+      page: Math.max(1, Number.isSafeInteger(Number(search.page)) ? Number(search.page) : 1),
     }),
+    component: Catalogue,
+  }),
 );
 const records = ["/pokemon/printings/$id", "/pokemon/cards/$id"].map((path) =>
-  createRoute({ getParentRoute: () => root, path, component: Record }),
+  createRoute({
+    getParentRoute: () => root,
+    path,
+    component: Record,
+    validateSearch: (search: Record<string, unknown>) => ({
+      origin:
+        typeof search.origin === "string" &&
+        [
+          "/",
+          "/search",
+          "/pokemon/cards",
+          "/pokemon/sets",
+          ...sets.map((set) => "/pokemon/sets/" + set.id),
+        ].includes(search.origin)
+          ? search.origin
+          : "/pokemon/cards",
+      browse:
+        search.browse && typeof search.browse === "object" && !Array.isArray(search.browse)
+          ? (search.browse as Record<string, unknown>)
+          : {},
+    }),
+    remountDeps: ({ params }) => params,
+  }),
 );
 const info = ["data", "docs", "coverage", "contribute", "review"].map((page) =>
   createRoute({
@@ -45,7 +75,7 @@ const info = ["data", "docs", "coverage", "contribute", "review"].map((page) =>
   }),
 );
 const router = createRouter({
-  routeTree: root.addChildren([home, ...browse, ...records, ...info]),
+  routeTree: root.addChildren([...browse, ...records, ...info]),
   scrollRestoration: true,
 });
 createRoot(document.getElementById("root")!).render(<RouterProvider router={router} />);

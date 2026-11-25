@@ -1,3 +1,4 @@
+import type { ComponentProps, ReactNode } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { ChevronRight } from "lucide-react";
 import { colors } from "./tokens.stylex";
@@ -20,7 +21,13 @@ const styles = stylex.create({
     outline: { default: "none", ":focus-visible": `2px solid ${colors.ring}` },
   },
 });
-export function Breadcrumbs({ items }: { items: { label: string; href?: string }[] }) {
+export function Breadcrumbs({
+  items,
+  renderLink = (props) => <a {...props} />,
+}: {
+  items: { label: string; href?: string }[];
+  renderLink?: (props: ComponentProps<"a">) => ReactNode;
+}) {
   return (
     <nav aria-label="Breadcrumb">
       <ol {...stylex.props(styles.list)}>
@@ -28,9 +35,7 @@ export function Breadcrumbs({ items }: { items: { label: string; href?: string }
           <li key={item.href ?? item.label} {...stylex.props(styles.item)}>
             {index > 0 && <ChevronRight size={12} aria-hidden="true" />}
             {item.href ? (
-              <a href={item.href} {...stylex.props(styles.link)}>
-                {item.label}
-              </a>
+              renderLink({ href: item.href, ...stylex.props(styles.link), children: item.label })
             ) : (
               <span aria-current="page">{item.label}</span>
             )}
