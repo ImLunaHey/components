@@ -1,4 +1,8 @@
 import { defineConfig } from "vitest/config";
 export default defineConfig({
-  test: { environment: "node", include: ["tests/**/*.test.mjs"], testTimeout: 30000 },
+  test: {
+    environment: "node",
+    include: ["tests/**/*.test.mjs", "apps/cardlattice/src/**/*.test.ts"],
+    testTimeout: 30000,
+  },
 });

@@ -24,7 +24,7 @@ test("packed library installs outside the monorepo and every export resolves", (
       encoding: "utf8",
     });
     assert.equal(install.status, 0, install.stderr);
-    const code = `import {readFileSync} from 'node:fs'; for (const name of ['button','input','textarea','panel','badge','select','combobox','language-select','file-upload','data-table','dialog','progress','tabs','toggle','qr-code','theme','app-shell','line-chart']) await import('@imlunahey/components/'+name); if(!readFileSync(new URL(import.meta.resolve('@imlunahey/components/styles.css')),'utf8').includes('@layer'))throw Error('Missing styles');`;
+    const code = `import {readFileSync} from 'node:fs'; for (const name of ['button','input','textarea','panel','badge','select','combobox','language-select','file-upload','data-table','dialog','progress','tabs','toggle','qr-code','theme','app-shell','line-chart','record-tile','description-list','filter-chip','pagination','empty-state','breadcrumbs','code-block','media-image','search-field']) await import('@imlunahey/components/'+name); if(!readFileSync(new URL(import.meta.resolve('@imlunahey/components/styles.css')),'utf8').includes('@layer'))throw Error('Missing styles');`;
     const result = spawnSync("node", ["--input-type=module", "-e", code], {
       cwd: temp,
       encoding: "utf8",

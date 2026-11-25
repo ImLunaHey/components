@@ -129,3 +129,24 @@ describe("published React controls", () => {
     expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
   });
 });
+
+it("limits large searchable lists while keeping matches keyboard accessible", async () => {
+  const user = userEvent.setup();
+  const changed = vi.fn();
+  render(
+    <Select
+      label="Record"
+      searchable
+      maxVisibleOptions={10}
+      value="0"
+      onValueChange={changed}
+      options={Array.from({ length: 100 }, (_, i) => ({ value: String(i), label: `Record ${i}` }))}
+    />,
+  );
+  await user.click(screen.getByRole("combobox", { name: "Record", exact: true }));
+  expect(screen.getAllByRole("option")).toHaveLength(10);
+  expect(screen.getByRole("status")).toHaveTextContent("Showing 10 of 100");
+  await user.type(screen.getByRole("combobox", { name: "Search Record" }), "99");
+  await user.keyboard("{Enter}");
+  expect(changed).toHaveBeenCalledWith("99");
+});

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "bw7",
+    "name": "Boundaries Crossed",
+    "logo": "https://assets.tcgdex.net/en/bw/bw7/logo",
+    "symbol": "https://assets.tcgdex.net/univ/bw/bw7/symbol",
+    "cardCount": {
+      "total": 153,
+      "official": 149
+    }
+  },
+  {
+    "id": "30th",
+    "name": "30th Celebration",
+    "cardCount": {
+      "total": 161,
+      "official": 128
+    }
+  }
+]

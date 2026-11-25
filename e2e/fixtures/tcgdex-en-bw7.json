@@ -1,0 +1,41 @@
+{
+  "cardCount": {
+    "firstEd": 0,
+    "holo": 49,
+    "normal": 110,
+    "official": 149,
+    "reverse": 130,
+    "total": 153
+  },
+  "cards": [
+    {
+      "id": "bw7-1",
+      "image": "https://assets.tcgdex.net/en/bw/bw7/1",
+      "localId": "1",
+      "name": "Oddish"
+    },
+    {
+      "id": "bw7-20",
+      "image": "https://assets.tcgdex.net/en/bw/bw7/20",
+      "localId": "20",
+      "name": "Charizard"
+    }
+  ],
+  "id": "bw7",
+  "legal": {
+    "expanded": true,
+    "standard": false
+  },
+  "logo": "https://assets.tcgdex.net/en/bw/bw7/logo",
+  "name": "Boundaries Crossed",
+  "releaseDate": "2012-11-07",
+  "serie": {
+    "id": "bw",
+    "name": "Black & White"
+  },
+  "symbol": "https://assets.tcgdex.net/univ/bw/bw7/symbol",
+  "tcgOnline": "BCR",
+  "abbreviation": {
+    "official": "BCR"
+  }
+}

@@ -1,3 +1,4 @@
+import { renderRouterLink } from "./router-link";
 import { useState, type ReactNode } from "react";
 import { Theme } from "@imlunahey/components/theme";
 import { AppShell } from "@imlunahey/components/app-shell";
@@ -51,6 +52,7 @@ export function Frame({
   return (
     <Theme mode={mode}>
       <AppShell
+        renderLink={renderRouterLink}
         name={name}
         title={active.label}
         description="Interactive demo · changes stay in this browser"

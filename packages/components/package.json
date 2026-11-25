@@ -80,6 +80,42 @@
     "./line-chart": {
       "types": "./dist/types/line-chart.d.ts",
       "import": "./dist/line-chart.js"
+    },
+    "./record-tile": {
+      "types": "./dist/types/record-tile.d.ts",
+      "import": "./dist/record-tile.js"
+    },
+    "./description-list": {
+      "types": "./dist/types/description-list.d.ts",
+      "import": "./dist/description-list.js"
+    },
+    "./filter-chip": {
+      "types": "./dist/types/filter-chip.d.ts",
+      "import": "./dist/filter-chip.js"
+    },
+    "./pagination": {
+      "types": "./dist/types/pagination.d.ts",
+      "import": "./dist/pagination.js"
+    },
+    "./empty-state": {
+      "types": "./dist/types/empty-state.d.ts",
+      "import": "./dist/empty-state.js"
+    },
+    "./breadcrumbs": {
+      "types": "./dist/types/breadcrumbs.d.ts",
+      "import": "./dist/breadcrumbs.js"
+    },
+    "./code-block": {
+      "types": "./dist/types/code-block.d.ts",
+      "import": "./dist/code-block.js"
+    },
+    "./media-image": {
+      "types": "./dist/types/media-image.d.ts",
+      "import": "./dist/media-image.js"
+    },
+    "./search-field": {
+      "types": "./dist/types/search-field.d.ts",
+      "import": "./dist/search-field.js"
     }
   },
   "scripts": {

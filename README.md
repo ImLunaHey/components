@@ -73,3 +73,54 @@ The original full prototype gallery remains accessible using
 currently covers the exported library; additional original specimens (including
 advanced editors and date pickers) remain reference implementations until ported.
 No existing prototype is removed or silently embedded inside a React component.
+
+## Cardlattice catalogue demo
+
+Cardlattice opens directly into a searchable card grid, with set pages,
+card identities, URL-persisted language/rarity/sort/view filters, grid and TanStack
+table views, record metadata, coverage, documentation and a JSON download.
+Try `/pokemon/sets/pokemon-base-set`,
+`/pokemon/printings/pokemon-base-set-nl-global-004`, `/data`, and `/contribute`.
+The demo downloads Cardlattice’s current public snapshot from
+https://cardlattice-status.pages.dev/data/manifest.json, verifies the SHA-256,
+byte size, revision, schema, record counts and printing references, then derives
+filters and coverage from those records. The snapshot verified on 2026-11-25
+contains 6,773 printings across 264 sets and five languages. The snapshot has no artwork.
+The demo supplements it with TCGdex images matched by language, an unambiguous set
+name or published set code, collector number and card name. Known denominator
+conflicts and ambiguous matches are rejected. Unmatched images and missing
+metadata stay explicit. Card identities are provisional,
+so equal names are not treated as equivalent identities.
+
+Corrections and review decisions stay in browser localStorage and never update
+the published catalogue. The JSON download preserves the original records.
+Results, filters and page position are retained when opening cards and returning.
+Unavailable or corrupt downloads show a retry action; there is no fixture fallback.
+The initial snapshot download is about 7.5 MB before transfer compression.
+
+TCGdex set indexes and set details are cached with TanStack Query and fetched only
+for displayed cards. Thumbnails use the documented low-quality WebP format; detail
+views use high-quality WebP. Requests time out and retry once, and unavailable
+artwork never blocks the catalogue. Source links and copyright attribution are
+shown separately from the CC0 metadata; downloaded catalogue JSON is unchanged.
+Images represent the matching card and may not show every finish or stamp.
+See https://tcgdex.dev/assets and https://tcgdex.dev/rest/set.
+
+Normal tests intercept requests with a small subset of real, attributed records;
+run `CARDLATTICE_LIVE=1 pnpm exec playwright test e2e/cardlattice-live.spec.ts`
+after building to exercise the published endpoint without mocks.
+
+Launch it independently (build the shared package first):
+
+```sh
+pnpm --filter @imlunahey/components build
+pnpm --filter @imlunahey/demo-cardlattice dev
+```
+
+For a Tailscale HTTPS preview, explicitly allow your tailnet hostname and bind
+Vite to loopback so it can share the port with Tailscale Serve:
+
+```sh
+DEMO_ALLOWED_HOSTS=your-host.your-tailnet.ts.net pnpm --filter @imlunahey/demo-cardlattice exec vite --host 127.0.0.1 --port 5234 --strictPort
+tailscale serve --bg --https=5234 http://127.0.0.1:5234
+```

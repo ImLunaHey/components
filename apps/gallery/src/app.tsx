@@ -17,7 +17,9 @@ import { Progress } from "@imlunahey/components/progress";
 import { Tabs } from "@imlunahey/components/tabs";
 import { Toggle } from "@imlunahey/components/toggle";
 import { QRCode } from "@imlunahey/components/qr-code";
+import { CatalogueExamples } from "./catalogue-examples";
 const items = [
+  { id: "catalogue", label: "Catalogue patterns" },
   { id: "components", label: "Components" },
   { id: "forms", label: "Forms" },
   { id: "data", label: "Data" },
@@ -33,6 +35,7 @@ export function App({ view }: { view: string }) {
   const [feedback, setFeedback] = useState("");
   return (
     <Frame name="Components" view={view} items={items}>
+      {view === "catalogue" && <CatalogueExamples />}
       <div {...stylex.props(layout.grid)}>
         {view === "components" && (
           <>

@@ -1,13 +1,16 @@
 import { test, expect } from "@playwright/test";
+import { mockCatalogue } from "./catalogue-fixture";
 import AxeBuilder from "@axe-core/playwright";
 const apps = ["gallery", "projects", "catalogue", "account", "cardlattice", "fleet"];
-for (const mode of ["light", "dark"])
+for (const mode of ["light", "dark"] as const)
   for (const width of [390, 900, 1720])
     for (const [index, name] of apps.entries()) {
-      test(`${name} ${mode} ${width}`, async ({ page }) => {
+      test(`${name} ${mode} ${width}`, async ({ page, context }) => {
+        if (name === "cardlattice") await mockCatalogue(context);
         const errors: string[] = [];
         page.on("pageerror", (error) => errors.push(error.message));
         await page.setViewportSize({ width, height: 1000 });
+        await page.emulateMedia({ colorScheme: mode });
         await page.addInitScript((mode) => localStorage.setItem("luna-theme", mode), mode);
         await page.goto(`http://127.0.0.1:${5630 + index}/`);
         await expect(page.locator("h1")).toBeVisible();
@@ -52,3 +55,39 @@ test("gallery keyboard controls, image preview and modal backdrop", async ({ pag
   await page.mouse.click(5, 5);
   await expect(page.getByRole("dialog")).not.toBeVisible();
 });
+
+for (const mode of ["light", "dark"])
+  test(`catalogue component patterns ${mode}`, async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 1000 });
+    await page.addInitScript((mode) => localStorage.setItem("luna-theme", mode), mode);
+    await page.goto("http://127.0.0.1:5630/catalogue");
+    await expect(page.getByRole("heading", { name: "Record tiles and breadcrumbs" })).toBeVisible();
+    const result = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
+      .analyze();
+    expect(result.violations.map((v) => v.id)).toEqual([]);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
+      true,
+    );
+    await page.getByRole("button", { name: "Next", exact: true }).click();
+    await expect(page.getByRole("status").filter({ hasText: "9–16 of 18" })).toBeVisible();
+  });
+
+for (const [index, name] of apps.entries()) {
+  if (name === "cardlattice") continue;
+  test(`${name} sidebar navigation preserves the document`, async ({ page }) => {
+    await page.goto(`http://127.0.0.1:${5630 + index}/`);
+    const documents: string[] = [];
+    page.on("request", (request) => {
+      if (request.resourceType() === "document") documents.push(request.url());
+    });
+    const links = page.getByRole("navigation").getByRole("link");
+    const link = links.nth((await links.count()) > 1 ? 1 : 0);
+    const href = await link.getAttribute("href");
+    await link.click();
+    await expect(page).toHaveURL(`http://127.0.0.1:${5630 + index}${href}`);
+    await page.goBack();
+    await expect(page).toHaveURL(`http://127.0.0.1:${5630 + index}/`);
+    expect(documents).toEqual([]);
+  });
+}

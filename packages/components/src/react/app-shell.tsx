@@ -1,5 +1,5 @@
 import * as stylex from "@stylexjs/stylex";
-import { useState, type ReactNode } from "react";
+import { useState, type ComponentProps, type ReactNode } from "react";
 import { Menu, Sun, Moon, Box } from "lucide-react";
 import { Button } from "./button";
 import { colors } from "./tokens.stylex";
@@ -84,7 +84,9 @@ export function AppShell({
   actions,
   mode,
   onModeChange,
+  renderLink = ({ key, ...props }) => <a key={key} {...props} />,
 }: {
+  renderLink?: (props: ComponentProps<"a">) => ReactNode;
   name: string;
   title: string;
   description?: string;
@@ -105,17 +107,20 @@ export function AppShell({
         </div>
         <div {...stylex.props(styles.label)}>Navigation</div>
         <nav aria-label={name + " navigation"} {...stylex.props(styles.nav)}>
-          {items.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              aria-current={active === item.href ? "page" : undefined}
-              {...stylex.props(styles.link, active === item.href && styles.selected)}
-            >
-              {item.icon}
-              {item.label}
-            </a>
-          ))}
+          {items.map((item) =>
+            renderLink({
+              key: item.href,
+              href: item.href,
+              "aria-current": active === item.href ? "page" : undefined,
+              ...stylex.props(styles.link, active === item.href && styles.selected),
+              children: (
+                <>
+                  {item.icon}
+                  {item.label}
+                </>
+              ),
+            }),
+          )}
         </nav>
         <footer {...stylex.props(styles.footer)}>
           Luna’s projects
