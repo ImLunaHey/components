@@ -1,9 +1,12 @@
+import { useCatalogue } from "./catalogue-provider";
+import { languageName } from "./data";
 import { useRouterState } from "@tanstack/react-router";
 import { RecordLink } from "../../../src/demos/record-link";
 import type { Printing } from "./data";
-import { setName } from "./data";
+
 import { CardArt } from "./card-art";
 export function PrintingTile({ card }: { card: Printing }) {
+  const { setName } = useCatalogue();
   const location = useRouterState({ select: (state) => state.location });
   const search = location.search as Record<string, unknown>;
   const context =
@@ -21,11 +24,11 @@ export function PrintingTile({ card }: { card: Printing }) {
         " #" +
         card.number +
         " · " +
-        (card.language === "fr" ? "French" : "English")
+        languageName(card.language)
       }
       title={card.name}
       eyebrow={setName(card.setId) + " · " + card.number}
-      description={card.rarity + " · " + (card.language === "fr" ? "French" : "English")}
+      description={(card.rarity ?? "Rarity not recorded") + " · " + languageName(card.language)}
       visual={<CardArt card={card} />}
     />
   );

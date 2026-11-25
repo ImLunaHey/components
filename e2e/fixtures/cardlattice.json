@@ -1,0 +1,1063 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "33886561336c8fca7da50788e31746ce319dcfaa",
+  "records": [
+    {
+      "id": "pokemon",
+      "metadata": {
+        "kind": "game",
+        "name": "Pokémon",
+        "slug": "pokemon"
+      }
+    },
+    {
+      "id": "pokemon-series-black-white",
+      "metadata": {
+        "gameId": "pokemon",
+        "kind": "series",
+        "name": "Black & White"
+      }
+    },
+    {
+      "id": "pokemon-30th-anniversary-promos",
+      "metadata": {
+        "attributes": {
+          "printedIdentifiers": [
+            {
+              "code": "30th-P",
+              "language": "zh-Hans",
+              "region": "CN",
+              "symbol": "PROMO"
+            }
+          ]
+        },
+        "gameId": "pokemon",
+        "kind": "set",
+        "name": "30th Anniversary Promos"
+      }
+    },
+    {
+      "id": "pokemon-30th-celebration",
+      "metadata": {
+        "attributes": {
+          "printedDenominator": 128,
+          "printedIdentifiers": [
+            {
+              "code": "M6a",
+              "language": "ko",
+              "region": "KR"
+            },
+            {
+              "code": "30th C",
+              "language": "zh-Hans",
+              "region": "CN"
+            }
+          ],
+          "regulationMark": "J",
+          "stamps": ["30th-anniversary"]
+        },
+        "gameId": "pokemon",
+        "kind": "set",
+        "name": "30th Celebration"
+      }
+    },
+    {
+      "id": "pokemon-base-set",
+      "metadata": {
+        "attributes": {
+          "printedDenominator": 102
+        },
+        "gameId": "pokemon",
+        "kind": "set",
+        "name": "Base Set"
+      }
+    },
+    {
+      "id": "pokemon-black-white-boundaries-crossed",
+      "metadata": {
+        "gameId": "pokemon",
+        "kind": "set",
+        "language": "en",
+        "name": "Black & White—Boundaries Crossed",
+        "seriesId": "pokemon-series-black-white"
+      }
+    },
+    {
+      "id": "pokemon-cp3",
+      "metadata": {
+        "attributes": {
+          "printedDenominator": 32,
+          "printedIdentifiers": [
+            {
+              "code": "CP3",
+              "language": "ja",
+              "region": "JP"
+            }
+          ],
+          "regulationMark": null,
+          "variants": {
+            "first-edition": {
+              "edition": "first-edition"
+            }
+          }
+        },
+        "gameId": "pokemon",
+        "kind": "set",
+        "language": "ja",
+        "name": "ポケキュンコレクション",
+        "region": "JP",
+        "releaseDate": "2016-01-29"
+      }
+    },
+    {
+      "id": "card-pokemon-30th-anniversary-promos-zh-Hans-CN-001",
+      "metadata": {
+        "attributes": {
+          "abilities": [],
+          "attacks": [
+            {
+              "cost": ["Grass"],
+              "damage": "10",
+              "name": "寄生种子",
+              "text": "回复这只宝可梦「10」HP。"
+            }
+          ],
+          "category": "pokemon",
+          "flavourText": "从出生的时候开始，背上就有一颗植物种子。这颗种子会渐渐地长大。",
+          "hp": 80,
+          "identityScope": "pokemon-30th-anniversary-promos-zh-Hans-CN-001",
+          "resistances": [],
+          "retreatCost": 2,
+          "stage": "Basic",
+          "types": ["Grass"],
+          "weaknesses": [
+            {
+              "type": "Fire",
+              "value": "×2"
+            }
+          ]
+        },
+        "gameId": "pokemon",
+        "kind": "card",
+        "language": "zh-Hans",
+        "name": "妙蛙种子",
+        "region": "CN"
+      }
+    },
+    {
+      "id": "card-pokemon-30th-celebration-en-US-023",
+      "metadata": {
+        "attributes": {
+          "abilities": [],
+          "attacks": [
+            {
+              "cost": ["Lightning", "Colorless"],
+              "damage": "20",
+              "name": "Thunder Shock",
+              "text": "Flip a coin. If heads, your opponent’s Active Pokémon is now Paralyzed."
+            }
+          ],
+          "category": "pokemon",
+          "hp": 70,
+          "identityScope": "pokemon-30th-celebration-en-US-023",
+          "resistances": [],
+          "retreatCost": 1,
+          "stage": "Basic",
+          "types": ["Lightning"],
+          "weaknesses": [
+            {
+              "type": "Fighting",
+              "value": "×2"
+            }
+          ]
+        },
+        "gameId": "pokemon",
+        "kind": "card",
+        "language": "en",
+        "name": "Pikachu",
+        "region": "US"
+      }
+    },
+    {
+      "id": "card-pokemon-30th-celebration-ko-KR-001",
+      "metadata": {
+        "attributes": {
+          "attacks": [
+            {
+              "cost": ["Colorless"],
+              "name": "최면술",
+              "text": "상대의 배틀 포켓몬을 잠듦으로 만든다."
+            }
+          ],
+          "category": "pokemon",
+          "flavourText": "아라리에게만 전해지는 텔레파시를 주고받고 있어서 어떤 때든 6마리가 함께 모여 있다.",
+          "heightMetres": 0.4,
+          "hp": 60,
+          "identityScope": "pokemon-30th-celebration-ko-KR-001",
+          "nationalDex": [102],
+          "resistances": [],
+          "retreatCost": 1,
+          "species": "알포켓몬",
+          "stage": "Basic",
+          "types": ["Grass"],
+          "weaknesses": [
+            {
+              "type": "Fire",
+              "value": "×2"
+            }
+          ],
+          "weightKilograms": 2.5
+        },
+        "gameId": "pokemon",
+        "kind": "card",
+        "language": "ko",
+        "name": "아라리",
+        "region": "KR"
+      }
+    },
+    {
+      "id": "card-pokemon-base-set-nl-global-001",
+      "metadata": {
+        "attributes": {
+          "abilities": [
+            {
+              "kind": "Pokémon Power",
+              "name": "Schadeverwisseling",
+              "text": "Je mag zo vaak als je wilt tijdens je beurt (vóór je aanval) 1 schadeteller van je ene Pokémon naar je andere verplaatsen, zolang je die Pokémon maar niet Uitschakelt. Deze kracht kan niet worden gebruikt als Alakazam In Slaap, Verward of Verlamd is."
+            }
+          ],
+          "attacks": [
+            {
+              "cost": ["Psychic", "Psychic", "Psychic"],
+              "damage": "30",
+              "name": "Verwarstraal",
+              "text": "Gooi een munt op. Als het kop is, is de Verdedigende Pokémon nu Verward."
+            }
+          ],
+          "category": "pokemon",
+          "evolvesFrom": "Kadabra",
+          "hp": 80,
+          "identityScope": "pokemon-base-set-nl-global-001",
+          "stage": "Stage 2",
+          "types": ["Psychic"]
+        },
+        "gameId": "pokemon",
+        "kind": "card",
+        "language": "nl",
+        "name": "Alakazam"
+      }
+    },
+    {
+      "id": "card-pokemon-base-set-nl-global-002",
+      "metadata": {
+        "attributes": {
+          "abilities": [
+            {
+              "kind": "Pokémon Power",
+              "name": "Regendans",
+              "text": "Je mag zo vaak als je wilt tijdens je beurt (vóór je aanval) 1 Water Energiekaart aan 1 van je Water Pokémon hechten. (Hiermee wordt de aanhechting van 1 Energiekaart voor je beurt niet opgebruikt.) Deze kracht kan niet worden gebruikt als Blastoise In Slaap, Verward of Verlamd is."
+            }
+          ],
+          "attacks": [
+            {
+              "cost": ["Water", "Water", "Water"],
+              "damage": "40+",
+              "name": "Hydropomp",
+              "text": "Brengt 40 schade plus nog eens 10 schade voor elke Water Energie die aan Blastoise gehecht is maar niet wordt gebruikt om de Energiekosten van deze aanval te betalen. Je kunt op deze manier niet meer dan 20 schade toevoegen."
+            }
+          ],
+          "category": "pokemon",
+          "evolvesFrom": "Wartortle",
+          "hp": 100,
+          "identityScope": "pokemon-base-set-nl-global-002",
+          "stage": "Stage 2",
+          "types": ["Water"]
+        },
+        "gameId": "pokemon",
+        "kind": "card",
+        "language": "nl",
+        "name": "Blastoise"
+      }
+    },
+    {
+      "id": "card-pokemon-base-set-nl-global-003",
+      "metadata": {
+        "attributes": {
+          "abilities": [],
+          "attacks": [
+            {
+              "cost": ["Colorless", "Colorless"],
+              "name": "Kraken",
+              "text": "Gooi een munt op. Als het kop is, voorkomt dit alle schade die aan Chansey wordt toegebracht tijdens je tegenstanders volgende beurt. (Alle andere gevolgen van aanvallen blijven gewoon geldig.)"
+            },
+            {
+              "cost": ["Colorless", "Colorless", "Colorless", "Colorless"],
+              "damage": "80",
+              "name": "Weerslag",
+              "text": "Chansey brengt zichzelf 80 schade toe."
+            }
+          ],
+          "category": "pokemon",
+          "hp": 120,
+          "identityScope": "pokemon-base-set-nl-global-003",
+          "stage": "Basic",
+          "types": ["Colorless"]
+        },
+        "gameId": "pokemon",
+        "kind": "card",
+        "language": "nl",
+        "name": "Chansey"
+      }
+    },
+    {
+      "id": "card-pokemon-base-set-nl-global-004",
+      "metadata": {
+        "attributes": {
+          "abilities": [
+            {
+              "kind": "Pokémon Power",
+              "name": "Energieverbranding",
+              "text": "Je mag zo vaak als je wilt tijdens je beurt (vóór je aanval) alle aan Charizard gehechte energie in Fire Energie omzetten tijdens de rest van je beurt. Deze kracht kan niet worden gebruikt als Charizard In Slaap, Verward of Verlamd is."
+            }
+          ],
+          "attacks": [
+            {
+              "cost": ["Fire", "Fire", "Fire", "Fire"],
+              "damage": "100",
+              "name": "Vuurdraak",
+              "text": "Om deze aanval te kunnen gebruiken moet je 2 van de aan Charizard gehechte Energiekaarten weggooien."
+            }
+          ],
+          "category": "pokemon",
+          "evolvesFrom": "Charmeleon",
+          "hp": 120,
+          "identityScope": "pokemon-base-set-nl-global-004",
+          "stage": "Stage 2",
+          "types": ["Fire"]
+        },
+        "gameId": "pokemon",
+        "kind": "card",
+        "language": "nl",
+        "name": "Charizard"
+      }
+    },
+    {
+      "id": "card-pokemon-base-set-nl-global-005",
+      "metadata": {
+        "attributes": {
+          "abilities": [],
+          "attacks": [
+            {
+              "cost": ["Colorless"],
+              "name": "Zang",
+              "text": "Gooi een munt op. Als het kop is, is de Verdedigende Pokémon nu In Slaap."
+            },
+            {
+              "cost": ["Colorless", "Colorless", "Colorless"],
+              "name": "Metronoom",
+              "text": "Kies 1 van de aanvallen van de Verdedigende Pokémon. Metronoom doet die aanval precies na, behalve wat betreft de Energiekosten en al het andere wat ervoor nodig is om die aanval te gebruiken, zoals het weggooien van Energiekaarten. (Clefairy’s type is nog steeds Kleurloos, onverschillig van welk type de Verdedigende Pokémon is.)"
+            }
+          ],
+          "category": "pokemon",
+          "hp": 40,
+          "identityScope": "pokemon-base-set-nl-global-005",
+          "stage": "Basic",
+          "types": ["Colorless"]
+        },
+        "gameId": "pokemon",
+        "kind": "card",
+        "language": "nl",
+        "name": "Clefairy"
+      }
+    },
+    {
+      "id": "card-pokemon-base-set-nl-global-006",
+      "metadata": {
+        "attributes": {
+          "abilities": [],
+          "attacks": [
+            {
+              "cost": ["Water", "Water", "Water"],
+              "damage": "50",
+              "name": "Drakenfurie"
+            },
+            {
+              "cost": ["Water", "Water", "Water", "Water"],
+              "damage": "40",
+              "name": "Bubbelstraal",
+              "text": "Gooi een munt op. Als het kop is, is de Verdedigende Pokémon nu Verlamd."
+            }
+          ],
+          "category": "pokemon",
+          "evolvesFrom": "Magikarp",
+          "hp": 100,
+          "identityScope": "pokemon-base-set-nl-global-006",
+          "stage": "Stage 1",
+          "types": ["Water"]
+        },
+        "gameId": "pokemon",
+        "kind": "card",
+        "language": "nl",
+        "name": "Gyarados"
+      }
+    },
+    {
+      "id": "card-pokemon-base-set-nl-global-007",
+      "metadata": {
+        "attributes": {
+          "abilities": [],
+          "attacks": [
+            {
+              "cost": ["Fighting"],
+              "damage": "20",
+              "name": "Por"
+            },
+            {
+              "cost": ["Fighting", "Fighting", "Colorless"],
+              "damage": "40",
+              "name": "Speciale Stoot"
+            }
+          ],
+          "category": "pokemon",
+          "hp": 70,
+          "identityScope": "pokemon-base-set-nl-global-007",
+          "stage": "Basic",
+          "types": ["Fighting"]
+        },
+        "gameId": "pokemon",
+        "kind": "card",
+        "language": "nl",
+        "name": "Hitmonchan"
+      }
+    },
+    {
+      "id": "card-pokemon-base-set-nl-global-008",
+      "metadata": {
+        "attributes": {
+          "abilities": [
+            {
+              "kind": "Pokémon Power",
+              "name": "Neemt wraak",
+              "text": "Telkens wanneer de aanval van je tegenstander schade toebrengt aan Machamp (zelfs als Machamp wordt Uitgeschakeld), brengt deze kracht 10 schade toe aan de aanvallende Pokémon. (Zwakte en Weerstand niet toepassen.) Deze kracht kan niet worden gebruikt als Machamp al In Slaap, Verward of Verlamd is op het moment dat je tegenstander aanvalt."
+            }
+          ],
+          "attacks": [
+            {
+              "cost": ["Fighting", "Fighting", "Fighting", "Colorless"],
+              "damage": "60",
+              "name": "Seismische Schok"
+            }
+          ],
+          "category": "pokemon",
+          "evolvesFrom": "Machoke",
+          "hp": 100,
+          "identityScope": "pokemon-base-set-nl-global-008",
+          "stage": "Stage 2",
+          "types": ["Fighting"]
+        },
+        "gameId": "pokemon",
+        "kind": "card",
+        "language": "nl",
+        "name": "Machamp"
+      }
+    },
+    {
+      "id": "card-pokemon-base-set-nl-global-009",
+      "metadata": {
+        "attributes": {
+          "abilities": [],
+          "attacks": [
+            {
+              "cost": ["Lightning", "Lightning", "Colorless"],
+              "damage": "30",
+              "name": "Dondergolf",
+              "text": "Gooi een munt op. Als het kop is, is de Verdedigende Pokémon nu Verlamd."
+            },
+            {
+              "cost": ["Lightning", "Lightning", "Colorless", "Colorless"],
+              "damage": "80",
+              "name": "Zelfvernietiging",
+              "text": "Brengt 20 schade toe aan elke Pokémon op de Bank van elke speler. (Zwakte en Weerstand niet toepassen op de Pokémon op de Bank.) Magneton brengt zichzelf 80 schade toe."
+            }
+          ],
+          "category": "pokemon",
+          "evolvesFrom": "Magnemite",
+          "hp": 60,
+          "identityScope": "pokemon-base-set-nl-global-009",
+          "stage": "Stage 1",
+          "types": ["Lightning"]
+        },
+        "gameId": "pokemon",
+        "kind": "card",
+        "language": "nl",
+        "name": "Magneton"
+      }
+    },
+    {
+      "id": "card-pokemon-base-set-nl-global-010",
+      "metadata": {
+        "attributes": {
+          "abilities": [],
+          "attacks": [
+            {
+              "cost": ["Psychic", "Colorless"],
+              "damage": "10+",
+              "name": "Helderziend",
+              "text": "Brengt 10 schade toe plus nog eens 10 schade voor elke Energiekaart die aan de Verdedigende Pokémon gehecht is."
+            },
+            {
+              "cost": ["Psychic", "Psychic"],
+              "name": "Barrière",
+              "text": "Om deze aanval te kunnen gebruiken, moet je 1 aan Mewtwo gehechte Psychic Energiekaart weggooien. Tijdens je tegenstanders volgende beurt voorkomt dit alle gevolgen van aanvallen, inclusief schade, die aan Mewtwo worden toegebracht."
+            }
+          ],
+          "category": "pokemon",
+          "hp": 60,
+          "identityScope": "pokemon-base-set-nl-global-010",
+          "stage": "Basic",
+          "types": ["Psychic"]
+        },
+        "gameId": "pokemon",
+        "kind": "card",
+        "language": "nl",
+        "name": "Mewtwo"
+      }
+    },
+    {
+      "id": "card-pokemon-base-set-nl-global-011",
+      "metadata": {
+        "attributes": {
+          "abilities": [],
+          "attacks": [
+            {
+              "cost": ["Grass", "Colorless", "Colorless"],
+              "damage": "30+",
+              "name": "Afranselen",
+              "text": "Gooi een munt op. Als het kop is, brengt deze aanval 30 schade toe plus nog eens 10 schade; als het munt is, brengt deze aanval 30 schade toe en brengt Nidoking zichzelf 10 schade toe."
+            },
+            {
+              "cost": ["Grass", "Grass", "Grass"],
+              "damage": "20",
+              "name": "Vergiftig",
+              "text": "De Verdedigende Pokémon is nu Vergiftigd. Hij lijdt nu 20 Vergifschade i.p.v. 10 na de beurt van elke speler (zelfs als hij al eerder Vergiftigd was)."
+            }
+          ],
+          "category": "pokemon",
+          "evolvesFrom": "Nidorino",
+          "hp": 90,
+          "identityScope": "pokemon-base-set-nl-global-011",
+          "stage": "Stage 2",
+          "types": ["Grass"]
+        },
+        "gameId": "pokemon",
+        "kind": "card",
+        "language": "nl",
+        "name": "Nidoking"
+      }
+    },
+    {
+      "id": "card-pokemon-base-set-nl-global-012",
+      "metadata": {
+        "attributes": {
+          "abilities": [],
+          "attacks": [
+            {
+              "cost": ["Colorless", "Colorless"],
+              "name": "Verleiding",
+              "text": "Als je tegenstander Pokémon op zijn Bank heeft, kies er daar dan 1 van en verwissel deze met zijn actieve Pokémon."
+            },
+            {
+              "cost": ["Fire", "Fire", "Fire", "Fire"],
+              "damage": "80",
+              "name": "Vuurschot",
+              "text": "Om deze aanval te kunnen gebruiken, moet je 1 aan Ninetales gehechte Fire Energiekaart weggooien."
+            }
+          ],
+          "category": "pokemon",
+          "evolvesFrom": "Vulpix",
+          "hp": 80,
+          "identityScope": "pokemon-base-set-nl-global-012",
+          "stage": "Stage 1",
+          "types": ["Fire"]
+        },
+        "gameId": "pokemon",
+        "kind": "card",
+        "language": "nl",
+        "name": "Ninetales"
+      }
+    },
+    {
+      "id": "card-pokemon-base-set-nl-global-058",
+      "metadata": {
+        "attributes": {
+          "abilities": [],
+          "attacks": [
+            {
+              "cost": ["Colorless"],
+              "damage": "10",
+              "name": "Knauw"
+            },
+            {
+              "cost": ["Lightning", "Colorless"],
+              "damage": "30",
+              "name": "Donderstoot",
+              "text": "Gooi een munt op. Als het munt is, brengt Pikachu zichzelf 10 schade toe."
+            }
+          ],
+          "category": "pokemon",
+          "hp": 40,
+          "identityScope": "pokemon-base-set-nl-global-058",
+          "stage": "Basic",
+          "types": ["Lightning"]
+        },
+        "gameId": "pokemon",
+        "kind": "card",
+        "language": "nl",
+        "name": "Pikachu"
+      }
+    },
+    {
+      "id": "card-pokemon-black-white-boundaries-crossed-en-global-20",
+      "metadata": {
+        "attributes": {
+          "abilities": [],
+          "attacks": [
+            {
+              "cost": ["Fire", "Colorless", "Colorless"],
+              "name": "Split Bomb",
+              "text": "This attack does 40 damage to 2 of your opponent’s Pokémon. (Don’t apply Weakness and Resistance for Benched Pokémon.)"
+            },
+            {
+              "cost": ["Fire", "Colorless", "Colorless", "Colorless", "Colorless"],
+              "damage": "150",
+              "name": "Scorching Fire",
+              "text": "Discard a Fire Energy attached to this Pokémon."
+            }
+          ],
+          "category": "pokemon",
+          "evolvesFrom": "Charmeleon",
+          "flavourText": "It is said that Charizard’s fire burns hotter if it has experienced harsh battles.",
+          "heightMetres": 1.7018,
+          "hp": 160,
+          "identityScope": "pokemon-black-white-boundaries-crossed-en-global-20",
+          "nationalDex": [6],
+          "resistances": [],
+          "retreatCost": 3,
+          "rules": [],
+          "species": "Flame Pokémon",
+          "stage": "Stage 2",
+          "subtypes": [],
+          "types": ["Fire"],
+          "weaknesses": [
+            {
+              "type": "Water",
+              "value": "×2"
+            }
+          ],
+          "weightKilograms": 90.491677815
+        },
+        "gameId": "pokemon",
+        "kind": "card",
+        "language": "en",
+        "name": "Charizard"
+      }
+    },
+    {
+      "id": "card-pokemon-cp3-ja-JP-001",
+      "metadata": {
+        "attributes": {
+          "abilities": [],
+          "attacks": [
+            {
+              "cost": ["Colorless"],
+              "name": "はしゃぐ",
+              "text": "このポケモンをベンチポケモンと入れ替える。"
+            },
+            {
+              "cost": ["Grass", "Colorless"],
+              "damage": "20",
+              "name": "つるのムチ"
+            }
+          ],
+          "category": "pokemon",
+          "flavourText": "かけっこ きのぼり かくれんぼ！ だいすきな いちにちが はじまるよ！",
+          "heightMetres": 0.9,
+          "hp": 50,
+          "identityScope": "pokemon-cp3-ja-JP-001",
+          "nationalDex": [152],
+          "resistances": [],
+          "retreatCost": 1,
+          "rules": [],
+          "species": "はっぱポケモン",
+          "stage": "Basic",
+          "types": ["Grass"],
+          "weaknesses": [
+            {
+              "type": "Fire",
+              "value": "×2"
+            }
+          ],
+          "weightKilograms": 6.4
+        },
+        "gameId": "pokemon",
+        "kind": "card",
+        "language": "ja",
+        "name": "チコリータ",
+        "region": "JP"
+      }
+    },
+    {
+      "id": "pokemon-30th-anniversary-promos-zh-Hans-CN-001",
+      "metadata": {
+        "attributes": {
+          "illustrators": ["Saboteri"],
+          "products": ["pokemon-product-30th-first-partners-vol-1-zh-hans-cn"],
+          "regulationMark": "J",
+          "stamps": ["30th-anniversary"]
+        },
+        "cardId": "card-pokemon-30th-anniversary-promos-zh-Hans-CN-001",
+        "collectorNumber": "001",
+        "gameId": "pokemon",
+        "kind": "printing",
+        "language": "zh-Hans",
+        "name": "妙蛙种子",
+        "region": "CN",
+        "releaseDate": "2026-03-20",
+        "setId": "pokemon-30th-anniversary-promos"
+      }
+    },
+    {
+      "id": "pokemon-30th-celebration-en-US-023",
+      "metadata": {
+        "attributes": {
+          "finishes": ["holo"],
+          "printedDenominator": 128,
+          "regulationMark": "J",
+          "stamps": ["30th-anniversary"]
+        },
+        "cardId": "card-pokemon-30th-celebration-en-US-023",
+        "collectorNumber": "023",
+        "gameId": "pokemon",
+        "kind": "printing",
+        "language": "en",
+        "name": "Pikachu",
+        "rarity": "Pikachu Rare",
+        "region": "US",
+        "releaseDate": "2026-09-16",
+        "setId": "pokemon-30th-celebration"
+      }
+    },
+    {
+      "id": "pokemon-30th-celebration-ko-KR-001",
+      "metadata": {
+        "attributes": {
+          "finishes": ["holo"],
+          "illustrators": ["Nelnal"],
+          "printedDenominator": 103,
+          "regulationMark": "J",
+          "stamps": ["30th-anniversary"]
+        },
+        "cardId": "card-pokemon-30th-celebration-ko-KR-001",
+        "collectorNumber": "001",
+        "gameId": "pokemon",
+        "kind": "printing",
+        "language": "ko",
+        "name": "아라리",
+        "region": "KR",
+        "releaseDate": "2026-09-16",
+        "setId": "pokemon-30th-celebration"
+      }
+    },
+    {
+      "id": "pokemon-base-set-nl-global-001",
+      "metadata": {
+        "attributes": {
+          "finishes": ["holo"],
+          "illustrators": ["Ken Sugimori"],
+          "printedDenominator": 102
+        },
+        "cardId": "card-pokemon-base-set-nl-global-001",
+        "collectorNumber": "001",
+        "gameId": "pokemon",
+        "kind": "printing",
+        "language": "nl",
+        "name": "Alakazam",
+        "rarity": "Rare",
+        "setId": "pokemon-base-set"
+      }
+    },
+    {
+      "id": "pokemon-base-set-nl-global-002",
+      "metadata": {
+        "attributes": {
+          "finishes": ["holo"],
+          "illustrators": ["Ken Sugimori"],
+          "printedDenominator": 102
+        },
+        "cardId": "card-pokemon-base-set-nl-global-002",
+        "collectorNumber": "002",
+        "gameId": "pokemon",
+        "kind": "printing",
+        "language": "nl",
+        "name": "Blastoise",
+        "rarity": "Rare",
+        "setId": "pokemon-base-set"
+      }
+    },
+    {
+      "id": "pokemon-base-set-nl-global-003",
+      "metadata": {
+        "attributes": {
+          "finishes": ["holo"],
+          "illustrators": ["Ken Sugimori"],
+          "printedDenominator": 102
+        },
+        "cardId": "card-pokemon-base-set-nl-global-003",
+        "collectorNumber": "003",
+        "gameId": "pokemon",
+        "kind": "printing",
+        "language": "nl",
+        "name": "Chansey",
+        "rarity": "Rare",
+        "setId": "pokemon-base-set"
+      }
+    },
+    {
+      "id": "pokemon-base-set-nl-global-004",
+      "metadata": {
+        "attributes": {
+          "finishes": ["holo"],
+          "illustrators": ["Mitsuhiro Arita"],
+          "printedDenominator": 102
+        },
+        "cardId": "card-pokemon-base-set-nl-global-004",
+        "collectorNumber": "004",
+        "gameId": "pokemon",
+        "kind": "printing",
+        "language": "nl",
+        "name": "Charizard",
+        "rarity": "Rare",
+        "setId": "pokemon-base-set"
+      }
+    },
+    {
+      "id": "pokemon-base-set-nl-global-005",
+      "metadata": {
+        "attributes": {
+          "finishes": ["holo"],
+          "illustrators": ["Ken Sugimori"],
+          "printedDenominator": 102
+        },
+        "cardId": "card-pokemon-base-set-nl-global-005",
+        "collectorNumber": "005",
+        "gameId": "pokemon",
+        "kind": "printing",
+        "language": "nl",
+        "name": "Clefairy",
+        "rarity": "Rare",
+        "setId": "pokemon-base-set"
+      }
+    },
+    {
+      "id": "pokemon-base-set-nl-global-006",
+      "metadata": {
+        "attributes": {
+          "finishes": ["holo"],
+          "illustrators": ["Mitsuhiro Arita"],
+          "printedDenominator": 102
+        },
+        "cardId": "card-pokemon-base-set-nl-global-006",
+        "collectorNumber": "006",
+        "gameId": "pokemon",
+        "kind": "printing",
+        "language": "nl",
+        "name": "Gyarados",
+        "rarity": "Rare",
+        "setId": "pokemon-base-set"
+      }
+    },
+    {
+      "id": "pokemon-base-set-nl-global-007",
+      "metadata": {
+        "attributes": {
+          "finishes": ["holo"],
+          "illustrators": ["Ken Sugimori"],
+          "printedDenominator": 102
+        },
+        "cardId": "card-pokemon-base-set-nl-global-007",
+        "collectorNumber": "007",
+        "gameId": "pokemon",
+        "kind": "printing",
+        "language": "nl",
+        "name": "Hitmonchan",
+        "rarity": "Rare",
+        "setId": "pokemon-base-set"
+      }
+    },
+    {
+      "id": "pokemon-base-set-nl-global-008",
+      "metadata": {
+        "attributes": {
+          "finishes": ["holo"],
+          "illustrators": ["Ken Sugimori"],
+          "printedDenominator": 102,
+          "stamps": ["1st-edition"]
+        },
+        "cardId": "card-pokemon-base-set-nl-global-008",
+        "collectorNumber": "008",
+        "gameId": "pokemon",
+        "kind": "printing",
+        "language": "nl",
+        "name": "Machamp",
+        "rarity": "Rare",
+        "setId": "pokemon-base-set"
+      }
+    },
+    {
+      "id": "pokemon-base-set-nl-global-009",
+      "metadata": {
+        "attributes": {
+          "finishes": ["holo"],
+          "illustrators": ["Keiji Kinebuchi"],
+          "printedDenominator": 102
+        },
+        "cardId": "card-pokemon-base-set-nl-global-009",
+        "collectorNumber": "009",
+        "gameId": "pokemon",
+        "kind": "printing",
+        "language": "nl",
+        "name": "Magneton",
+        "rarity": "Rare",
+        "setId": "pokemon-base-set"
+      }
+    },
+    {
+      "id": "pokemon-base-set-nl-global-010",
+      "metadata": {
+        "attributes": {
+          "finishes": ["holo"],
+          "illustrators": ["Ken Sugimori"],
+          "printedDenominator": 102
+        },
+        "cardId": "card-pokemon-base-set-nl-global-010",
+        "collectorNumber": "010",
+        "gameId": "pokemon",
+        "kind": "printing",
+        "language": "nl",
+        "name": "Mewtwo",
+        "rarity": "Rare",
+        "setId": "pokemon-base-set"
+      }
+    },
+    {
+      "id": "pokemon-base-set-nl-global-011",
+      "metadata": {
+        "attributes": {
+          "finishes": ["holo"],
+          "illustrators": ["Ken Sugimori"],
+          "printedDenominator": 102
+        },
+        "cardId": "card-pokemon-base-set-nl-global-011",
+        "collectorNumber": "011",
+        "gameId": "pokemon",
+        "kind": "printing",
+        "language": "nl",
+        "name": "Nidoking",
+        "rarity": "Rare",
+        "setId": "pokemon-base-set"
+      }
+    },
+    {
+      "id": "pokemon-base-set-nl-global-012",
+      "metadata": {
+        "attributes": {
+          "finishes": ["holo"],
+          "illustrators": ["Ken Sugimori"],
+          "printedDenominator": 102
+        },
+        "cardId": "card-pokemon-base-set-nl-global-012",
+        "collectorNumber": "012",
+        "gameId": "pokemon",
+        "kind": "printing",
+        "language": "nl",
+        "name": "Ninetales",
+        "rarity": "Rare",
+        "setId": "pokemon-base-set"
+      }
+    },
+    {
+      "id": "pokemon-base-set-nl-global-058",
+      "metadata": {
+        "attributes": {
+          "finishes": ["non-holo"],
+          "illustrators": ["Mitsuhiro Arita"],
+          "printedDenominator": 102
+        },
+        "cardId": "card-pokemon-base-set-nl-global-058",
+        "collectorNumber": "058",
+        "gameId": "pokemon",
+        "kind": "printing",
+        "language": "nl",
+        "name": "Pikachu",
+        "rarity": "Common",
+        "setId": "pokemon-base-set"
+      }
+    },
+    {
+      "id": "pokemon-black-white-boundaries-crossed-en-global-20",
+      "metadata": {
+        "attributes": {
+          "finishes": ["holo", "reverse-holo"],
+          "illustrators": ["hatachu"],
+          "printedDenominator": 149,
+          "variants": {
+            "cosmos-holo": {
+              "finish": "holo",
+              "foilPattern": "cosmos",
+              "products": ["pokemon-product-xy-two-pack-blister-venusaur-charizard-blastoise-en"]
+            },
+            "parallel": {
+              "finish": "reverse-holo"
+            },
+            "standard-holo": {
+              "finish": "holo"
+            }
+          }
+        },
+        "cardId": "card-pokemon-black-white-boundaries-crossed-en-global-20",
+        "collectorNumber": "20",
+        "gameId": "pokemon",
+        "kind": "printing",
+        "language": "en",
+        "name": "Charizard",
+        "rarity": "Rare",
+        "setId": "pokemon-black-white-boundaries-crossed"
+      }
+    },
+    {
+      "id": "pokemon-cp3-ja-JP-001",
+      "metadata": {
+        "attributes": {
+          "illustrators": ["Sanosuke Sakuma"],
+          "printedDenominator": 32,
+          "regulationMark": null,
+          "variants": {
+            "first-edition": {
+              "edition": "first-edition"
+            }
+          }
+        },
+        "cardId": "card-pokemon-cp3-ja-JP-001",
+        "collectorNumber": "001",
+        "gameId": "pokemon",
+        "kind": "printing",
+        "language": "ja",
+        "name": "チコリータ",
+        "rarity": "C",
+        "region": "JP",
+        "releaseDate": "2016-01-29",
+        "setId": "pokemon-cp3"
+      }
+    }
+  ]
+}

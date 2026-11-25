@@ -1,3 +1,5 @@
+import { useCatalogue } from "./catalogue-provider";
+import { number } from "./data";
 import { Link, Outlet, useRouterState } from "@tanstack/react-router";
 import * as stylex from "@stylexjs/stylex";
 import { Layers } from "lucide-react";
@@ -16,6 +18,7 @@ const light = stylex.createTheme(palette, {
   onPrimary: "#ffffff",
 });
 export function App() {
+  const { printings } = useCatalogue();
   const path = useRouterState({ select: (state) => state.location.pathname });
   const mode = useSystemTheme();
   return (
@@ -58,14 +61,16 @@ export function App() {
                 </Link>
               ))}
             </nav>
-            <span {...stylex.props(s.muted)}>Pokémon TCG · 18 sample cards</span>
+            <span {...stylex.props(s.muted)}>
+              Pokémon TCG · {number(printings.length)} printings
+            </span>
           </div>
         </header>
         <main id="main" {...stylex.props(s.container)}>
           <Outlet />
         </main>
         <footer {...stylex.props(s.footer)}>
-          <span>Cardlattice demo · sample metadata</span>
+          <span>Cardlattice · published catalogue</span>
           <div {...stylex.props(s.row)}>
             <Link to="/contribute" {...stylex.props(s.link)}>
               Contribute
@@ -84,11 +89,10 @@ export function App() {
             </Link>
           </div>
           <span>
-            Images via{" "}
-            <a href="https://tcgdex.net" {...stylex.props(s.link)}>
-              TCGdex
+            <a href="https://github.com/cardlattice/cardlattice-data" {...stylex.props(s.link)}>
+              Cardlattice open metadata
             </a>{" "}
-            · Pokémon © Nintendo / Creatures / GAME FREAK
+            · CC0 · No artwork in this snapshot
           </span>
         </footer>
       </div>

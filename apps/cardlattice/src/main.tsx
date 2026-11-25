@@ -1,4 +1,4 @@
-import { sets } from "./data";
+import { CatalogueProvider } from "./catalogue-provider";
 import { Link } from "@tanstack/react-router";
 import { createRoot } from "react-dom/client";
 import { createRootRoute, createRoute, createRouter, RouterProvider } from "@tanstack/react-router";
@@ -9,7 +9,11 @@ import { Catalogue } from "./catalogue";
 import { Record } from "./record";
 import { Information } from "./information";
 const root = createRootRoute({
-  component: App,
+  component: () => (
+    <CatalogueProvider>
+      <App />
+    </CatalogueProvider>
+  ),
   notFoundComponent: () => (
     <EmptyState
       title="Page not found"
@@ -50,13 +54,7 @@ const records = ["/pokemon/printings/$id", "/pokemon/cards/$id"].map((path) =>
     validateSearch: (search: Record<string, unknown>) => ({
       origin:
         typeof search.origin === "string" &&
-        [
-          "/",
-          "/search",
-          "/pokemon/cards",
-          "/pokemon/sets",
-          ...sets.map((set) => "/pokemon/sets/" + set.id),
-        ].includes(search.origin)
+        /^\/(?:search|pokemon\/(?:cards|sets(?:\/[a-zA-Z0-9-]+)?))?$/.test(search.origin)
           ? search.origin
           : "/pokemon/cards",
       browse:

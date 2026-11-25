@@ -12,3 +12,5 @@ anchors by default. Demo links use TanStack Router client-side navigation.
 Add MediaImage with aspect-ratio reservation and an accessible missing-image fallback.
 
 Add a compact SearchField form and useSystemTheme hook for reactive system-theme selection.
+
+Allow LanguageSelect to restrict choices to available language codes, including Dutch, Korean and Simplified Chinese flags. Add an optional result limit to searchable Select and Combobox for large datasets.

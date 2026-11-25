@@ -70,7 +70,8 @@ export const s = stylex.create({
     justifyContent: "center",
     height: 100,
     padding: 16,
-    backgroundColor: "#eeeeee",
+    backgroundColor: palette.surface,
+    color: palette.muted,
   },
   relatedGrid: {
     display: "grid",

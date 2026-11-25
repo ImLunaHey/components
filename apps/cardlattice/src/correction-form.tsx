@@ -1,3 +1,5 @@
+import { useCatalogue } from "./catalogue-provider";
+
 import { useState } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Input } from "@imlunahey/components/input";
@@ -6,7 +8,7 @@ import { Select } from "@imlunahey/components/select";
 import { Combobox } from "@imlunahey/components/combobox";
 import { Button } from "@imlunahey/components/button";
 import { DescriptionList } from "@imlunahey/components/description-list";
-import { printings } from "./data";
+
 import { s } from "./styles";
 export type Correction = {
   id: string;
@@ -44,6 +46,7 @@ export function CorrectionForm({
   target?: string;
   onSaved?: () => void;
 }) {
+  const { printings } = useCatalogue();
   const [target, setTarget] = useState(initial ?? printings[0]!.id);
   const [field, setField] = useState("artist");
   const [after, setAfter] = useState("");
@@ -86,10 +89,12 @@ export function CorrectionForm({
         label="Printing"
         value={target}
         onValueChange={setTarget}
+        maxVisibleOptions={50}
         options={printings.map((card) => ({
           value: card.id,
           label: card.name + " · " + card.number,
           description: card.id,
+          keywords: card.id,
         }))}
       />
       <Select

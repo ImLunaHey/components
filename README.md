@@ -79,13 +79,25 @@ No existing prototype is removed or silently embedded inside a React component.
 Cardlattice opens directly into a searchable card grid, with set pages,
 card identities, URL-persisted language/rarity/sort/view filters, grid and TanStack
 table views, record metadata, coverage, documentation and a JSON download.
-Try `/pokemon/sets/base-set`, `/pokemon/printings/base-set-004`, `/data`, and
-`/contribute`. Corrections and review decisions stay in browser localStorage;
-they never update the live service or the fixture records. The 18 printings are
-sample metadata with card images from TCGdex, not a live dataset. Image source
-URLs are recorded in `apps/cardlattice/public/cards/sources.json`; copyright remains
-with the respective Pokémon rights holders. Results, filters and page position
-are retained when opening cards and returning to the catalogue.
+Try `/pokemon/sets/pokemon-base-set`,
+`/pokemon/printings/pokemon-base-set-nl-global-004`, `/data`, and `/contribute`.
+The demo downloads Cardlattice’s current public snapshot from
+https://cardlattice-status.pages.dev/data/manifest.json, verifies the SHA-256,
+byte size, revision, schema, record counts and printing references, then derives
+filters and coverage from those records. The snapshot verified on 2026-11-25
+contains 6,773 printings across 264 sets and five languages. It has no artwork;
+missing images and metadata are shown explicitly. Card identities are provisional,
+so equal names are not treated as equivalent identities.
+
+Corrections and review decisions stay in browser localStorage and never update
+the published catalogue. The JSON download preserves the original records.
+Results, filters and page position are retained when opening cards and returning.
+Unavailable or corrupt downloads show a retry action; there is no fixture fallback.
+The initial snapshot download is about 7.5 MB before transfer compression.
+
+Normal tests intercept requests with a small subset of real, attributed records;
+run `CARDLATTICE_LIVE=1 pnpm exec playwright test e2e/cardlattice-live.spec.ts`
+after building to exercise the published endpoint without mocks.
 
 Launch it independently (build the shared package first):
 

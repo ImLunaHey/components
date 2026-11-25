@@ -1,10 +1,12 @@
 import { test, expect } from "@playwright/test";
+import { mockCatalogue } from "./catalogue-fixture";
 import AxeBuilder from "@axe-core/playwright";
 const apps = ["gallery", "projects", "catalogue", "account", "cardlattice", "fleet"];
 for (const mode of ["light", "dark"] as const)
   for (const width of [390, 900, 1720])
     for (const [index, name] of apps.entries()) {
-      test(`${name} ${mode} ${width}`, async ({ page }) => {
+      test(`${name} ${mode} ${width}`, async ({ page, context }) => {
+        if (name === "cardlattice") await mockCatalogue(context);
         const errors: string[] = [];
         page.on("pageerror", (error) => errors.push(error.message));
         await page.setViewportSize({ width, height: 1000 });

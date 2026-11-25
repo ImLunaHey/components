@@ -1,3 +1,6 @@
+import { useCatalogue } from "./catalogue-provider";
+import { number } from "./data";
+import { catalogueBase } from "./snapshot";
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import * as stylex from "@stylexjs/stylex";
@@ -9,10 +12,11 @@ import { Progress } from "@imlunahey/components/progress";
 import { CodeBlock } from "@imlunahey/components/code-block";
 import { DescriptionList } from "@imlunahey/components/description-list";
 import { EmptyState } from "@imlunahey/components/empty-state";
-import { sets, printings, setName, sampleNotice } from "./data";
+
 import { CorrectionForm, readCorrections, type Correction } from "./correction-form";
 import { s } from "./styles";
 export function Information({ page }: { page: string }) {
+  const { sets, printings, manifest, sourceRecords } = useCatalogue();
   const [corrections, setCorrections] = useState(readCorrections);
   const [message, setMessage] = useState("");
   function review(id: string, status: Correction["status"]) {
@@ -27,13 +31,23 @@ export function Information({ page }: { page: string }) {
   function download() {
     const url = URL.createObjectURL(
       new Blob(
-        [JSON.stringify({ demo: true, description: sampleNotice, sets, printings }, null, 2)],
+        [
+          JSON.stringify(
+            {
+              schemaVersion: manifest.schemaVersion,
+              sourceCommit: manifest.sourceCommit,
+              records: sourceRecords,
+            },
+            null,
+            2,
+          ),
+        ],
         { type: "application/json" },
       ),
     );
     const anchor = document.createElement("a");
     anchor.href = url;
-    anchor.download = "cardlattice-demo.json";
+    anchor.download = "cardlattice-catalogue.json";
     anchor.click();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
@@ -49,12 +63,12 @@ export function Information({ page }: { page: string }) {
         <span {...stylex.props(s.eyebrow)}>Know what’s here. See what’s next.</span>
         <h1 {...stylex.props(s.title)}>Catalogue coverage</h1>
         <p {...stylex.props(s.lead)}>
-          Coverage is measured against these sample records. It does not represent the completeness
-          of a real set or the live catalogue.
+          Counts and missing fields come from the published snapshot. Set totals are recorded
+          printings, not estimates of how complete a set is.
         </p>
         <div {...stylex.props(s.three)}>
-          <Panel title="Sample printings">
-            <span {...stylex.props(s.stat)}>{printings.length}</span>
+          <Panel title="Recorded printings">
+            <span {...stylex.props(s.stat)}>{number(printings.length)}</span>
             <p {...stylex.props(s.muted)}>Across {sets.length} sets</p>
           </Panel>
           <Panel title="Illustrators recorded">
@@ -62,7 +76,7 @@ export function Information({ page }: { page: string }) {
               label="Illustrators"
               value={recorded}
               max={printings.length}
-              detail={`${recorded} of ${printings.length} sample printings`}
+              detail={`${recorded} of ${printings.length} published printings`}
             />
           </Panel>
           <Panel title="Open fields">
@@ -71,11 +85,11 @@ export function Information({ page }: { page: string }) {
           </Panel>
         </div>
         <DataTable
-          label="Sample catalogue coverage"
+          label="Published catalogue coverage"
           data={coverage}
           columns={[
             { accessorKey: "name", header: "Set" },
-            { accessorKey: "total", header: "Sample printings" },
+            { accessorKey: "total", header: "Recorded printings" },
             { accessorKey: "artists", header: "Illustrators recorded" },
             {
               id: "missing",
@@ -98,37 +112,36 @@ export function Information({ page }: { page: string }) {
         <p {...stylex.props(s.lead)}>
           Download exactly what powers this demo. No account or API key needed.
         </p>
-        <Panel title="Demo catalogue snapshot" actions={<Badge tone="neutral">JSON</Badge>}>
+        <Panel title="Verified catalogue snapshot" actions={<Badge tone="neutral">JSON</Badge>}>
           <DescriptionList
             items={[
               { label: "Sets", value: sets.length },
               { label: "Printings", value: printings.length },
-              { label: "Includes", value: "Sample metadata only · no artwork" },
-              { label: "Source", value: "Bundled design demo fixtures" },
+              { label: "Includes", value: "Published metadata · no artwork" },
+              { label: "Source", value: "Cardlattice published snapshot" },
+              { label: "Revision", value: manifest.sourceCommit.slice(0, 12) },
             ]}
           />
           <Button variant="primary" onClick={download}>
-            Download demo JSON
+            Download catalogue JSON
           </Button>
         </Panel>
         <CodeBlock
           label="Snapshot shape"
           code={JSON.stringify(
             {
-              demo: true,
-              sets: [{ id: "base-set", name: "Base Set" }],
-              printings: [
-                { id: "base-set-004", cardId: "charizard", setId: "base-set", name: "Charizard" },
-              ],
+              schemaVersion: manifest.schemaVersion,
+              sourceCommit: manifest.sourceCommit,
+              records: sourceRecords.filter((r) => r.metadata.kind === "printing").slice(0, 1),
             },
             null,
             2,
           )}
         />
         <p {...stylex.props(s.muted)}>
-          For published data, visit{" "}
-          <a href="https://cardlattice.com/datasets" {...stylex.props(s.link)}>
-            Cardlattice’s dataset page ↗
+          Download{" "}
+          <a href={catalogueBase + manifest.filename} {...stylex.props(s.link)}>
+            the original verified snapshot ↗
           </a>
           . This demo does not expose a live API.
         </p>
@@ -145,21 +158,21 @@ export function Information({ page }: { page: string }) {
         {[
           {
             title: "01 / Card identity",
-            text: "The card itself, independent of a specific release or language. Start here to explore related printings.",
-            href: "/pokemon/cards/charizard",
-            action: "Explore Charizard’s identity",
+            text: "The identity linked to a printing. Published identities are currently provisional and scoped by printing; matching names do not establish a shared identity.",
+            href: "/pokemon/cards/" + printings[0]!.cardId,
+            action: "Explore a card identity",
           },
           {
             title: "02 / Printing",
             text: "A version of a card in a particular set and language. Collector numbers, rarity and finishes belong here.",
-            href: "/pokemon/printings/base-set-004",
+            href: "/pokemon/printings/" + printings[0]!.id,
             action: "Inspect a printing",
           },
           {
             title: "03 / Set",
             text: "The release that brings printings together. Browse visually or compare details in a table.",
-            href: "/pokemon/sets/base-set",
-            action: "Browse Base Set",
+            href: "/pokemon/sets/" + printings[0]!.setId,
+            action: "Browse a set",
           },
         ].map((item) => (
           <Panel key={item.title} title={item.title}>
@@ -176,7 +189,7 @@ export function Information({ page }: { page: string }) {
           </p>
           <CodeBlock
             label="Example catalogue URL"
-            code="/pokemon/sets/base-set?language=en-US&rarity=Rare%20Holo&view=table"
+            code="/pokemon/sets/pokemon-base-set?language=nl&rarity=Rare&view=table"
           />
         </Panel>
       </div>
@@ -253,7 +266,7 @@ export function Information({ page }: { page: string }) {
               </div>
             )}
             <p {...stylex.props(s.muted)}>
-              Demo review only. The live catalogue and the sample records are unchanged.
+              Demo review only. This does not change the published catalogue.
             </p>
           </Panel>
         ))

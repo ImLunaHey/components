@@ -1,7 +1,9 @@
+import { useCatalogue } from "./catalogue-provider";
+import { languageName } from "./data";
 import { useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import * as stylex from "@stylexjs/stylex";
-import { ArrowLeft, ChevronLeft, ChevronRight, Maximize2 } from "lucide-react";
+import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@imlunahey/components/button";
 import { Badge } from "@imlunahey/components/badge";
 import { Breadcrumbs } from "@imlunahey/components/breadcrumbs";
@@ -10,19 +12,19 @@ import { Dialog } from "@imlunahey/components/dialog";
 import { CodeBlock } from "@imlunahey/components/code-block";
 import { EmptyState } from "@imlunahey/components/empty-state";
 import { renderRouterLink } from "../../../src/demos/router-link";
-import { printings, setName, filterPrintings } from "./data";
+
 import { CardArt } from "./card-art";
 import { PrintingTile } from "./printing-tile";
 import { CorrectionForm } from "./correction-form";
 import { s } from "./styles";
 export function Record() {
+  const { printings, setName, filterPrintings } = useCatalogue();
   const location = useRouterState({ select: (state) => state.location });
   const id = location.pathname.split("/").at(-1);
   const identity = location.pathname.includes("/cards/");
   const card = printings.find((item) => (identity ? item.cardId === id : item.id === id));
   const [open, setOpen] = useState(false),
-    [data, setData] = useState(false),
-    [zoom, setZoom] = useState(false);
+    [data, setData] = useState(false);
   const search = location.search as { origin?: string; browse?: Record<string, unknown> };
   const origin = search.origin ?? "/pokemon/cards",
     browse = search.browse ?? {};
@@ -35,7 +37,7 @@ export function Record() {
     return (
       <EmptyState
         title="Card not found"
-        description="This card is not included in the demo."
+        description="This card is not in the published catalogue."
         action={
           <Link to="/pokemon/cards" {...stylex.props(s.cta)}>
             Browse cards
@@ -102,12 +104,8 @@ export function Record() {
       />
       <section {...stylex.props(s.detail)}>
         <div {...stylex.props(s.detailVisual, s.stack)}>
-          <CardArt card={card} eager />
-          <Button onClick={() => setZoom(true)}>
-            <Maximize2 size={15} />
-            Enlarge image
-          </Button>
-          <p {...stylex.props(s.muted)}>Card image via TCGdex.</p>
+          <CardArt card={card} />
+          <p {...stylex.props(s.muted)}>Artwork is not included in the published snapshot.</p>
         </div>
         <div {...stylex.props(s.stack)}>
           <div {...stylex.props(s.stack)}>
@@ -117,13 +115,13 @@ export function Record() {
                 {setName(card.setId)}
               </Link>
               <span {...stylex.props(s.muted)}>
-                #{card.number} · {card.language === "fr" ? "French" : "English"}
+                #{card.number} · {languageName(card.language)}
               </span>
             </div>
             <div {...stylex.props(s.row)}>
-              <Badge>{card.rarity}</Badge>
-              <Badge tone="info">{card.element}</Badge>
-              <Badge>{card.hp} HP</Badge>
+              {card.rarity && <Badge>{card.rarity}</Badge>}
+              {card.element && <Badge tone="info">{card.element}</Badge>}
+              {card.hp != null && <Badge>{card.hp} HP</Badge>}
             </div>
           </div>
           <div {...stylex.props(s.detailsBox)}>
@@ -139,10 +137,10 @@ export function Record() {
                   ),
                 },
                 { label: "Card number", value: card.number },
-                { label: "Language", value: card.language === "fr" ? "French" : "English" },
-                { label: "Rarity", value: card.rarity },
-                { label: "Finish", value: card.finish },
-                { label: "Illustrator", value: card.artist },
+                { label: "Language", value: languageName(card.language) },
+                { label: "Rarity", value: card.rarity ?? "Not recorded" },
+                { label: "Finish", value: card.finish ?? "Not recorded" },
+                { label: "Illustrator", value: card.artist ?? "Not recorded" },
               ]}
             />
             <div {...stylex.props(s.row)}>
@@ -151,7 +149,12 @@ export function Record() {
                 {data ? "Hide JSON" : "View JSON"}
               </Button>
             </div>
-            {data && <CodeBlock code={JSON.stringify(card, null, 2)} label="Card record · JSON" />}
+            {data && (
+              <CodeBlock
+                code={JSON.stringify({ printing: card.raw, card: card.identity }, null, 2)}
+                label="Card record · JSON"
+              />
+            )}
           </div>
           <section {...stylex.props(s.stack)}>
             <h2 {...stylex.props(s.h2)}>Other printings</h2>
@@ -163,12 +166,13 @@ export function Record() {
               </div>
             ) : (
               <p {...stylex.props(s.muted)}>
-                No other printings of this card are included in the sample.
+                No other printings are linked to this identity in the published data. Identities are
+                currently provisional; matching names are not automatically grouped.
               </p>
             )}
           </section>
           <p {...stylex.props(s.muted)}>
-            Sample metadata ·{" "}
+            Published metadata ·{" "}
             <Link to="/data" {...stylex.props(s.link)}>
               About this data
             </Link>
@@ -190,9 +194,6 @@ export function Record() {
       </section>
       <Dialog title={"Suggest a correction · " + card.name} open={open} onOpenChange={setOpen}>
         {open && <CorrectionForm target={card.id} />}
-      </Dialog>
-      <Dialog title={card.name + " · card image"} open={zoom} onOpenChange={setZoom}>
-        {zoom && <CardArt card={card} eager />}
       </Dialog>
     </>
   );

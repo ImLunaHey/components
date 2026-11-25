@@ -16,6 +16,8 @@ export interface SelectProps {
   value: string;
   onValueChange: (value: string) => void;
   searchable?: boolean;
+  /** Bound rendered search results for large datasets; refine the query to reach more. */
+  maxVisibleOptions?: number;
   disabled?: boolean;
   name?: string;
   placeholder?: string;
@@ -98,6 +100,7 @@ export function Select({
   value,
   onValueChange,
   searchable = false,
+  maxVisibleOptions,
   disabled = false,
   name,
   placeholder = "Select…",
@@ -110,9 +113,11 @@ export function Select({
   const search = useRef<HTMLInputElement>(null);
   const id = useId();
   const selected = options.find((o) => o.value === value);
-  const filtered = options.filter((o) =>
+  const matches = options.filter((o) =>
     (o.label + " " + (o.keywords ?? "")).toLowerCase().includes(query.toLowerCase()),
   );
+  const filtered =
+    maxVisibleOptions && searchable ? matches.slice(0, Math.max(1, maxVisibleOptions)) : matches;
   useEffect(() => {
     if (!open) return;
     const close = (event: PointerEvent) => {
@@ -127,7 +132,7 @@ export function Select({
   }, [open, active, id]);
   function initialIndex() {
     const selectedIndex = options.findIndex((option) => option.value === value && !option.disabled);
-    return selectedIndex >= 0
+    return selectedIndex >= 0 && (!maxVisibleOptions || selectedIndex < maxVisibleOptions)
       ? selectedIndex
       : Math.max(
           0,
@@ -248,6 +253,11 @@ export function Select({
               </li>
             ))}
           </ul>
+          {filtered.length < matches.length && (
+            <div role="status" {...stylex.props(styles.empty)}>
+              Showing {filtered.length} of {matches.length}. Type to narrow results.
+            </div>
+          )}
           {!filtered.length && (
             <div role="status" {...stylex.props(styles.empty)}>
               No matches

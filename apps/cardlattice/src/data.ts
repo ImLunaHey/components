@@ -1,30 +1,4 @@
-export const sets = [
-  {
-    id: "base-set",
-    name: "Base Set",
-    year: "1999",
-    series: "Original series",
-    symbol: "01",
-    description:
-      "The beginning of a collection. Explore the original Pokémon Trading Card Game release.",
-  },
-  {
-    id: "jungle",
-    name: "Jungle",
-    year: "1999",
-    series: "Original series",
-    symbol: "02",
-    description: "A world beyond the original 151. Discover the second English expansion.",
-  },
-  {
-    id: "fossil",
-    name: "Fossil",
-    year: "1999",
-    series: "Original series",
-    symbol: "03",
-    description: "Ancient discoveries, familiar favourites. Explore the Fossil expansion.",
-  },
-];
+import type { Snapshot, CatalogueRecord } from "./snapshot";
 export type Printing = {
   id: string;
   cardId: string;
@@ -32,74 +6,126 @@ export type Printing = {
   number: string;
   setId: string;
   language: string;
-  rarity: string;
-  element: string;
+  region: string | null;
+  rarity: string | null;
+  types: string[];
+  element: string | null;
   artist: string | null;
-  hp: number;
-  finish: string;
+  hp: number | null;
+  finish: string | null;
+  releaseDate: string | null;
+  raw: CatalogueRecord;
+  identity: CatalogueRecord;
 };
-const examples: [string, string, string, string, string, string | null, number][] = [
-  ["Charizard", "004", "base-set", "Fire", "Rare Holo", "Mitsuhiro Arita", 120],
-  ["Blastoise", "002", "base-set", "Water", "Rare Holo", "Ken Sugimori", 100],
-  ["Venusaur", "015", "base-set", "Grass", "Rare Holo", "Mitsuhiro Arita", 100],
-  ["Pikachu", "058", "base-set", "Lightning", "Common", "Mitsuhiro Arita", 40],
-  ["Bulbasaur", "044", "base-set", "Grass", "Common", "Mitsuhiro Arita", 40],
-  ["Squirtle", "063", "base-set", "Water", "Common", null, 40],
-  ["Charmander", "046", "base-set", "Fire", "Common", "Mitsuhiro Arita", 50],
-  ["Alakazam", "001", "base-set", "Psychic", "Rare Holo", "Ken Sugimori", 80],
-  ["Mewtwo", "010", "base-set", "Psychic", "Rare Holo", null, 60],
-  ["Eevee", "051", "jungle", "Colorless", "Common", "Kagemaru Himeno", 50],
-  ["Snorlax", "011", "jungle", "Colorless", "Rare Holo", "Ken Sugimori", 90],
-  ["Vaporeon", "012", "jungle", "Water", "Rare Holo", null, 80],
-  ["Scyther", "010", "jungle", "Grass", "Rare Holo", "Ken Sugimori", 70],
-  ["Dragonite", "004", "fossil", "Colorless", "Rare Holo", "Kagemaru Himeno", 100],
-  ["Gengar", "005", "fossil", "Psychic", "Rare Holo", "Keiji Kinebuchi", 60],
-  ["Lapras", "010", "fossil", "Water", "Rare Holo", null, 80],
-  ["Articuno", "002", "fossil", "Water", "Rare Holo", "Mitsuhiro Arita", 70],
-];
-export const printings: Printing[] = examples.map(
-  ([name, number, setId, element, rarity, artist, hp]) => ({
-    id: setId + "-" + number,
-    cardId: name.toLowerCase(),
-    name,
-    number,
-    setId,
-    language: "en-US",
-    element,
-    rarity,
-    artist,
-    hp,
-    finish: rarity === "Rare Holo" ? "Holofoil" : "Non-holo",
-  }),
-);
-printings.push({ ...printings[0]!, id: "base-set-004-fr", language: "fr", name: "Dracaufeu" });
-export const setName = (id: string) => sets.find((set) => set.id === id)?.name ?? id;
-export function searchPrintings(query: string) {
-  const value = query.trim().toLowerCase();
-  return printings.filter((card) =>
-    [card.name, card.number, card.cardId, setName(card.setId), card.artist ?? ""].some((field) =>
-      field.toLowerCase().includes(value),
-    ),
+export type CatalogueSet = {
+  id: string;
+  name: string;
+  year: string | null;
+  series: string;
+  seriesId: string | null;
+  releaseDate: string | null;
+  count: number;
+};
+export const number = (value: number) => value.toLocaleString("en");
+const strings = (value: unknown) =>
+  Array.isArray(value) ? value.filter((item): item is string => typeof item === "string") : [];
+export function languageName(code: string) {
+  try {
+    return new Intl.DisplayNames(["en"], { type: "language" }).of(code) ?? code;
+  } catch {
+    return code;
+  }
+}
+export function createCatalogue(snapshot: Snapshot) {
+  const rows = snapshot.records.filter((r) => r.gameId === "pokemon"),
+    byId = new Map(rows.map((r) => [r.id, r]));
+  const printings: Printing[] = rows
+    .filter((r) => r.kind === "printing")
+    .map((raw) => {
+      const identity = byId.get(raw.cardId ?? "");
+      const set = byId.get(raw.setId ?? "");
+      if (!identity || identity.kind !== "card" || !set || set.kind !== "set")
+        throw Error("Printing has a missing card or set reference.");
+      const types = strings(identity.attributes.types),
+        finishes = strings(raw.attributes.finishes),
+        artists = strings(raw.attributes.illustrators);
+      return {
+        id: raw.id,
+        cardId: identity.id,
+        setId: set.id,
+        name: raw.name,
+        number: raw.collectorNumber ?? "—",
+        language: raw.language ?? "und",
+        region: raw.region ?? null,
+        rarity: raw.rarity ?? null,
+        types,
+        element: types.join(" / ") || null,
+        artist: artists.join(", ") || null,
+        hp: typeof identity.attributes.hp === "number" ? identity.attributes.hp : null,
+        finish: finishes.join(", ") || null,
+        releaseDate: raw.releaseDate ?? null,
+        raw,
+        identity,
+      };
+    });
+  const counts = new Map<string, number>();
+  for (const card of printings) counts.set(card.setId, (counts.get(card.setId) ?? 0) + 1);
+  const sets: CatalogueSet[] = rows
+    .filter((r) => r.kind === "set")
+    .map((r) => ({
+      id: r.id,
+      name: r.name,
+      year: r.releaseDate?.slice(0, 4) ?? null,
+      releaseDate: r.releaseDate ?? null,
+      series: r.seriesId
+        ? (byId.get(r.seriesId)?.name ?? "Series not recorded")
+        : "Series not recorded",
+      seriesId: r.seriesId ?? null,
+      count: counts.get(r.id) ?? 0,
+    }))
+    .sort((a, b) => a.series.localeCompare(b.series) || a.name.localeCompare(b.name));
+  const names = new Map(sets.map((s) => [s.id, s.name]));
+  const setName = (id: string) => names.get(id) ?? id;
+  const normalized = (value: string) => value.normalize("NFKC").toLocaleLowerCase("en");
+  const searchIndex = new Map(
+    printings.map((card) => [
+      card.id,
+      normalized(
+        [card.name, card.number, card.id, setName(card.setId), card.artist ?? ""].join(" "),
+      ),
+    ]),
   );
+  function filterPrintings(search: Record<string, unknown>, setId?: string) {
+    const q = normalized(typeof search.q === "string" ? search.q.trim() : "");
+    return printings
+      .filter(
+        (card) =>
+          (!q || searchIndex.get(card.id)!.includes(q)) &&
+          (!(setId || search.set) || card.setId === (setId || search.set)) &&
+          (!search.language || card.language === search.language) &&
+          (!search.type || card.types.includes(String(search.type))) &&
+          (!search.rarity ||
+            (search.rarity === "__missing__" ? !card.rarity : card.rarity === search.rarity)),
+      )
+      .sort((a, b) =>
+        search.sort === "name"
+          ? a.name.localeCompare(b.name) || a.id.localeCompare(b.id)
+          : setName(a.setId).localeCompare(setName(b.setId)) ||
+            a.number.localeCompare(b.number, undefined, { numeric: true }) ||
+            a.id.localeCompare(b.id),
+      );
+  }
+  return {
+    sets,
+    printings,
+    setName,
+    filterPrintings,
+    manifest: snapshot.manifest,
+    records: snapshot.records,
+    sourceRecords: snapshot.sourceRecords,
+    languages: [...new Set(printings.map((card) => card.language))].sort(),
+    types: [...new Set(printings.flatMap((card) => card.types))].sort(),
+    rarities: [...new Set(printings.flatMap((card) => (card.rarity ? [card.rarity] : [])))].sort(),
+  };
 }
-export const sampleNotice =
-  "Interactive design demo · sample catalogue with card images via TCGdex. Not connected to live Cardlattice data.";
-
-export function filterPrintings(search: Record<string, unknown>, setId?: string) {
-  const query = typeof search.q === "string" ? search.q : "";
-  return searchPrintings(query)
-    .filter(
-      (card) =>
-        (!(setId || search.set) || card.setId === (setId || search.set)) &&
-        (!search.language || card.language === search.language) &&
-        (!search.rarity || card.rarity === search.rarity) &&
-        (!search.type || card.element === search.type),
-    )
-    .sort((a, b) =>
-      search.sort === "name"
-        ? a.name.localeCompare(b.name)
-        : a.setId.localeCompare(b.setId) ||
-          a.number.localeCompare(b.number) ||
-          a.name.localeCompare(b.name),
-    );
-}
+export type Catalogue = ReturnType<typeof createCatalogue>;

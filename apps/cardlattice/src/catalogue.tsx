@@ -1,7 +1,9 @@
+import { useCatalogue } from "./catalogue-provider";
+import { languageName, number, type Printing } from "./data";
 import { useMemo, useState } from "react";
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import * as stylex from "@stylexjs/stylex";
-import { LayoutGrid, List, SlidersHorizontal } from "lucide-react";
+import { LayoutGrid, List, SlidersHorizontal, Layers } from "lucide-react";
 import { Input } from "@imlunahey/components/input";
 import { Select } from "@imlunahey/components/select";
 import { LanguageSelect } from "@imlunahey/components/language-select";
@@ -13,10 +15,11 @@ import { EmptyState } from "@imlunahey/components/empty-state";
 import { DataTable } from "@imlunahey/components/data-table";
 import { RecordLink } from "../../../src/demos/record-link";
 import { renderRouterLink } from "../../../src/demos/router-link";
-import { sets, printings, filterPrintings, setName, type Printing } from "./data";
+
 import { PrintingTile } from "./printing-tile";
 import { s } from "./styles";
 export function Catalogue() {
+  const { sets, setName, filterPrintings, languages, types, rarities } = useCatalogue();
   const [filtersOpen, setFiltersOpen] = useState(false);
   const location = useRouterState({ select: (state) => state.location });
   const navigate = useNavigate();
@@ -78,24 +81,31 @@ export function Catalogue() {
       {
         accessorKey: "language",
         header: "Language",
-        cell: ({ getValue }: { getValue: () => unknown }) =>
-          getValue() === "fr" ? "French" : "English",
+        cell: ({ getValue }: { getValue: () => unknown }) => languageName(String(getValue())),
       },
-      { accessorKey: "rarity", header: "Rarity" },
-      { accessorKey: "element", header: "Type" },
+      {
+        accessorKey: "rarity",
+        header: "Rarity",
+        cell: ({ getValue }: { getValue: () => unknown }) => String(getValue() ?? "Not recorded"),
+      },
+      {
+        accessorKey: "element",
+        header: "Type",
+        cell: ({ getValue }: { getValue: () => unknown }) => String(getValue() ?? "Not recorded"),
+      },
       {
         accessorKey: "artist",
         header: "Illustrator",
         cell: ({ getValue }: { getValue: () => unknown }) => String(getValue() ?? "Not recorded"),
       },
     ],
-    [location.pathname, search],
+    [location.pathname, search, setName],
   );
   if (setId && !set)
     return (
       <EmptyState
         title="Set not found"
-        description="This set is not in the demo."
+        description="This set is not in the published catalogue."
         action={
           <Link to="/pokemon/sets" {...stylex.props(s.cta)}>
             Browse sets
@@ -107,13 +117,17 @@ export function Catalogue() {
     const shownSets = sets.filter((item) =>
       (item.name + " " + item.year).toLowerCase().includes(q.toLowerCase()),
     );
+    const setPage = Math.min(
+      Math.max(1, Number(search.page) || 1),
+      Math.max(1, Math.ceil(shownSets.length / 24)),
+    );
     return (
       <>
         <div {...stylex.props(s.between)}>
           <div {...stylex.props(s.stack)}>
             <h1 {...stylex.props(s.title)}>Pokémon sets</h1>
             <p {...stylex.props(s.muted)}>
-              Choose a set to see its cards. Three original-series sets are included in this demo.
+              Browse {number(sets.length)} published sets. Counts show printings currently recorded.
             </p>
           </div>
           <div {...stylex.props(s.filter)}>
@@ -127,35 +141,35 @@ export function Catalogue() {
           </div>
         </div>
         <div {...stylex.props(s.between)}>
-          <h2 {...stylex.props(s.h2)}>Original series</h2>
-          <span {...stylex.props(s.muted)}>1999 · {shownSets.length} sets</span>
+          <h2 {...stylex.props(s.h2)}>Published sets</h2>
+          <span {...stylex.props(s.muted)}>{number(shownSets.length)} sets</span>
         </div>
         <div {...stylex.props(s.three)}>
-          {shownSets.map((item) => (
+          {shownSets.slice((setPage - 1) * 24, setPage * 24).map((item) => (
             <RecordLink
               key={item.id}
               to={"/pokemon/sets/" + item.id}
               title={item.name}
-              eyebrow="Original series · 1999"
-              description={
-                printings.filter((card) => card.setId === item.id).length + " sample cards"
-              }
+              eyebrow={[item.series, item.year].filter(Boolean).join(" · ")}
+              description={number(item.count) + " recorded printings"}
               visual={
                 <div {...stylex.props(s.setCover)}>
-                  <img
-                    src={"/cards/" + item.id + "-logo.webp"}
-                    alt=""
-                    {...stylex.props(s.setLogo)}
-                  />
+                  <Layers size={32} aria-hidden="true" />
                 </div>
               }
             />
           ))}
         </div>
+        <Pagination
+          page={setPage}
+          pageSize={24}
+          total={shownSets.length}
+          onPageChange={(page) => update({ page })}
+        />
         {!shownSets.length && (
           <EmptyState
             title="No matching sets"
-            description="Try Base Set, Jungle or Fossil."
+            description="Try another set name or year."
             action={<Button onClick={() => update({ q: "" })}>Clear search</Button>}
           />
         )}
@@ -177,11 +191,10 @@ export function Catalogue() {
           </h1>
           <p {...stylex.props(s.muted)}>
             {set
-              ? `Original series · 1999 · ${printings.filter((card) => card.setId === set.id).length} sample cards`
+              ? `${set.series} · ${number(set.count)} recorded printings`
               : "Browse cards, narrow your search, then open a card for its details."}
           </p>
         </div>
-        {set && <img src={"/cards/" + set.id + "-logo.webp"} alt="" {...stylex.props(s.setLogo)} />}
       </div>
       <div {...stylex.props(s.mobileFilters)}>
         <Button
@@ -205,6 +218,7 @@ export function Catalogue() {
           <div {...stylex.props(s.filter)}>
             <Select
               label="Set"
+              searchable
               value={selectedSet}
               onValueChange={(set) => update({ set })}
               options={[
@@ -217,6 +231,7 @@ export function Catalogue() {
         <div {...stylex.props(s.filter)}>
           <LanguageSelect
             includeAll
+            availableLanguages={languages}
             value={language}
             onValueChange={(language) => update({ language })}
           />
@@ -228,9 +243,7 @@ export function Catalogue() {
             onValueChange={(type) => update({ type })}
             options={[
               { value: "", label: "All types" },
-              ...Array.from(new Set(printings.map((card) => card.element)))
-                .sort()
-                .map((value) => ({ value, label: value })),
+              ...types.map((value) => ({ value, label: value })),
             ]}
           />
         </div>
@@ -241,8 +254,8 @@ export function Catalogue() {
             onValueChange={(rarity) => update({ rarity })}
             options={[
               { value: "", label: "All rarities" },
-              { value: "Rare Holo", label: "Rare Holo" },
-              { value: "Common", label: "Common" },
+              ...rarities.map((value) => ({ value, label: value })),
+              { value: "__missing__", label: "Not recorded" },
             ]}
           />
         </div>
@@ -259,22 +272,24 @@ export function Catalogue() {
             <FilterChip label={setName(selectedSet)} onRemove={() => update({ set: "" })} />
           )}
           {language && (
-            <FilterChip
-              label={language === "fr" ? "French" : language === "en-US" ? "English" : language}
-              onRemove={() => update({ language: "" })}
-            />
+            <FilterChip label={languageName(language)} onRemove={() => update({ language: "" })} />
           )}
           {type && <FilterChip label={type} onRemove={() => update({ type: "" })} />}
-          {rarity && <FilterChip label={rarity} onRemove={() => update({ rarity: "" })} />}
+          {rarity && (
+            <FilterChip
+              label={rarity === "__missing__" ? "Rarity not recorded" : rarity}
+              onRemove={() => update({ rarity: "" })}
+            />
+          )}
         </div>
       )}
       <div {...stylex.props(s.resultBar)}>
         <span {...stylex.props(s.muted, s.resultCount)}>
-          <strong>{matches.length}</strong> cards
+          <strong>{number(matches.length)}</strong> printings
           {set
             ? " in " + set.name
             : " across " + new Set(matches.map((card) => card.setId)).size + " sets"}{" "}
-          · sample catalogue
+          · published catalogue
         </span>
         <div {...stylex.props(s.resultControls)}>
           <div {...stylex.props(s.filter)}>
@@ -309,7 +324,7 @@ export function Catalogue() {
       {!matches.length ? (
         <EmptyState
           title="No cards found"
-          description="Try a different name or remove a filter. This sample includes English and French cards."
+          description="Try a different name or remove a filter. Some published sets do not yet contain printings."
           action={<Button onClick={clear}>Reset filters</Button>}
         />
       ) : view === "table" ? (

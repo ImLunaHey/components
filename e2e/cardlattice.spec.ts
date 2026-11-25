@@ -1,4 +1,6 @@
 import { test, expect } from "@playwright/test";
+import { mockCatalogue, fixture, fixtureManifest, catalogueBase } from "./catalogue-fixture";
+test.beforeEach(async ({ context }) => mockCatalogue(context));
 import AxeBuilder from "@axe-core/playwright";
 const base = "http://127.0.0.1:5634";
 for (const mode of ["light", "dark"] as const)
@@ -8,8 +10,8 @@ for (const mode of ["light", "dark"] as const)
       await page.emulateMedia({ colorScheme: mode });
       await page.addInitScript((mode) => localStorage.setItem("luna-theme", mode), mode);
       for (const [name, path] of [
-        ["set", "/pokemon/sets/base-set"],
-        ["printing", "/pokemon/printings/base-set-004"],
+        ["set", "/pokemon/sets/pokemon-base-set"],
+        ["printing", "/pokemon/printings/pokemon-base-set-nl-global-004"],
         ["contribute", "/contribute"],
         ["data", "/data"],
         ["docs", "/docs"],
@@ -38,13 +40,13 @@ test("search, language filters and back navigation retain the catalogue view", a
   await page.getByRole("button", { name: "Search", exact: true }).click();
   await expect(page).toHaveURL(/search\?.*q=Charizard/);
   await page.getByRole("combobox", { name: "Language", exact: true }).click();
-  await page.getByRole("option", { name: /French/ }).click();
-  await expect(page.getByRole("heading", { name: "Dracaufeu" })).toBeVisible();
-  await page.getByRole("link", { name: /Dracaufeu/ }).click();
-  await expect(page.locator("h1")).toHaveText("Dracaufeu");
+  await page.getByRole("option", { name: /Dutch/ }).click();
+  await expect(page.getByRole("heading", { name: "Charizard", exact: true })).toBeVisible();
+  await page.getByRole("link", { name: /Charizard/ }).click();
+  await expect(page.locator("h1")).toHaveText("Charizard");
   await page.goBack();
   await expect(page.getByRole("combobox", { name: "Language", exact: true })).toContainText(
-    "French",
+    "Dutch",
   );
   await page.getByRole("button", { name: "Table view" }).click();
   await expect(page.getByRole("table")).toBeVisible();
@@ -56,7 +58,7 @@ test("search, language filters and back navigation retain the catalogue view", a
   await expect(page.getByRole("status")).toContainText("13–18 of 18");
 });
 test("corrections are saved and reviewed locally", async ({ page }) => {
-  await page.goto(base + "/pokemon/printings/base-set-004");
+  await page.goto(base + "/pokemon/printings/pokemon-base-set-nl-global-004");
   await page.getByRole("button", { name: "Suggest a correction" }).click();
   const dialog = page.getByRole("dialog");
   await dialog
@@ -76,15 +78,15 @@ test("corrections are saved and reviewed locally", async ({ page }) => {
 test("snapshot downloads and invalid routes have useful recovery", async ({ page }) => {
   await page.goto(base + "/data");
   const download = page.waitForEvent("download");
-  await page.getByRole("button", { name: "Download demo JSON" }).click();
+  await page.getByRole("button", { name: "Download catalogue JSON" }).click();
   const file = await download;
-  expect(file.suggestedFilename()).toBe("cardlattice-demo.json");
+  expect(file.suggestedFilename()).toBe("cardlattice-catalogue.json");
   const stream = await file.createReadStream();
   const chunks = [];
   for await (const chunk of stream!) chunks.push(chunk);
   const snapshot = JSON.parse(Buffer.concat(chunks).toString());
-  expect(snapshot.demo).toBe(true);
-  expect(snapshot.printings).toHaveLength(18);
+  expect(snapshot.sourceCommit).toBe(fixture.sourceCommit);
+  expect(snapshot.records).toEqual(fixture.records);
   await page.goto(base + "/pokemon/printings/missing");
   await expect(page.getByRole("heading", { name: "Card not found" })).toBeVisible();
   await page.goto(base + "/no-such-page");
@@ -115,13 +117,12 @@ test("internal links preserve the document across cards, breadcrumbs, tables and
   await page.getByRole("table").getByRole("link", { name: "Charizard", exact: true }).click();
   await expect(page.locator("h1")).toHaveText("Charizard");
   await page.getByRole("link", { name: "Card identity" }).click();
-  await expect(page).toHaveURL(/\/pokemon\/cards\/charizard(?:\?|$)/);
-  await page.getByRole("link", { name: /^Dracaufeu ·/ }).click();
-  await expect(page.locator("h1")).toHaveText("Dracaufeu");
+  await expect(page).toHaveURL(/\/pokemon\/cards\/card-pokemon-base-set-nl-global-004(?:\?|$)/);
+  await expect(page.getByText(/No other printings are linked/)).toBeVisible();
   await page.goBack();
-  await expect(page).toHaveURL(/\/pokemon\/cards\/charizard(?:\?|$)/);
+  await expect(page).toHaveURL(/\/pokemon\/printings\/pokemon-base-set-nl-global-004/);
   await page.goForward();
-  await expect(page.locator("h1")).toHaveText("Dracaufeu");
+  await expect(page.locator("h1")).toHaveText("Charizard");
   await page.getByRole("link", { name: "About this data" }).click();
   await expect(page).toHaveURL(/\/data$/);
   await page
@@ -136,13 +137,13 @@ test("internal links preserve the document across cards, breadcrumbs, tables and
 });
 
 test("record links preserve native new-tab navigation", async ({ page }) => {
-  await page.goto(base + "/pokemon/sets/base-set");
+  await page.goto(base + "/pokemon/sets/pokemon-base-set");
   const popup = page.context().waitForEvent("page");
   await page.getByRole("link", { name: /^Charizard ·/ }).click({ modifiers: ["ControlOrMeta"] });
   const opened = await popup;
-  await expect(opened).toHaveURL(/\/pokemon\/printings\/base-set-004(?:\?|$)/);
+  await expect(opened).toHaveURL(/\/pokemon\/printings\/pokemon-base-set-nl-global-004(?:\?|$)/);
   await expect(opened.locator("h1")).toHaveText("Charizard");
-  await expect(page).toHaveURL(/\/pokemon\/sets\/base-set(?:\?|$)/);
+  await expect(page).toHaveURL(/\/pokemon\/sets\/pokemon-base-set(?:\?|$)/);
   await opened.close();
 });
 
@@ -152,38 +153,32 @@ test("type and set filters survive inspecting cards and returning to results", a
   await page.getByRole("option", { name: "Base Set", exact: true }).click();
   await page.getByRole("combobox", { name: "Type", exact: true }).click();
   await page.getByRole("option", { name: "Fire", exact: true }).click();
-  await expect(page.getByRole("status")).toContainText("1–3 of 3");
+  await expect(page.getByRole("status")).toContainText("1–2 of 2");
   await page.getByRole("link", { name: /^Charizard ·/ }).click();
   await expect(page.locator("h1")).toHaveText("Charizard");
-  const image = page.getByRole("img", { name: "Charizard · 004 card artwork" });
-  await expect(image).toBeVisible();
-  expect(
-    await image.evaluate(
-      (element: HTMLImageElement) => element.complete && element.naturalWidth > 0,
-    ),
-  ).toBe(true);
+  await expect(page.getByText("Artwork is not included in the published snapshot.")).toBeVisible();
   await page.getByRole("link", { name: "Next card", exact: true }).click();
-  await expect(page.locator("h1")).toHaveText("Dracaufeu");
+  await expect(page.locator("h1")).toHaveText("Ninetales");
   await page.getByRole("link", { name: "Back to results", exact: true }).click();
   await expect(page.getByRole("combobox", { name: "Type", exact: true })).toContainText("Fire");
   await expect(page.getByRole("combobox", { name: "Set", exact: true })).toContainText("Base Set");
-  await expect(page.getByRole("status")).toContainText("1–3 of 3");
+  await expect(page.getByRole("status")).toContainText("1–2 of 2");
 });
 
-test("mobile filters disclose on demand and card images enlarge accessibly", async ({ page }) => {
+test("mobile filters disclose on demand and corrections close accessibly", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 1000 });
-  await page.goto(base);
+  await page.goto(base + "/pokemon/sets/pokemon-base-set");
   await expect(page.getByRole("combobox", { name: "Type", exact: true })).not.toBeVisible();
   await page.getByRole("button", { name: "Filters", exact: true }).click();
   await page.getByRole("combobox", { name: "Type", exact: true }).click();
   await page.getByRole("option", { name: "Fire", exact: true }).click();
   await page.getByRole("button", { name: /Hide filters/ }).click();
   await page.getByRole("link", { name: /^Charizard ·/ }).click();
-  await page.getByRole("button", { name: "Enlarge image" }).click();
+  await page.getByRole("button", { name: "Suggest a correction" }).click();
   await expect(page.getByRole("dialog")).toBeVisible();
   await page.keyboard.press("Escape");
   await expect(page.getByRole("dialog")).not.toBeVisible();
-  await expect(page.getByRole("button", { name: "Enlarge image" })).toBeFocused();
+  await expect(page.getByRole("button", { name: "Suggest a correction" })).toBeFocused();
 });
 
 test("system theme takes precedence over saved preferences and reacts without navigation", async ({
@@ -228,5 +223,37 @@ for (const width of [390, 900, 1720])
     }
     await page.getByRole("searchbox", { name: "Search cards" }).fill("Pikachu");
     await page.getByRole("searchbox", { name: "Search cards" }).press("Enter");
-    await expect(page.getByRole("heading", { name: "Pikachu", exact: true })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Pikachu", exact: true })).toHaveCount(2);
   });
+
+test("failed downloads show recovery and retry loads verified data", async ({ page, context }) => {
+  await context.route(catalogueBase + "manifest.json", (route) =>
+    route.fulfill({ status: 503, body: "Unavailable" }),
+  );
+  await page.goto(base);
+  await expect(page.getByRole("alert")).toContainText("503");
+  await context.unroute(catalogueBase + "manifest.json");
+  await page.getByRole("button", { name: "Try again" }).click();
+  await expect(page.locator("h1")).toHaveText("Pokémon cards");
+});
+test("corrupted snapshots never render catalogue records", async ({ page, context }) => {
+  await context.route(catalogueBase + fixtureManifest.filename, (route) =>
+    route.fulfill({ status: 200, body: "corrupt" }),
+  );
+  await page.goto(base);
+  await expect(page.getByRole("alert")).toContainText("size does not match");
+  await expect(page.getByRole("navigation", { name: "Main navigation" })).toHaveCount(0);
+});
+test("language options use only the published languages and include flags", async ({ page }) => {
+  await page.goto(base);
+  await page.getByRole("combobox", { name: "Language", exact: true }).click();
+  await expect(page.getByRole("option")).toHaveCount(6);
+  await expect(page.getByRole("option", { name: /French/ })).toHaveCount(0);
+  for (const name of ["Dutch", "Korean", "Japanese", "Chinese (Simplified)", "English"]) {
+    const option = page.getByRole("option").filter({ hasText: name });
+    await expect(option.locator("svg")).toHaveCount(1);
+  }
+  await page.getByRole("combobox", { name: "Search Language" }).fill("Korean");
+  await page.keyboard.press("Enter");
+  await expect(page.getByRole("heading", { name: "아라리", exact: true })).toBeVisible();
+});
