@@ -19,7 +19,7 @@ Exports: `button`, `input`, `textarea`, `panel`, `badge`, `select`, `combobox`,
 `language-select`, `file-upload`, `data-table`, `line-chart`, `dialog`, `progress`,
 `tabs`, `toggle`, `qr-code`, `theme`, `app-shell`, `record-tile`,
 `description-list`, `filter-chip`, `pagination`, `empty-state`, `breadcrumbs`,
-`code-block`, `media-image`, and `styles.css`.
+`code-block`, `media-image`, `search-field`, and `styles.css`.
 TypeScript declarations are generated from the React sources.
 
 Selects are controlled custom listboxes with keyboard navigation, optional search
@@ -64,3 +64,8 @@ See `src/demos/router-link.tsx` and `src/demos/record-link.tsx` for adapters.
 
 MediaImage reserves an aspect ratio for images and displays an accessible fallback
 when the image is missing or fails to load. It supports eager or lazy loading.
+
+SearchField provides a compact search form with an accessible label and integrated
+submit button. The `useSystemTheme` hook from `theme` follows the OS colour-scheme
+preference and updates immediately when it changes. Cardlattice uses this hook
+instead of a saved theme or a theme switcher.

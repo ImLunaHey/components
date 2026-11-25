@@ -1,9 +1,7 @@
-import { useState } from "react";
 import { Link, Outlet, useRouterState } from "@tanstack/react-router";
 import * as stylex from "@stylexjs/stylex";
-import { Layers, Sun, Moon } from "lucide-react";
-import { Theme } from "@imlunahey/components/theme";
-import { Button } from "@imlunahey/components/button";
+import { Layers } from "lucide-react";
+import { Theme, useSystemTheme } from "@imlunahey/components/theme";
 import { SearchForm } from "./search-form";
 import { palette } from "./tokens.stylex";
 import { s } from "./styles";
@@ -19,14 +17,7 @@ const light = stylex.createTheme(palette, {
 });
 export function App() {
   const path = useRouterState({ select: (state) => state.location.pathname });
-  const [mode, setMode] = useState<"light" | "dark">(() => {
-    const saved = localStorage.getItem("luna-theme");
-    return saved === "light" || saved === "dark"
-      ? saved
-      : matchMedia("(prefers-color-scheme: light)").matches
-        ? "light"
-        : "dark";
-  });
+  const mode = useSystemTheme();
   return (
     <Theme mode={mode}>
       <div {...stylex.props(s.shell, mode === "light" && light)}>
@@ -42,16 +33,6 @@ export function App() {
             <div {...stylex.props(s.headerSearch)}>
               <SearchForm />
             </div>
-            <Button
-              aria-label={mode === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-              onClick={() => {
-                const next = mode === "dark" ? "light" : "dark";
-                setMode(next);
-                localStorage.setItem("luna-theme", next);
-              }}
-            >
-              {mode === "dark" ? <Sun size={17} /> : <Moon size={17} />}
-            </Button>
           </div>
           <div {...stylex.props(s.navBar)}>
             <nav aria-label="Main navigation" {...stylex.props(s.nav)}>

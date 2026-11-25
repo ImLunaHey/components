@@ -1,13 +1,14 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 const apps = ["gallery", "projects", "catalogue", "account", "cardlattice", "fleet"];
-for (const mode of ["light", "dark"])
+for (const mode of ["light", "dark"] as const)
   for (const width of [390, 900, 1720])
     for (const [index, name] of apps.entries()) {
       test(`${name} ${mode} ${width}`, async ({ page }) => {
         const errors: string[] = [];
         page.on("pageerror", (error) => errors.push(error.message));
         await page.setViewportSize({ width, height: 1000 });
+        await page.emulateMedia({ colorScheme: mode });
         await page.addInitScript((mode) => localStorage.setItem("luna-theme", mode), mode);
         await page.goto(`http://127.0.0.1:${5630 + index}/`);
         await expect(page.locator("h1")).toBeVisible();

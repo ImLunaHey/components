@@ -29,6 +29,7 @@ const entries = [
   "breadcrumbs",
   "code-block",
   "media-image",
+  "search-field",
 ];
 export default defineConfig({
   plugins: [

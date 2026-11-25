@@ -1,3 +1,4 @@
+import { SearchField } from "../dist/search-field.js";
 import { MediaImage } from "../dist/media-image.js";
 import { it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
@@ -56,4 +57,20 @@ it("reserves an image fallback and recovers when its source changes", async () =
   expect(screen.getByRole("img", { name: "Card photo — image unavailable" })).toBeVisible();
   rerender(<MediaImage src="/available.webp" alt="Card photo" />);
   expect(screen.getByRole("img", { name: "Card photo" })).toHaveAttribute("src", "/available.webp");
+});
+
+it("submits a labelled compact search using either Enter or its icon button", async () => {
+  const user = userEvent.setup();
+  const submit = vi.fn();
+  function Example() {
+    const [value, setValue] = useState("");
+    return (
+      <SearchField label="Find records" value={value} onValueChange={setValue} onSearch={submit} />
+    );
+  }
+  render(<Example />);
+  await user.type(screen.getByRole("searchbox", { name: "Find records" }), "Pikachu{Enter}");
+  expect(submit).toHaveBeenLastCalledWith("Pikachu");
+  await user.click(screen.getByRole("button", { name: "Search" }));
+  expect(submit).toHaveBeenCalledTimes(2);
 });

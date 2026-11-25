@@ -1,10 +1,11 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 const base = "http://127.0.0.1:5634";
-for (const mode of ["light", "dark"])
+for (const mode of ["light", "dark"] as const)
   for (const width of [390, 1720])
     test(`Cardlattice catalogue routes ${mode} ${width}`, async ({ page }) => {
       await page.setViewportSize({ width, height: 1000 });
+      await page.emulateMedia({ colorScheme: mode });
       await page.addInitScript((mode) => localStorage.setItem("luna-theme", mode), mode);
       for (const [name, path] of [
         ["set", "/pokemon/sets/base-set"],
@@ -184,3 +185,48 @@ test("mobile filters disclose on demand and card images enlarge accessibly", asy
   await expect(page.getByRole("dialog")).not.toBeVisible();
   await expect(page.getByRole("button", { name: "Enlarge image" })).toBeFocused();
 });
+
+test("system theme takes precedence over saved preferences and reacts without navigation", async ({
+  page,
+}) => {
+  await page.emulateMedia({ colorScheme: "light" });
+  await page.addInitScript(() => localStorage.setItem("luna-theme", "dark"));
+  await page.goto(base);
+  await expect(page.locator("[data-theme]")).toHaveAttribute("data-theme", "light");
+  await expect(page.getByRole("button", { name: /Switch to .* mode/ })).toHaveCount(0);
+  await page.getByRole("searchbox", { name: "Search cards" }).fill("Pikachu");
+  const documents: string[] = [];
+  page.on("request", (request) => {
+    if (request.resourceType() === "document") documents.push(request.url());
+  });
+  await page.emulateMedia({ colorScheme: "dark" });
+  await expect(page.locator("[data-theme]")).toHaveAttribute("data-theme", "dark");
+  await expect(page.getByRole("searchbox", { name: "Search cards" })).toHaveValue("Pikachu");
+  await page.emulateMedia({ colorScheme: "light" });
+  await expect(page.locator("[data-theme]")).toHaveAttribute("data-theme", "light");
+  expect(documents).toEqual([]);
+});
+
+for (const width of [390, 900, 1720])
+  test(`header and result controls align at ${width}`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 1000 });
+    await page.goto(base);
+    const brand = (await page
+      .getByRole("banner")
+      .getByRole("link", { name: /cardlattice/ })
+      .boundingBox())!;
+    const title = (await page.locator("h1").boundingBox())!;
+    expect(Math.abs(brand.x - title.x)).toBeLessThan(1);
+    const search = (await page.getByRole("search", { name: "Search cards" }).boundingBox())!;
+    if (width >= 800)
+      expect(Math.abs(brand.y + brand.height / 2 - search.y - search.height / 2)).toBeLessThan(1);
+    else expect(Math.abs(search.x - title.x)).toBeLessThan(1);
+    const sort = (await page.getByRole("combobox", { name: "Sort", exact: true }).boundingBox())!;
+    for (const name of ["Grid view", "Table view"]) {
+      const button = (await page.getByRole("button", { name }).boundingBox())!;
+      expect(Math.abs(button.y + button.height - sort.y - sort.height)).toBeLessThan(1);
+    }
+    await page.getByRole("searchbox", { name: "Search cards" }).fill("Pikachu");
+    await page.getByRole("searchbox", { name: "Search cards" }).press("Enter");
+    await expect(page.getByRole("heading", { name: "Pikachu", exact: true })).toBeVisible();
+  });

@@ -1,6 +1,6 @@
 import "./reset.css";
 import * as stylex from "@stylexjs/stylex";
-import type { ReactNode } from "react";
+import { useSyncExternalStore, type ReactNode } from "react";
 import { colors } from "./tokens.stylex";
 const light = stylex.createTheme(colors, {
   canvas: "#f6f6f6",
@@ -44,5 +44,19 @@ export function Theme({
     >
       {children}
     </div>
+  );
+}
+
+const query = "(prefers-color-scheme: dark)";
+function subscribeToSystemTheme(onChange: () => void) {
+  const media = window.matchMedia(query);
+  media.addEventListener("change", onChange);
+  return () => media.removeEventListener("change", onChange);
+}
+export function useSystemTheme(): "light" | "dark" {
+  return useSyncExternalStore(
+    subscribeToSystemTheme,
+    () => (window.matchMedia(query).matches ? "dark" : "light"),
+    () => "light",
   );
 }

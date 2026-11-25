@@ -269,14 +269,14 @@ export function Catalogue() {
         </div>
       )}
       <div {...stylex.props(s.resultBar)}>
-        <span {...stylex.props(s.muted)}>
+        <span {...stylex.props(s.muted, s.resultCount)}>
           <strong>{matches.length}</strong> cards
           {set
             ? " in " + set.name
             : " across " + new Set(matches.map((card) => card.setId)).size + " sets"}{" "}
           · sample catalogue
         </span>
-        <div {...stylex.props(s.row)}>
+        <div {...stylex.props(s.resultControls)}>
           <div {...stylex.props(s.filter)}>
             <Select
               label="Sort"

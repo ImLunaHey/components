@@ -1,3 +1,4 @@
+import { SearchField } from "@imlunahey/components/search-field";
 import { MediaImage } from "@imlunahey/components/media-image";
 import { renderRouterLink } from "../../../src/demos/router-link";
 import { useState } from "react";
@@ -13,6 +14,8 @@ import { CodeBlock } from "@imlunahey/components/code-block";
 import { Button } from "@imlunahey/components/button";
 import { layout } from "../../../src/demos/layout";
 export function CatalogueExamples() {
+  const [query, setQuery] = useState("");
+  const [result, setResult] = useState("");
   const [page, setPage] = useState(1);
   const [filtered, setFiltered] = useState(true);
   return (
@@ -55,6 +58,15 @@ export function CatalogueExamples() {
           description="Give people a useful next step when a search returns no results."
           action={<Button onClick={() => setFiltered(false)}>Reset filters</Button>}
         />
+      </Panel>
+      <Panel title="Compact search">
+        <SearchField
+          label="Search records"
+          value={query}
+          onValueChange={setQuery}
+          onSearch={setResult}
+        />
+        <p role="status">{result ? "Submitted: " + result : "Enter a search term."}</p>
       </Panel>
       <Panel title="Image fallback">
         <MediaImage alt="Unavailable product photo" aspectRatio="16 / 9" />

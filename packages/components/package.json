@@ -112,6 +112,10 @@
     "./media-image": {
       "types": "./dist/types/media-image.d.ts",
       "import": "./dist/media-image.js"
+    },
+    "./search-field": {
+      "types": "./dist/types/search-field.d.ts",
+      "import": "./dist/search-field.js"
     }
   },
   "scripts": {
