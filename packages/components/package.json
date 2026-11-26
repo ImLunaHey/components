@@ -120,7 +120,8 @@
   },
   "scripts": {
     "build": "vite build && tsc -p tsconfig.build.json",
-    "test": "vitest run --config vitest.config.ts"
+    "test": "vitest run --config vitest.config.ts",
+    "prepare": "pnpm run build"
   },
   "dependencies": {
     "@stylexjs/stylex": "^0.19.2",
