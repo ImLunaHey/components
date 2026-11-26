@@ -39,7 +39,7 @@
   "devDependencies": {
     "@axe-core/playwright": "^4.14.0",
     "@changesets/cli": "^3.0.3",
-    "@imlunahey/oxlint-config": "0.1.0",
+    "@imlunahey/oxlint-config": "github:ImLunaHey/oxlint-config#691f722326117e835df3d8d52b42e7bcbc756436",
     "@napi-rs/canvas": "^1.2.0",
     "@playwright/test": "^1.65.1",
     "@stylexjs/unplugin": "^0.19.2",

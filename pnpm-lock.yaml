@@ -228,8 +228,8 @@ importers:
         specifier: ^3.0.3
         version: 3.0.3
       '@imlunahey/oxlint-config':
-        specifier: 0.1.0
-        version: 0.1.0(oxlint@1.95.0)
+        specifier: github:ImLunaHey/oxlint-config#691f722326117e835df3d8d52b42e7bcbc756436
+        version: https://codeload.github.com/ImLunaHey/oxlint-config/tar.gz/691f722326117e835df3d8d52b42e7bcbc756436(oxlint@1.95.0)
       '@napi-rs/canvas':
         specifier: ^1.2.0
         version: 1.2.0
@@ -822,8 +822,9 @@ packages:
       '@noble/hashes':
         optional: true
 
-  '@imlunahey/oxlint-config@0.1.0':
-    resolution: {integrity: sha512-yZQObP+lDcUNzp8jiIYRHZxWx1j9mwdByJYaS/DFEMGEOxLsO94yPglNlUVcRn9HHlnk4YjUzT1NlO8D6QJubg==, tarball: https://npm.pkg.github.com/download/@imlunahey/oxlint-config/0.1.0/9e2dc124ee6d7b5b00807534a121caa5b5943895}
+  '@imlunahey/oxlint-config@https://codeload.github.com/ImLunaHey/oxlint-config/tar.gz/691f722326117e835df3d8d52b42e7bcbc756436':
+    resolution: {gitHosted: true, integrity: sha512-h3c4BwO1RXVJkFdNXQvwA1wJqt0aUe6n+I2o6dOpIZmvfjJ11iUacsIg5oJ7h9qm1eprnM9QmKln9S5mO7k/Lg==, tarball: https://codeload.github.com/ImLunaHey/oxlint-config/tar.gz/691f722326117e835df3d8d52b42e7bcbc756436}
+    version: 0.1.0
     engines: {node: '>=22.18'}
     hasBin: true
     peerDependencies:
@@ -3436,7 +3437,7 @@ snapshots:
 
   '@exodus/bytes@1.16.0': {}
 
-  '@imlunahey/oxlint-config@0.1.0(oxlint@1.95.0)':
+  '@imlunahey/oxlint-config@https://codeload.github.com/ImLunaHey/oxlint-config/tar.gz/691f722326117e835df3d8d52b42e7bcbc756436(oxlint@1.95.0)':
     dependencies:
       oxc-parser: 0.160.0
       oxlint: 1.95.0

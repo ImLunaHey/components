@@ -6,10 +6,8 @@ independently launchable Vite apps. The shared Oxlint rules live in
 
 ## Install and run
 
-The lint dependency is installed from GitHub Packages, not vendored. Configure
-your existing GitHub CLI login and pnpm token helper using the
-[registry setup instructions](https://github.com/ImLunaHey/oxlint-config/blob/luna/initial-project/README.md#install-from-github-packages).
-The committed `.npmrc` contains only the scope mapping. CI uses `GITHUB_TOKEN`.
+The lint dependency is installed from its public Git repository, pinned to a full
+commit SHA. Installation does not require GitHub Packages credentials.
 
 ```sh
 pnpm install --frozen-lockfile
@@ -60,7 +58,7 @@ flags are React SVG components from the `country-flag-icons` npm dependency.
 
 Native controls belong only in `packages/components/src`. Apps import custom
 components, including file uploads, selects and TanStack tables. Oxlint and its
-HTML companion enforce this boundary using `@imlunahey/oxlint-config@0.1.0`.
+HTML companion enforce this boundary using the pinned `@imlunahey/oxlint-config` dependency.
 React Doctor's applicable default rules run through Oxlint, with no ESLint runner.
 
 `pnpm check` checks TypeScript, Oxlint, HTML boundaries, production builds,

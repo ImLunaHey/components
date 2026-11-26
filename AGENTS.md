@@ -25,7 +25,8 @@
 - Edit authored templates and source, not generated `design/*.html`, bundled JS,
   or app/package `dist` output.
 - The lint package is maintained in the separate `ImLunaHey/oxlint-config` repo.
-  Install its versioned release from GitHub Packages with pnpm; never vendor it.
+  Install it from its public Git repository pinned to a full commit SHA with pnpm;
+  never vendor it.
 - Components are React and styling uses StyleX. Flags come from the
   `country-flag-icons` npm dependency. Legacy prototypes are reference material;
   do not expose their DOM APIs as the React package.
